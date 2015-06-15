@@ -13,6 +13,7 @@
 	<modules>
 		<module>commons-api</module>
 		<module>commons-mvc</module>
+		<module>commons-rest-client</module>
 	</modules>
 
 	<licenses>
@@ -65,7 +66,9 @@
 		
 		<slf4j.version>1.7.2</slf4j.version>
 		<junit.version>4.11</junit.version>
+		<spring.version>3.2.9.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
+		<jackson.version>1.9.12</jackson.version>
 		<jsf.version>2.2.11</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
 		
@@ -99,6 +102,14 @@
 			</dependency>
 			
 			
+			<!-- spring -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			
 			<!-- AspectJ -->
 			<dependency>
 				<groupId>org.aspectj</groupId>
@@ -117,6 +128,15 @@
 				<artifactId>aspectjrt</artifactId>
 				<version>${aspectj.version}</version>
 			</dependency>
+			
+			
+			<!-- json mapping -->
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			
 			
 			
 			<!-- JSF -->
