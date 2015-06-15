@@ -23,5 +23,6 @@ public class JsfLocaleManager implements LocaleManager {
 	@Override
 	public void switchLocale(String localeCode) {
 		this.locale = new Locale(localeCode);
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
 	}
 }

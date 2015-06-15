@@ -8,7 +8,6 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
 import org.sklsft.commons.api.exception.ApplicationException;
-import org.sklsft.commons.mvc.i18n.LocaleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class JsfMessageHandler implements MessageHandler {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JsfMessageHandler.class);
-	
-	private LocaleManager localeManager;
-	
-	public void setLocaleManager(LocaleManager localeManager) {
-		this.localeManager = localeManager;
-	}
-	
+	private static final Logger logger = LoggerFactory.getLogger(JsfMessageHandler.class);	
 	
 
 	@Override
@@ -69,7 +61,7 @@ public class JsfMessageHandler implements MessageHandler {
 		String translatedMessage = message;
 		
 		try {
-			translatedMessage = ResourceBundle.getBundle("GlobalMessages", localeManager.getLocale()).getString(message);
+			translatedMessage = ResourceBundle.getBundle("GlobalMessages", FacesContext.getCurrentInstance().getViewRoot().getLocale()).getString(message);
 		} catch (MissingResourceException e) {
 			logger.warn("No message found for " + message);
 		}
