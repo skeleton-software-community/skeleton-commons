@@ -14,6 +14,9 @@
 		<module>commons-api</module>
 		<module>commons-mvc</module>
 		<module>commons-rest-client</module>
+		<module>commons-crypto</module>
+		<module>commons-rest-security</module>
+		<module>commons-rest</module>
 	</modules>
 
 	<licenses>
@@ -69,6 +72,8 @@
 		<spring.version>3.2.9.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
 		<jackson.version>1.9.12</jackson.version>
+		<commons.codec.version>1.9</commons.codec.version>
+		<servlet.version>3.0.1</servlet.version>
 		<jsf.version>2.2.11</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
 		
@@ -81,6 +86,12 @@
 			<dependency>
 				<groupId>org.sklsft.commons</groupId>
 				<artifactId>commons-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.sklsft.commons</groupId>
+				<artifactId>commons-crypto</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			
@@ -137,6 +148,20 @@
 				<version>${jackson.version}</version>
 			</dependency>
 			
+			
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${commons.codec.version}</version>
+			</dependency>
+			
+			
+			<!-- Servlet -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${servlet.version}</version>
+			</dependency>
 			
 			
 			<!-- JSF -->
