@@ -57,7 +57,7 @@ public class RestClient {
 	/**
 	 * call a rest url with a POST method and maps the response to T
 	 */
-	public <T> T postForEntity(String relativeUrl, Object form,
+	public <T> T postForObject(String relativeUrl, Object form,
 			Class<T> responseClass) {
 
 		return restTemplate.postForObject(getFullUrl(relativeUrl), form, responseClass);
@@ -68,7 +68,7 @@ public class RestClient {
 	 * call a rest url with a POST method with url variables and maps the
 	 * response to T
 	 */
-	public <T> T postForEntity(String relativeUrl, Object form,
+	public <T> T postForObject(String relativeUrl, Object form,
 			Class<T> responseClass, Map<String, ?> uriVariables) {
 
 		return restTemplate.postForObject(getFullUrl(relativeUrl), form, responseClass,
