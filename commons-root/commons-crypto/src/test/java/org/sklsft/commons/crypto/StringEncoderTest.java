@@ -17,6 +17,7 @@ public class StringEncoderTest {
 		System.out.println(Base64.encodeBase64URLSafeString(key));
 		
 		String plainText = "test";
+		System.out.println(plainText);
 		String cryptedText = StringEncoder.encode(plainText, SYMETRIC_ALGORITHM, key);
 		System.out.println(cryptedText);
 		

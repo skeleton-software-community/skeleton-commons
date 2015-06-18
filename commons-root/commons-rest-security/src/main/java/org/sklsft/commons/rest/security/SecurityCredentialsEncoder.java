@@ -1,6 +1,7 @@
 package org.sklsft.commons.rest.security;
 
 import org.sklsft.commons.crypto.ObjectEncoder;
+import org.sklsft.commons.crypto.EncryptionParametersAccessor;
 import org.sklsft.commons.rest.security.context.SecurityCredentials;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
@@ -11,18 +12,16 @@ import org.sklsft.commons.rest.security.exception.InvalidTokenException;
  */
 public class SecurityCredentialsEncoder {
 	
-	private ObjectEncoder objectEncoder;
-
-	private TokensEncryptionParametersAccessor parametersAccessor;
+	private ObjectEncoder objectEncoder;	
 	
 	private Class<? extends SecurityCredentials> crendentialsClass;
 	
 	
 	@SuppressWarnings("unchecked")
-	public SecurityCredentialsEncoder(ObjectEncoder objectEncoder, TokensEncryptionParametersAccessor parametersAccessor, String crendentialsClassName) {
+	public SecurityCredentialsEncoder(ObjectEncoder objectEncoder, String crendentialsClassName) {
 		
 		this.objectEncoder = objectEncoder;
-		this.parametersAccessor = parametersAccessor;
+		
 		
 		@SuppressWarnings("rawtypes")
 		Class clazz;
@@ -43,11 +42,8 @@ public class SecurityCredentialsEncoder {
 	
 	public SecurityCredentials decode (String token) {
 		
-		byte[] key = parametersAccessor.getTokenEncryptionKey();
-		String symetricAlgorithm = parametersAccessor.getTokenEncryptionSymmetricAlgorithm();
-		
 		try {
-			return objectEncoder.decode(token, crendentialsClass, symetricAlgorithm, key);
+			return objectEncoder.decode(token, crendentialsClass);
 		} catch (Exception e) {
 			throw new InvalidTokenException("token.invalid", e);
 		}
@@ -55,9 +51,6 @@ public class SecurityCredentialsEncoder {
 	
 	public String encode (SecurityCredentials credentials) {
 		
-		byte[] key = parametersAccessor.getTokenEncryptionKey();
-		String symmetricAlgorithm = parametersAccessor.getTokenEncryptionSymmetricAlgorithm();
-		
-		return objectEncoder.encode(credentials, symmetricAlgorithm, key);
+		return objectEncoder.encode(credentials);
 	}
 }

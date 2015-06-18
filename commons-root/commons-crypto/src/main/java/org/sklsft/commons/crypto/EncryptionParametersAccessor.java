@@ -1,4 +1,4 @@
-package org.sklsft.commons.rest.security;
+package org.sklsft.commons.crypto;
 
 /**
  * An interface which implementation should provide an encryption key and a symmetric algorithm for token encryption
@@ -6,7 +6,7 @@ package org.sklsft.commons.rest.security;
  * @author Nicolas Thibault
  *
  */
-public interface TokensEncryptionParametersAccessor {
+public interface EncryptionParametersAccessor {
 	
 	byte[] getTokenEncryptionKey();
 	
