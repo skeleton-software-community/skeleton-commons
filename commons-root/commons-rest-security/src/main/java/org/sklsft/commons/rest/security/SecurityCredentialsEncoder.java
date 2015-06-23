@@ -1,8 +1,6 @@
 package org.sklsft.commons.rest.security;
 
 import org.sklsft.commons.crypto.ObjectEncoder;
-import org.sklsft.commons.crypto.EncryptionParametersAccessor;
-import org.sklsft.commons.rest.security.context.SecurityCredentials;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
 /**
@@ -10,46 +8,28 @@ import org.sklsft.commons.rest.security.exception.InvalidTokenException;
  * @author Nicolas Thibault
  *
  */
-public class SecurityCredentialsEncoder {
+public class SecurityCredentialsEncoder<T> {
 	
-	private ObjectEncoder objectEncoder;	
+	private ObjectEncoder objectEncoder;
+	private Class<T> credentialsClass;
 	
-	private Class<? extends SecurityCredentials> crendentialsClass;
 	
-	
-	@SuppressWarnings("unchecked")
-	public SecurityCredentialsEncoder(ObjectEncoder objectEncoder, String crendentialsClassName) {
-		
+	public SecurityCredentialsEncoder(ObjectEncoder objectEncoder, Class<T> credentialsClass) {	
 		this.objectEncoder = objectEncoder;
-		
-		
-		@SuppressWarnings("rawtypes")
-		Class clazz;
-		
-		try {
-			clazz = Class.forName(crendentialsClassName);
-		} catch (ClassNotFoundException e) {
-			throw new IllegalArgumentException(e.getMessage(), e);
-		}
-		
-		if (!SecurityCredentials.class.isAssignableFrom(clazz)) {
-			throw new IllegalArgumentException(crendentialsClassName + "does not implements " + SecurityCredentials.class.getName());
-		}
-		
-		this.crendentialsClass = clazz;
+		this.credentialsClass = credentialsClass;
 	}	
 	
 	
-	public SecurityCredentials decode (String token) {
+	public T decode (String token) {
 		
 		try {
-			return objectEncoder.decode(token, crendentialsClass);
+			return objectEncoder.decode(token, credentialsClass);
 		} catch (Exception e) {
 			throw new InvalidTokenException("token.invalid", e);
 		}
 	}
 	
-	public String encode (SecurityCredentials credentials) {
+	public String encode (Object credentials) {
 		
 		return objectEncoder.encode(credentials);
 	}

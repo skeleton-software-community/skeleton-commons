@@ -15,6 +15,7 @@
 		<module>commons-mvc</module>
 		<module>commons-rest-client</module>
 		<module>commons-crypto</module>
+		<module>commons-mapper</module>
 		<module>commons-rest-security</module>
 		<module>commons-rest</module>
 	</modules>
@@ -92,6 +93,12 @@
 			<dependency>
 				<groupId>org.sklsft.commons</groupId>
 				<artifactId>commons-crypto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.sklsft.commons</groupId>
+				<artifactId>commons-mapper</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			

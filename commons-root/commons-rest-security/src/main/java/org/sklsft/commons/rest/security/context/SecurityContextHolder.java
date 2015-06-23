@@ -12,15 +12,15 @@ import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
  */
 public class SecurityContextHolder {
 	
-	private static ThreadLocal<SecurityCredentials> allCredentials = new ThreadLocal<>();
+	private static ThreadLocal<Object> allCredentials = new ThreadLocal<>();
 
 	
-	public static void bindCredentials(SecurityCredentials credentials){
+	public static void bindCredentials(Object credentials){
 		if(credentials==null) {
 			throw new NullPointerException("Cannot bind credentials : provided credentials is null");
 		}
 		
-		SecurityCredentials currentCredentials = getCredentials();
+		Object currentCredentials = getCredentials();
 		if(currentCredentials!=null) {
 			throw new CredentialsConflictException("Credentials has already been bound to the Thread");
 		}
@@ -34,13 +34,13 @@ public class SecurityContextHolder {
 	}
 	
 
-	private static SecurityCredentials getCredentials(){
+	private static Object getCredentials(){
 		return allCredentials.get();
 	}
 	
 	
-	public static SecurityCredentials getCurrentCredentials() {
-		SecurityCredentials credentials = getCredentials();
+	public static Object getCurrentCredentials() {
+		Object credentials = getCredentials();
 		if(credentials==null) {
 			throw new NoBoundCredentialsException("No credentials bound to Thread");
 		}

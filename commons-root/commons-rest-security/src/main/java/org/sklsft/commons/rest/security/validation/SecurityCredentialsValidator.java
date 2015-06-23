@@ -1,10 +1,7 @@
 package org.sklsft.commons.rest.security.validation;
 
-import org.sklsft.commons.rest.security.context.SecurityCredentials;
-
-
-public interface SecurityCredentialsValidator {
+public interface SecurityCredentialsValidator<T> {
 	
-	void validateCredentials(SecurityCredentials securityCredentials);
+	void validateCredentials(T securityCredentials);
 
 }
