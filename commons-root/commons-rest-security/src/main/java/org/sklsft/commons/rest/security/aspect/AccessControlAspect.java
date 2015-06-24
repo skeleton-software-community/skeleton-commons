@@ -45,27 +45,27 @@ public class AccessControlAspect {
 	public Object handleAuthentication(ProceedingJoinPoint joinPoint)
 			throws Throwable {
 
-		String token = extractHeader("token");
-		String secretKey = extractHeader("secretKey");
 		
-		AccessControlType accessControlType = AccessControlType.PRIVATE;
-		
-		Method proxiedMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
-		AccessControl accessControl = proxiedMethod.getAnnotation(AccessControl.class);
-		
-		if (accessControl != null) {
-			accessControlType = accessControl.value();
-		}
-		
-		if (!accessControlType.equals(AccessControlType.PUBLIC)) {
-			secretKeyValidator.validateSecretKey(secretKey);
-		}
-		
-		if (accessControlType.equals(AccessControlType.PRIVATE)) {
-			securityContextProvider.provideSecurityContext(token);
-		}		
-
-		try {			
+		try {
+			String token = extractHeader("token");
+			String secretKey = extractHeader("secretKey");
+			
+			AccessControlType accessControlType = AccessControlType.PRIVATE;
+			
+			Method proxiedMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
+			AccessControl accessControl = proxiedMethod.getAnnotation(AccessControl.class);
+			
+			if (accessControl != null) {
+				accessControlType = accessControl.value();
+			}
+			
+			if (!accessControlType.equals(AccessControlType.PUBLIC)) {
+				secretKeyValidator.validateSecretKey(secretKey);
+			}
+			
+			if (accessControlType.equals(AccessControlType.PRIVATE)) {
+				securityContextProvider.provideSecurityContext(token);
+			}					
 
 			return joinPoint.proceed();
 			
