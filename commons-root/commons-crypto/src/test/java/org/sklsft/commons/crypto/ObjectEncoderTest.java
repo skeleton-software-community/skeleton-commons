@@ -3,12 +3,13 @@ package org.sklsft.commons.crypto;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.crypto.miscellaneous.TestObject;
 import org.sklsft.commons.crypto.serialization.JsonSerializer;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ObjectEncoderTest {
 	

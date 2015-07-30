@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -15,27 +16,27 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>org.sklsft.commons</groupId>
 			<artifactId>commons-api</artifactId>
 		</dependency>
-		
-		
+
+
 		<!-- loggers -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		
-		
+
+
 		<!-- spring webmvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-		
-		
+
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -51,14 +52,14 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 		</dependency>
-		
-		
+
+
 		<!-- json mapping -->
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 </project>

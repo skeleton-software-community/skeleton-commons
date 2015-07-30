@@ -3,7 +3,7 @@ package org.sklsft.commons.crypto.serialization;
 import java.io.IOException;
 import java.text.ParseException;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonSerializer implements Serializer {
 	
