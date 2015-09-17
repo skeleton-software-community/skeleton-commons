@@ -21,36 +21,36 @@ import org.sklsft.commons.rest.security.validation.SecurityCredentialsValidator;
  */
 public class StrongSecurityContextProvider<T, V> implements SecurityContextProvider {
 
-	private SecurityCredentialsEncoder<T> decodeUserCredentials;
-	private SecurityCredentialsValidator<T> validatorUserCredentials;
+	private SecurityCredentialsEncoder<T> userCredentialsEncoder;
+	private SecurityCredentialsValidator<T> userCredentialsValidator;
 
-	private SecurityCredentialsEncoder<V> decodeApplicationCredentials;
-	private SecurityCredentialsValidator<V> validatorApplicationCredentials;
+	private SecurityCredentialsEncoder<V> applicationCredentialsEncoder;
+	private SecurityCredentialsValidator<V> applicationCredentialsValidator;
 
-	public StrongSecurityContextProvider(SecurityCredentialsEncoder<T> decodeUserCredentials,
-			SecurityCredentialsValidator<T> validatorUserCredentials, SecurityCredentialsEncoder<V> decodeApplicationCredentials,
-			SecurityCredentialsValidator<V> validatorApplicationCredentials) {
+	public StrongSecurityContextProvider(SecurityCredentialsEncoder<T> userCredentialsEncoder,
+			SecurityCredentialsValidator<T> userCredentialsValidator, SecurityCredentialsEncoder<V> applicationCredentialsEncoder,
+			SecurityCredentialsValidator<V> applicationCredentialsValidator) {
 		super();
-		this.decodeUserCredentials = decodeUserCredentials;
-		this.validatorUserCredentials = validatorUserCredentials;
-		this.decodeApplicationCredentials = decodeApplicationCredentials;
-		this.validatorApplicationCredentials = validatorApplicationCredentials;
+		this.userCredentialsEncoder = userCredentialsEncoder;
+		this.userCredentialsValidator = userCredentialsValidator;
+		this.applicationCredentialsEncoder = applicationCredentialsEncoder;
+		this.applicationCredentialsValidator = applicationCredentialsValidator;
 
 	}
 
 	public void provideUserSecurityContext(String token) {
 
-		T credentials = decodeUserCredentials.decode(token);
+		T credentials = userCredentialsEncoder.decode(token);
 
-		validatorUserCredentials.validateCredentials(credentials);
+		userCredentialsValidator.validateCredentials(credentials);
 
 		SecurityContextHolder.bindUserCredentials(credentials);
 	}
 
 	public void provideApplicationSecurityContext(String secretKey) {
-		V credentials = decodeApplicationCredentials.decode(secretKey);
+		V credentials = applicationCredentialsEncoder.decode(secretKey);
 
-		validatorApplicationCredentials.validateCredentials(credentials);
+		applicationCredentialsValidator.validateCredentials(credentials);
 
 		SecurityContextHolder.bindApplicationCredentials(credentials);
 

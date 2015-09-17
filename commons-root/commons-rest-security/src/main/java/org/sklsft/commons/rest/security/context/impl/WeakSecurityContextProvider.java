@@ -15,22 +15,22 @@ import org.sklsft.commons.rest.security.validation.SecurityCredentialsValidator;
  */
 public class WeakSecurityContextProvider<T> implements SecurityContextProvider {
 
-	private SecurityCredentialsEncoder<T> decodeUserCredentials;
-	private SecurityCredentialsValidator<T> validatorUserCredentials;
+	private SecurityCredentialsEncoder<T> userCredentialsEncoder;
+	private SecurityCredentialsValidator<T> userCredentialsValidator;
 
-	public WeakSecurityContextProvider(SecurityCredentialsEncoder<T> decodeUserCredentials,
-			SecurityCredentialsValidator<T> validatorUserCredentials) {
+	public WeakSecurityContextProvider(SecurityCredentialsEncoder<T> userCredentialsEncoder,
+			SecurityCredentialsValidator<T> userCredentialsValidator) {
 		super();
-		this.decodeUserCredentials = decodeUserCredentials;
-		this.validatorUserCredentials = validatorUserCredentials;
+		this.userCredentialsEncoder = userCredentialsEncoder;
+		this.userCredentialsValidator = userCredentialsValidator;
 
 	}
 
 	public void provideUserSecurityContext(String token) {
 
-		T credentials = decodeUserCredentials.decode(token);
+		T credentials = userCredentialsEncoder.decode(token);
 
-		validatorUserCredentials.validateCredentials(credentials);
+		userCredentialsValidator.validateCredentials(credentials);
 
 		SecurityContextHolder.bindUserCredentials(credentials);
 	}
