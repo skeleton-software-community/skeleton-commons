@@ -19,7 +19,7 @@ import org.sklsft.commons.rest.security.validation.SecurityCredentialsValidator;
  * @param <V>
  *            Credentials of Application key
  */
-public class StrongSecurityContextProvider<T, V> implements SecurityContextProvider {
+public class CryptedAppKeySecurityContextProvider<T, V> implements SecurityContextProvider {
 
 	private SecurityCredentialsEncoder<T> userCredentialsEncoder;
 	private SecurityCredentialsValidator<T> userCredentialsValidator;
@@ -27,7 +27,7 @@ public class StrongSecurityContextProvider<T, V> implements SecurityContextProvi
 	private SecurityCredentialsEncoder<V> applicationCredentialsEncoder;
 	private SecurityCredentialsValidator<V> applicationCredentialsValidator;
 
-	public StrongSecurityContextProvider(SecurityCredentialsEncoder<T> userCredentialsEncoder,
+	public CryptedAppKeySecurityContextProvider(SecurityCredentialsEncoder<T> userCredentialsEncoder,
 			SecurityCredentialsValidator<T> userCredentialsValidator, SecurityCredentialsEncoder<V> applicationCredentialsEncoder,
 			SecurityCredentialsValidator<V> applicationCredentialsValidator) {
 		super();
