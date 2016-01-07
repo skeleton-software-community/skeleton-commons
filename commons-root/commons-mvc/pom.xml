@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.sklsft.commons</groupId>
 		<artifactId>commons-root</artifactId>
-		<version>1.0.0-M1</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.sklsft.commons</groupId>
@@ -21,11 +21,23 @@
 			<artifactId>commons-api</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.sklsft.commons</groupId>
+			<artifactId>commons-crypto</artifactId>
+		</dependency>
+		
 		
 		<!-- loggers -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		
+		
+		<!-- spring webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		
 		
@@ -57,6 +69,20 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
+		</dependency>
+		
+		
+		<!-- json mapping -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		
+		
+		<!-- Base64 -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
 		</dependency>
 		
 	</dependencies>
