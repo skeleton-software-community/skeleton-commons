@@ -36,7 +36,7 @@ public class ObjectEncoderTest {
 		
 		Assert.assertEquals(decryptedObject,plainObject);
 		
-	}	
+	}
 		
 }
 
