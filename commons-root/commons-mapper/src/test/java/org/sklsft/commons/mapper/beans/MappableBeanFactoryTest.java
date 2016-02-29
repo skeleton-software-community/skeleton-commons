@@ -11,12 +11,12 @@ public class MappableBeanFactoryTest {
 		MappableBean<Dummy> dummyBean = MappableBeanFactory.getMappableBean(Dummy.class);
 		
 		System.out.println(dummyBean.beanClass.getName());
-		for (AccessibleField accessibleField:dummyBean.accessibleFields.values()) {
+		for (AccessibleField accessibleField:dummyBean.accessibleFieldsMap.values()) {
 			System.out.println(accessibleField.field.getName());
 			System.out.println(accessibleField.getter.getName());
 			System.out.println(accessibleField.setter.getName());
 			
-			Assert.assertEquals(dummyBean.accessibleFields.values().size(),5);
+			Assert.assertEquals(dummyBean.accessibleFieldsMap.values().size(),5);
 		}
 	}
 }
