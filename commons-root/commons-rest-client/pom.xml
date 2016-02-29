@@ -8,7 +8,6 @@
 		<version>2.0.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.sklsft.commons</groupId>
 	<artifactId>commons-rest-client</artifactId>
 	<name>Commons REST Client</name>
 	<description>Commons REST Client</description>

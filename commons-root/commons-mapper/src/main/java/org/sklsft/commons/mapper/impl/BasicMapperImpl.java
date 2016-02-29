@@ -19,9 +19,9 @@ public class BasicMapperImpl<T, U> implements Mapper<T, U> {
 	@Override
 	public T mapFrom(T obj1, U obj2) {
 		
-		for (AccessibleField field1:mappableBean1.accessibleFields.values()) {
+		for (AccessibleField field1:mappableBean1.accessibleFieldsMap.values()) {
 			String fieldName = field1.field.getName();
-			AccessibleField field2 = mappableBean2.accessibleFields.get(fieldName);
+			AccessibleField field2 = mappableBean2.accessibleFieldsMap.get(fieldName);
 			
 			if (field2 != null && field1.isCompatibleWith(field2)) {
 				mappableBean1.setValue(fieldName, mappableBean2.getValue(fieldName, obj2), obj1);
@@ -34,9 +34,9 @@ public class BasicMapperImpl<T, U> implements Mapper<T, U> {
 	@Override
 	public U mapTo(T obj1, U obj2) {
 		
-		for (AccessibleField field2:mappableBean2.accessibleFields.values()) {
+		for (AccessibleField field2:mappableBean2.accessibleFieldsMap.values()) {
 			String fieldName = field2.field.getName();
-			AccessibleField field1 = mappableBean1.accessibleFields.get(fieldName);
+			AccessibleField field1 = mappableBean1.accessibleFieldsMap.get(fieldName);
 			
 			if (field1 != null && field2.isCompatibleWith(field1)) {
 				mappableBean2.setValue(fieldName, mappableBean1.getValue(fieldName, obj1), obj2);

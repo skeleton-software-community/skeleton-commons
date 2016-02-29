@@ -2,17 +2,20 @@ package org.sklsft.commons.mapper.beans;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 public class MappableBean<T> {
 
 	public Class<T> beanClass;
 	
-	public Map<String,AccessibleField> accessibleFields;
+	public List<AccessibleField> accessibleFields;
+	
+	public Map<String,AccessibleField> accessibleFieldsMap;
 	
 	public Object getValue(String fieldName, T object) {
 		
-		AccessibleField accessibleField = accessibleFields.get(fieldName);
+		AccessibleField accessibleField = accessibleFieldsMap.get(fieldName);
 		if (accessibleField == null) {
 			throw new IllegalArgumentException("No accessible field " + fieldName + " for class " + beanClass.getName());
 		}
@@ -28,7 +31,7 @@ public class MappableBean<T> {
 	
 	public void setValue(String fieldName, Object fieldValue, T object) {
 		
-		AccessibleField accessibleField = accessibleFields.get(fieldName);
+		AccessibleField accessibleField = accessibleFieldsMap.get(fieldName);
 		if (accessibleField == null) {
 			throw new IllegalArgumentException("No accessible field " + fieldName + " for class " + beanClass.getName());
 		}

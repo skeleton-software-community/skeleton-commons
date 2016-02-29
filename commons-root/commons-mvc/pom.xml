@@ -7,7 +7,6 @@
 		<version>2.0.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.sklsft.commons</groupId>
 	<artifactId>commons-mvc</artifactId>
 	<name>Commons MVC</name>
 	<description>Commons MVC</description>
