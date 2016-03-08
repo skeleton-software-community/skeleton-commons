@@ -30,7 +30,7 @@ public class SecurityCredentialsEncoderImpl<T> implements SecurityCredentialsEnc
 		}
 	}
 	
-	public String encode (Object credentials) {
+	public String encode (T credentials) {
 		
 		return objectEncoder.encode(credentials);
 	}
