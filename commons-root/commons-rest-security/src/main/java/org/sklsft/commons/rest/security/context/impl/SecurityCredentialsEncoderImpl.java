@@ -1,20 +1,21 @@
-package org.sklsft.commons.rest.security;
+package org.sklsft.commons.rest.security.context.impl;
 
 import org.sklsft.commons.crypto.ObjectEncoder;
+import org.sklsft.commons.rest.security.context.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
 /**
- * A component to encode/decode a {@link SecurityCredentials} as a String
+ * imlementation of a {@link SecurityCredentialsEncoder} that uses an {@link ObjectEncoder}
  * @author Nicolas Thibault
  *
  */
-public class SecurityCredentialsEncoder<T> {
+public class SecurityCredentialsEncoderImpl<T> implements SecurityCredentialsEncoder<T> {
 	
 	private ObjectEncoder objectEncoder;
 	private Class<T> credentialsClass;
 	
 	
-	public SecurityCredentialsEncoder(ObjectEncoder objectEncoder, Class<T> credentialsClass) {	
+	public SecurityCredentialsEncoderImpl(ObjectEncoder objectEncoder, Class<T> credentialsClass) {	
 		this.objectEncoder = objectEncoder;
 		this.credentialsClass = credentialsClass;
 	}	

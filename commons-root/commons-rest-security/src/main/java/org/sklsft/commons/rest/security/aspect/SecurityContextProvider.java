@@ -1,7 +1,7 @@
 package org.sklsft.commons.rest.security.aspect;
 
-import org.sklsft.commons.rest.security.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
+import org.sklsft.commons.rest.security.context.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.validation.SecurityCredentialsValidator;
 
 /**
