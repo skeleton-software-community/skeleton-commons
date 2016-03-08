@@ -10,5 +10,5 @@ public interface SecurityCredentialsEncoder<T> {
 	
 	T decode (String token);
 	
-	String encode (Object credentials);
+	String encode (T credentials);
 }
