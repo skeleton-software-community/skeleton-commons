@@ -1,8 +1,8 @@
 package org.sklsft.commons.rest.security.context.impl;
 
-import org.sklsft.commons.rest.security.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
+import org.sklsft.commons.rest.security.context.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.validation.SecurityCredentialsValidator;
 
 /**
