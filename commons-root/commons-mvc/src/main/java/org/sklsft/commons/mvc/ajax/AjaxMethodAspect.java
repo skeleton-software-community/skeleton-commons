@@ -1,4 +1,4 @@
-package org.sklsft.commons.mvc.aspects;
+package org.sklsft.commons.mvc.ajax;
 
 import java.lang.reflect.Method;
 

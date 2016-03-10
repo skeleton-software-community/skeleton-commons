@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation will be used to make a method handled by the {@link org.sklsft.commons.mvc.aspects.AjaxMethodAspect}
+ * This annotation will be used to make a method handled by the {@link org.sklsft.commons.mvc.ajax.AjaxMethodAspect}
  * 
  * @author Nicolas Thibault
  */
