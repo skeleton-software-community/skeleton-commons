@@ -19,7 +19,7 @@ public class JsfRedirectionHandler implements RedirectionHandler {
 		}
 
 		try {
-			externalContext.redirect(externalContext.getApplicationContextPath() + relativeUrl);
+			externalContext.redirect(externalContext.getRequestContextPath() + relativeUrl);
 		} catch (IOException e) {
 			throw new TechnicalError(ApplicationException.ERROR_UNKNOWN, e) ;
 		}
