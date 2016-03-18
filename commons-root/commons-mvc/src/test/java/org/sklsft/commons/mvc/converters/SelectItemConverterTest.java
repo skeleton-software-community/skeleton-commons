@@ -1,12 +1,13 @@
 package org.sklsft.commons.mvc.converters;
 
+
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.api.model.SelectItem;
 import org.sklsft.commons.crypto.serialization.JsonSerializer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class SelectItemConverterTest {
