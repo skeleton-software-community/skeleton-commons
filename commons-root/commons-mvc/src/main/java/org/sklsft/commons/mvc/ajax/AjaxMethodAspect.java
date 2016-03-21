@@ -58,10 +58,10 @@ public class AjaxMethodAspect {
 			logger.info("completed");
 		} catch (ApplicationException e) {
 			messageHandler.displayError(e.getMessage());
-			logger.error("failed : " + e.getClass().getSimpleName() + " - " + e.getMessage());
+			logger.error("failed : " + e.getClass().getSimpleName() + " - " + e.getMessage(), e);
 		} catch (Exception e) {
 			messageHandler.displayError(value + ".failure");
-			logger.error("failed : " + e.getClass().getSimpleName() + " - " + e.getMessage());
+			logger.error("failed : " + e.getClass().getSimpleName() + " - " + e.getMessage(), e);
 		}
 	}
 
