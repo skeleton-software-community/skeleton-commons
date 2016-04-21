@@ -53,7 +53,7 @@ public class DocumentAccessControlAspect {
 		
 		String imageToken = null;
 		for(Cookie cookie : cookies){
-			if(cookie.getName().equals("img")){
+			if(cookie.getName().equals(key)){
 				imageToken = cookie.getValue();
 				break;
 			}
