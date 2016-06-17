@@ -22,7 +22,7 @@ public class AccessibleFieldTest {
 		
 		Date dateField = new Date();
 		String stringField = "test";
-		Long longField = Long.valueOf(1);
+		Long longField = 1L;
 		Boolean booleanField = Boolean.TRUE;
 		
 		Dummy dummy = new Dummy();
@@ -46,7 +46,7 @@ public class AccessibleFieldTest {
 		
 		Date dateField = new Date();
 		String stringField = "test";
-		Long longField = Long.valueOf(1);
+		Long longField = 1L;
 		Boolean booleanField = Boolean.TRUE;
 		
 		Dummy dummy = new Dummy();

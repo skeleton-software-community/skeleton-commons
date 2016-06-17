@@ -23,7 +23,7 @@ public class BasicMapperImplTest {
 		
 		Date dateField = new Date();
 		String stringField = "test";
-		Long longField = Long.valueOf(1);
+		Long longField = 1L;
 		Boolean booleanField = Boolean.TRUE;
 		
 		Fool fool = new Fool();
@@ -51,7 +51,7 @@ public class BasicMapperImplTest {
 		
 		Date dateField = new Date();
 		String stringField = "test";
-		Long longField = Long.valueOf(1);
+		Long longField = 1L;
 		Boolean booleanField = Boolean.TRUE;
 		
 		Fool fool = new Fool();

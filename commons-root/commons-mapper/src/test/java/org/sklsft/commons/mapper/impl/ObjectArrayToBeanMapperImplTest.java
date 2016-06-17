@@ -21,7 +21,7 @@ public class ObjectArrayToBeanMapperImplTest {
 		
 		Date dateField = new Date();
 		String stringField = "test";
-		Long longField = Long.valueOf(1);
+		Long longField = 1L;
 		Boolean booleanField = Boolean.TRUE;
 		
 		Object[] objectArray = new Object[]{longField,dateField,stringField,booleanField};
