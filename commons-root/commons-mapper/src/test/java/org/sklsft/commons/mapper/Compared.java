@@ -3,8 +3,8 @@ package org.sklsft.commons.mapper;
 import java.util.Date;
 import java.util.List;
 
-public class Dummy {
-	
+public class Compared {
+
 	/*
 	 * properties
 	 */
@@ -13,29 +13,12 @@ public class Dummy {
 	private String stringField;
 	private Boolean booleanField;
 	
+	private Dummy dummy;
+	
+	private List<Fool> fools;
+	
 	private List<String> strings;
-	
-	@SuppressWarnings("unused")
-	private String notAccessibleField;
-	
-	/*
-	 * constructors
-	 */
-	
-	public Dummy() {
-		super();
-	}
-	
-	public Dummy(Long longField, Date dateField, String stringField, Boolean booleanField, List<String> strings, String notAccessibleField) {
-		super();
-		this.longField = longField;
-		this.dateField = dateField;
-		this.stringField = stringField;
-		this.booleanField = booleanField;
-		this.strings = strings;
-		this.notAccessibleField = notAccessibleField;
-	}
-	
+
 	
 	/*
 	 * getters and setters
@@ -58,11 +41,23 @@ public class Dummy {
 	public void setStringField(String stringField) {
 		this.stringField = stringField;
 	}
-	public Boolean isBooleanField() {
+	public Boolean getBooleanField() {
 		return booleanField;
 	}
 	public void setBooleanField(Boolean booleanField) {
 		this.booleanField = booleanField;
+	}
+	public Dummy getDummy() {
+		return dummy;
+	}
+	public void setDummy(Dummy dummy) {
+		this.dummy = dummy;
+	}
+	public List<Fool> getFools() {
+		return fools;
+	}
+	public void setFools(List<Fool> fools) {
+		this.fools = fools;
 	}
 	public List<String> getStrings() {
 		return strings;

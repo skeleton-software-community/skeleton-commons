@@ -24,7 +24,7 @@ public class BasicMapperImpl<T, U> implements Mapper<T, U> {
 			AccessibleField field2 = mappableBean2.accessibleFieldsMap.get(fieldName);
 			
 			if (field2 != null && field1.isCompatibleWith(field2)) {
-				mappableBean1.setValue(fieldName, mappableBean2.getValue(fieldName, obj2), obj1);
+				field1.setValue(field2.getValue(obj2), obj1);
 			}
 		}
 		
@@ -39,7 +39,7 @@ public class BasicMapperImpl<T, U> implements Mapper<T, U> {
 			AccessibleField field1 = mappableBean1.accessibleFieldsMap.get(fieldName);
 			
 			if (field1 != null && field2.isCompatibleWith(field1)) {
-				mappableBean2.setValue(fieldName, mappableBean1.getValue(fieldName, obj1), obj2);
+				field2.setValue(field1.getValue(obj1), obj2);
 			}
 		}
 		

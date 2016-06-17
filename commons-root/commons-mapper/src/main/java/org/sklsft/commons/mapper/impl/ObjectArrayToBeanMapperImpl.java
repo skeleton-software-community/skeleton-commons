@@ -16,7 +16,7 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 	public T mapFrom(T obj, Object[] objectArray, int startField) {
 		
 		for (int i = 0;i<objectArray.length;i++) {
-			mappableBean.setValue(mappableBean.accessibleFields.get(i+startField).field.getName(), objectArray[i], obj);
+			mappableBean.accessibleFields.get(i+startField).setValue(objectArray[i], obj);
 		}
 		
 		return obj;
