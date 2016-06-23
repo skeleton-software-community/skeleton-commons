@@ -20,6 +20,26 @@ public class Fool {
 	
 	
 	/*
+	 * constructor
+	 */
+	public Fool(Long longField, Date dateField, String stringField,
+			Boolean booleanField, List<String> strings,
+			String notAccessibleField) {
+		super();
+		this.longField = longField;
+		this.dateField = dateField;
+		this.stringField = stringField;
+		this.booleanField = booleanField;
+		this.strings = strings;
+		this.notAccessibleField = notAccessibleField;
+	}
+	
+	public Fool() {
+		
+	}
+	
+	
+	/*
 	 * getters and setters
 	 */
 	public Long getLongField() {

@@ -3,6 +3,9 @@ package org.sklsft.commons.mapper;
 import java.util.Date;
 import java.util.List;
 
+import org.sklsft.commons.api.annotations.compare.DeepCompare;
+import org.sklsft.commons.api.annotations.compare.IgnoreCompare;
+
 public class Compared {
 
 	/*
@@ -13,12 +16,37 @@ public class Compared {
 	private String stringField;
 	private Boolean booleanField;
 	
+	private List<String> strings;
+	
+	@DeepCompare
 	private Dummy dummy;
 	
+	@DeepCompare
 	private List<Fool> fools;
 	
-	private List<String> strings;
-
+	@IgnoreCompare
+	private String ignoredField;
+	
+	/*
+	 * constructors
+	 */
+	public Compared(Long longField, Date dateField, String stringField,
+			Boolean booleanField, List<String> strings, Dummy dummy,
+			List<Fool> fools) {
+		super();
+		this.longField = longField;
+		this.dateField = dateField;
+		this.stringField = stringField;
+		this.booleanField = booleanField;
+		this.strings = strings;
+		this.dummy = dummy;
+		this.fools = fools;
+	}
+	
+	public Compared() {
+		
+	}
+	
 	
 	/*
 	 * getters and setters
@@ -64,5 +92,11 @@ public class Compared {
 	}
 	public void setStrings(List<String> strings) {
 		this.strings = strings;
+	}
+	public String getIgnoredField() {
+		return ignoredField;
+	}
+	public void setIgnoredField(String ignoredField) {
+		this.ignoredField = ignoredField;
 	}
 }

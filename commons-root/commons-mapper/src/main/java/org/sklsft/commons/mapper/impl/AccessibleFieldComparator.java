@@ -2,7 +2,7 @@ package org.sklsft.commons.mapper.impl;
 
 import java.util.Iterator;
 
-import org.sklsft.commons.mapper.annotations.DeepCompare;
+import org.sklsft.commons.api.annotations.compare.DeepCompare;
 import org.sklsft.commons.mapper.beans.AccessibleField;
 
 public class AccessibleFieldComparator {
@@ -15,10 +15,19 @@ public class AccessibleFieldComparator {
 	}
 
 
+	@SuppressWarnings("rawtypes")
 	public boolean areEqual(Object obj1, Object obj2) {		
 		
 		Object val1 = accessibleField.getValue(obj1);
 		Object val2 = accessibleField.getValue(obj2);
+		
+		if (val1 == null) {
+			return val2 == null;
+		}
+		
+		if (val2 == null) {
+			return val1 == null;
+		}
 		
 		Class<?> clazz = accessibleField.field.getType();
 		
@@ -44,6 +53,7 @@ public class AccessibleFieldComparator {
 	}
 
 
+	@SuppressWarnings("rawtypes")
 	private boolean areIteratorsDeeplyEqual(Class<?> iterableClass, Iterator ite1, Iterator ite2) {
 		
 		DeepComparator deepComparator = new DeepComparator(iterableClass);
@@ -65,6 +75,7 @@ public class AccessibleFieldComparator {
 	}
 
 
+	@SuppressWarnings("rawtypes")
 	private boolean areIteratorsEqual(Iterator ite1, Iterator ite2) {
 		
 		while (ite1.hasNext()) {

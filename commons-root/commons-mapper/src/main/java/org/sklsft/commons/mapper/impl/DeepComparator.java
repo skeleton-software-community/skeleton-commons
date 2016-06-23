@@ -1,5 +1,6 @@
 package org.sklsft.commons.mapper.impl;
 
+import org.sklsft.commons.api.annotations.compare.IgnoreCompare;
 import org.sklsft.commons.mapper.beans.AccessibleField;
 import org.sklsft.commons.mapper.beans.MappableBean;
 import org.sklsft.commons.mapper.beans.MappableBeanFactory;
@@ -33,9 +34,12 @@ public class DeepComparator implements Comparator {
 		}		
 		
 		for (AccessibleField accessibleField:mappableBean.accessibleFields) {
-			AccessibleFieldComparator fieldComparator = new AccessibleFieldComparator(accessibleField);
-			if (!fieldComparator.areEqual(obj1, obj2)) {
-				return false;
+			
+			if (!accessibleField.field.isAnnotationPresent(IgnoreCompare.class)) {			
+				AccessibleFieldComparator fieldComparator = new AccessibleFieldComparator(accessibleField);
+				if (!fieldComparator.areEqual(obj1, obj2)) {
+					return false;
+				}
 			}
 		}
 		
