@@ -34,7 +34,7 @@ public class SecurityContextHolder {
 	}
 	
 
-	private static Object getCredentials(){
+	public static Object getCredentials() {
 		return allCredentials.get();
 	}
 	
