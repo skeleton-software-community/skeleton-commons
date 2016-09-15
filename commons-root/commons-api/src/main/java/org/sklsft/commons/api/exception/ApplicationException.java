@@ -15,6 +15,8 @@ public abstract class ApplicationException extends RuntimeException {
 	
 	private String message;
 	
+	private Object details;
+	
 
 	public ApplicationException(){
 		super();
@@ -25,10 +27,22 @@ public abstract class ApplicationException extends RuntimeException {
 		this.message = message;
 
 	}
+	
+	public ApplicationException(String message, Object details) {
+		super(message);
+		this.message = message;
+		this.details = details;
+	}
 
 	public ApplicationException(String message, Throwable cause) {
 		super(message, cause);
 		this.message = message;
+	}
+	
+	public ApplicationException(String message, Throwable cause, Object details) {
+		super(message, cause);
+		this.message = message;
+		this.details = details;
 	}
 	
 	@Override
@@ -38,5 +52,13 @@ public abstract class ApplicationException extends RuntimeException {
 	
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Object getDetails() {
+		return details;
+	}
+
+	public void setDetails(Object details) {
+		this.details = details;
 	}
 }

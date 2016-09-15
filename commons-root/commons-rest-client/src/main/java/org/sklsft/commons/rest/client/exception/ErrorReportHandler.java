@@ -23,6 +23,9 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 	
 	private ObjectMapper objectMapper;
 	
+	public ObjectMapper getObjectMapper() {
+		return objectMapper;
+	}
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
 	}
@@ -55,13 +58,17 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 	 * instantiates the {@link ApplicationException} as described in the {@link ErrorReport} that a rest service can respond
 	 * @param errorReport
 	 */
-	private void convertErrorReport(ErrorReport errorReport) {
+	public void convertErrorReport(ErrorReport errorReport) {
 		
 		ApplicationException exception;
 		
 		try {
 			exception = (ApplicationException) Class.forName(errorReport.getExceptionClassName()).newInstance();
 			exception.setMessage(errorReport.getMessage());
+			
+			if (errorReport.getDetailsClassName() != null) {
+				exception.setDetails(objectMapper.readValue(errorReport.getDetails(), Class.forName(errorReport.getDetailsClassName())));
+			}
 		} catch (Exception e) {
 			exception = new TechnicalError(ApplicationException.ERROR_UNKNOWN);
 		}
