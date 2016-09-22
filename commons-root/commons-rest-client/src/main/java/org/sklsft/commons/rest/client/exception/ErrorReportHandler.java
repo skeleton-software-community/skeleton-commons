@@ -62,7 +62,7 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 			exception = (ApplicationException) Class.forName(errorReport.getExceptionClassName()).newInstance();
 			exception.setMessage(errorReport.getMessage());
 		} catch (Exception e) {
-			exception = new TechnicalError(ApplicationException.ERROR_UNKNOWN);
+			exception = new TechnicalError(ApplicationException.ERROR_UNKNOWN, e);
 		}
 		throw exception;
 	}

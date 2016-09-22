@@ -46,7 +46,7 @@ public class LoggingAspect {
 			
 		} catch (Exception e) {
 			
-			logger.error("Response : NOK, " + e.getMessage(), e);
+			logger.error("Response : NOK, " + e.getMessage());
 			
 			throw e;
 		}
