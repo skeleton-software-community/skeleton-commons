@@ -70,7 +70,7 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 				exception.setDetails(objectMapper.readValue(errorReport.getDetails(), Class.forName(errorReport.getDetailsClassName())));
 			}
 		} catch (Exception e) {
-			exception = new TechnicalError(ApplicationException.ERROR_UNKNOWN);
+			exception = new TechnicalError(ApplicationException.ERROR_UNKNOWN, e);
 		}
 		throw exception;
 	}

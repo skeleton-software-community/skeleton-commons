@@ -39,6 +39,8 @@ public class RestExceptionHandler {
 	@ExceptionHandler(ApplicationException.class)
 	public @ResponseBody ErrorReport handleApplicationException(ApplicationException e) {
 		
+		logger.error("exception thrown : " + e.getMessage(), e);
+		
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
 		errorReport.setMessage(e.getMessage());
@@ -60,6 +62,8 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
 	public @ResponseBody ErrorReport handleException(Exception e) {
+		
+		logger.error("exception thrown : " + e.getMessage(), e);
 		
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TechnicalError.class.getName());
