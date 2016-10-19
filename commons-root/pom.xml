@@ -11,6 +11,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>commons-entities</module>
 		<module>commons-api</module>
 		<module>commons-mvc</module>
 		<module>commons-rest-client</module>
