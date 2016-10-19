@@ -15,6 +15,11 @@
 	
 	<dependencies>
 	
+		<dependency>
+			<groupId>org.sklsft.commons</groupId>
+			<artifactId>commons-api</artifactId>
+		</dependency>
+	
 		<!-- tests -->
 		<dependency>
 			<groupId>junit</groupId>
