@@ -7,7 +7,6 @@ import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.api.exception.ErrorReport;
 import org.sklsft.commons.crypto.serialization.JsonSerializer;
 import org.sklsft.commons.crypto.serialization.Serializer;
-import org.sklsft.commons.rest.exception.RestExceptionHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

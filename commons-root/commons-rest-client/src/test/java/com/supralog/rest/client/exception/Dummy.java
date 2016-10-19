@@ -1,8 +1,5 @@
  package com.supralog.rest.client.exception;
 
-import java.util.Date;
-import java.util.List;
-
 public class Dummy {
 	
 	/*
