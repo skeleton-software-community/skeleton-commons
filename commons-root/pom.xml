@@ -30,19 +30,26 @@
 	</licenses>
 
 	<developers>
-
 		<developer>
 			<id>nthibault</id>
 			<name>Nicolas Thibault</name>
 			<email>nicolas.thibault@sklsft.com</email>
 		</developer>
-
 		<developer>
 			<id>mregragui</id>
 			<name>Mounir Regragui</name>
 			<email>mounir.regragui@sklsft.com</email>
+		</developer>		
+		<developer>
+			<id>aeljai</id>
+			<name>Abdessalam El Jai</name>
+			<email>abdessalam.eljai@sklsft.com</email>
+		</developer>		
+		<developer>
+			<id>arupp</id>
+			<name>Alexandre Rupp</name>
+			<email>alexandre.rupp@sklsft.com</email>
 		</developer>
-
 	</developers>
 
 	<scm>
@@ -69,9 +76,11 @@
 		<sourceJDK>1.7</sourceJDK>
 		<targetJDK>1.7</targetJDK>
 		<compileSource>1.7</compileSource>
-
+		
+		<hibernate.version>5.0.7.Final</hibernate.version>
 		<slf4j.version>1.7.2</slf4j.version>
 		<junit.version>4.11</junit.version>
+		<javax.inject.version>1</javax.inject.version>
 		<spring.version>4.1.7.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
 		<jackson.version>2.6.0</jackson.version>
@@ -79,16 +88,19 @@
 		<servlet.version>3.0.1</servlet.version>
 		<jsf.version>2.2.11</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
-
 	</properties>
 
 	<dependencyManagement>
-
 		<dependencies>
-
 			<dependency>
 				<groupId>org.sklsft.commons</groupId>
 				<artifactId>commons-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.sklsft.commons</groupId>
+				<artifactId>commons-entities</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -119,6 +131,22 @@
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
 				<scope>test</scope>
+			</dependency>
+			
+			
+			<!-- hibernate -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			
+			
+			<!-- Inject annotation -->
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>${javax.inject.version}</version>
 			</dependency>
 
 
@@ -168,8 +196,6 @@
 				<artifactId>jackson-annotations</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
-
-
 
 
 			<!-- commons -->
