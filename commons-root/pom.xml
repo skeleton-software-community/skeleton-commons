@@ -69,9 +69,11 @@
 		<targetJDK>1.7</targetJDK>
 		<compileSource>1.7</compileSource>
 		
+		<hibernate.version>3.6.10.Final</hibernate.version>
 		<slf4j.version>1.7.2</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
+		<javax.inject.version>1</javax.inject.version>
 		<aspectj.version>1.7.3</aspectj.version>
 		<jackson.version>1.9.12</jackson.version>
 		<commons.codec.version>1.9</commons.codec.version>
@@ -88,6 +90,12 @@
 			<dependency>
 				<groupId>org.sklsft.commons</groupId>
 				<artifactId>commons-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.sklsft.commons</groupId>
+				<artifactId>commons-entities</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			
@@ -121,11 +129,35 @@
 			</dependency>
 			
 			
+			<!-- hibernate -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			
+			
+			<!-- Inject annotation -->
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>${javax.inject.version}</version>
+			</dependency>
+			
+			
 			<!-- spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			
+			
+			<!-- hibernate -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
 			</dependency>
 			
 			
