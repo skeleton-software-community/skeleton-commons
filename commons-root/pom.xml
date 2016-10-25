@@ -73,16 +73,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<encoding>UTF-8</encoding>
 		<maven.build.timestamp.format>dd/MM/yyyy HH:mm</maven.build.timestamp.format>
-		<sourceJDK>1.7</sourceJDK>
-		<targetJDK>1.7</targetJDK>
-		<compileSource>1.7</compileSource>
+		<sourceJDK>1.8</sourceJDK>
+		<targetJDK>1.8</targetJDK>
+		<compileSource>1.8</compileSource>
 		
 		<hibernate.version>5.0.7.Final</hibernate.version>
 		<slf4j.version>1.7.2</slf4j.version>
-		<junit.version>4.11</junit.version>
-		<javax.inject.version>1</javax.inject.version>
+		<junit.version>4.11</junit.version>		
 		<spring.version>4.1.7.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
+		<javax.inject.version>1</javax.inject.version>
 		<jackson.version>2.6.0</jackson.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<servlet.version>3.0.1</servlet.version>
