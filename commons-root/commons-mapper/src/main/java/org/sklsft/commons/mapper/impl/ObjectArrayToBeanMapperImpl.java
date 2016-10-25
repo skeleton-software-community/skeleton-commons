@@ -4,6 +4,12 @@ import org.sklsft.commons.mapper.beans.MappableBean;
 import org.sklsft.commons.mapper.beans.MappableBeanFactory;
 import org.sklsft.commons.mapper.interfaces.ObjectArrayToBeanMapper;
 
+/**
+ * Enables the copy of a bean from an object array
+ * @author Nicolas Thibault
+ *
+ * @param <T>
+ */
 public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T> {
 	
 	private final MappableBean<T> mappableBean;

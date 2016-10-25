@@ -5,12 +5,13 @@ import java.io.Serializable;
 import javax.inject.Inject;
 
 import org.sklsft.commons.api.model.FullView;
-import org.sklsft.commons.mapper.impl.BasicMapperImpl;
 import org.sklsft.commons.mapper.interfaces.Mapper;
 import org.sklsft.commons.model.interfaces.Entity;
 
 
 /**
+ * This {@link Mapper} implementation is adapted to {@link FullView}
+ * 
  * @author Nicolas Thibault
  *
  * @param <T> FullView<U, W> associated to the entity
@@ -22,15 +23,15 @@ public class FullViewMapper<T extends FullView<U, V>, U extends Serializable, V 
 	
 	public FullViewMapper(Class<T> clazz1, Class<W> clazz2) {
 		super(clazz1, clazz2);
-	}	
+	}
 	
 	@Inject
-	private Mapper<V, W> formMapper;
+	private AbstractMapper<V, W> formMapper;
 		
-	public Mapper<V, W> getFormMapper() {
+	public AbstractMapper<V, W> getFormMapper() {
 		return formMapper;
 	}
-	public void setFormMapper(Mapper<V, W> formMapper) {
+	public void setFormMapper(AbstractMapper<V, W> formMapper) {
 		this.formMapper = formMapper;
 	}
 	
