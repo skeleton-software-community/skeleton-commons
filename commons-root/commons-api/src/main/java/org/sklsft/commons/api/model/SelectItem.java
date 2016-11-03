@@ -93,6 +93,13 @@ public class SelectItem implements Serializable, Comparable<SelectItem> {
 			else
 				return this.label.compareTo(selectItem.getLabel());
 	}
+
+	@Override
+	public String toString() {
+		return label;
+	}
+	
+	
 	
 	
 }

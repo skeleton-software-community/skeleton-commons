@@ -30,7 +30,8 @@ public class DeepComparator implements Comparator {
 		}
 		
 		if (!clazz.isAssignableFrom(obj1.getClass()) || !clazz.isAssignableFrom(obj2.getClass())) {
-			throw new IllegalArgumentException("you must compare objects of class : " + clazz.getName());
+			throw new IllegalArgumentException("you must compare objects of class : " + clazz.getName()
+					+ "\n You compared " + obj1.getClass() + " with " + obj2.getClass());
 		}		
 		
 		for (AccessibleField accessibleField:mappableBean.accessibleFields) {
