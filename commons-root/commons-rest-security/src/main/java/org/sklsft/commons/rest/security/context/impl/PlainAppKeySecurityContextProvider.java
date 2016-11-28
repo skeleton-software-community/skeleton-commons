@@ -26,14 +26,14 @@ import org.sklsft.commons.rest.security.validation.SecurityCredentialsValidator;
  * @param <V>
  *            Credentials of Application key
  */
-public class AppKeySecurityContextProvider<T, V> implements SecurityContextProvider {
+public class PlainAppKeySecurityContextProvider<T, V> implements SecurityContextProvider {
 
 	private SecurityCredentialsEncoder<T> userCredentialsEncoder;
 	private SecurityCredentialsValidator<T> userCredentialsValidator;
 
 	private ApplicationCredentialsRetriever<V> applicationCredentialsRetriever;
 
-	public AppKeySecurityContextProvider(SecurityCredentialsEncoder<T> userCredentialsEncoder,
+	public PlainAppKeySecurityContextProvider(SecurityCredentialsEncoder<T> userCredentialsEncoder,
 			SecurityCredentialsValidator<T> userCredentialsValidator, ApplicationCredentialsRetriever<V> applicationCredentialsRetriever) {
 		super();
 		this.userCredentialsEncoder = userCredentialsEncoder;
