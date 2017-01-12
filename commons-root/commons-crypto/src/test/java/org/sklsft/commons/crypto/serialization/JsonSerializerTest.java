@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.crypto.miscellaneous.TestObject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonSerializerTest {
 

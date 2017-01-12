@@ -2,13 +2,14 @@ package org.sklsft.commons.rest.client.exception;
 
 import java.io.IOException;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.api.exception.ErrorReport;
 import org.sklsft.commons.api.exception.TechnicalError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 /**
