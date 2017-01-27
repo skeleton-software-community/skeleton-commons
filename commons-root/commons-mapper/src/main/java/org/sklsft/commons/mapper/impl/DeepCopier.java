@@ -20,7 +20,7 @@ public class DeepCopier<T> implements Copier<T> {
 
 
 	@Override
-	public T copy(T dest, T src) {
+	public T copy(T dest, T src, boolean copyIgnoredFields) {
 		
 		if (dest == null) {
 			throw new IllegalArgumentException("Argument 1 MUST NOT be empty.");
@@ -35,12 +35,18 @@ public class DeepCopier<T> implements Copier<T> {
 		}		
 
 		for (AccessibleField accessibleField : mappableBean.accessibleFields) {
-			if (!accessibleField.field.isAnnotationPresent(IgnoreCompare.class)) {		
+			if (copyIgnoredFields || !accessibleField.field.isAnnotationPresent(IgnoreCompare.class)) {		
 				accessibleField.setValue(accessibleField.getValue(src), dest);
 			}
 		}
 		
 		return dest;
+	}
+	
+	
+	@Override
+	public T copy(T dest, T src) {
+		return copy(dest, src, false);
 	}
 	
 }
