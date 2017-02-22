@@ -9,6 +9,7 @@ import org.sklsft.commons.mapper.interfaces.Mapper;
 import org.sklsft.commons.model.interfaces.Entity;
 
 
+
 /**
  * This {@link Mapper} implementation is adapted to {@link FullView}
  * 
@@ -27,6 +28,7 @@ public class FullViewMapper<T extends FullView<U, V>, U extends Serializable, V 
 	
 	@Inject
 	private AbstractMapper<V, W> formMapper;
+	
 		
 	public AbstractMapper<V, W> getFormMapper() {
 		return formMapper;
