@@ -7,7 +7,7 @@ import java.io.Serializable;
  * It can be used as the result of a get method<br>
  * It basically consists of an id and a form which must be serializable
  * 
- * @author Nicolas Thibault
+ * @author Nicolas Thibault, Amine Bouqsimi
  *
  * @param <T> id
  * @param <U> form
@@ -22,7 +22,7 @@ public class FullView<T extends Serializable, U extends Serializable> implements
 	 */
 	protected T id;
 	protected U form;
-	protected boolean canUpdate;	
+	protected boolean canUpdate;
 
 	/*
 	 * getters and setters
@@ -44,6 +44,5 @@ public class FullView<T extends Serializable, U extends Serializable> implements
 	}
 	public void setCanUpdate(boolean canUpdate) {
 		this.canUpdate = canUpdate;
-	}
-	
+	}	
 }

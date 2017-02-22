@@ -4,6 +4,14 @@ import java.io.Serializable;
 
 import org.sklsft.commons.model.interfaces.Entity;
 
+/**
+ * A basic interface to control states
+ * 
+ * @author Nicolas Thibault
+ *
+ * @param <T> : the object {@link Entity}
+ * @param <U> : the type of id used by the object
+ */
 public interface StateManager<T extends Entity<U>, U extends Serializable> {
 
 	/**

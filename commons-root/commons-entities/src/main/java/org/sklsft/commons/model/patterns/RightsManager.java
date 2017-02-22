@@ -4,7 +4,25 @@ import java.io.Serializable;
 
 import org.sklsft.commons.model.interfaces.Entity;
 
+/**
+ * A basic interface to control permissions 
+ * 
+ * @author Nicolas Thibault, Amine Bouqsimi
+ *
+ * @param <T> : the object {@link Entity}
+ * @param <U> : the type of id used by the object
+ */
 public interface RightsManager<T extends Entity<U>, U extends Serializable> {
+	
+	/**
+	 * can access all
+	 */
+	boolean canAccess();
+	
+	/**
+	 * check can access all
+	 */
+	void checkCanAccess();
 	
 	/**
 	 * can access
@@ -14,12 +32,7 @@ public interface RightsManager<T extends Entity<U>, U extends Serializable> {
 	/**
 	 * check can access
 	 */
-	void checkCanAccess(T obj);
-	
-	/**
-	 * check can access all
-	 */
-	void checkCanAccess();
+	void checkCanAccess(T obj);	
 	
 	/**
 	 * can create
