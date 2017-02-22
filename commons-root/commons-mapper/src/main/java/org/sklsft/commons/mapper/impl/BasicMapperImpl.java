@@ -3,6 +3,7 @@ package org.sklsft.commons.mapper.impl;
 import org.sklsft.commons.mapper.beans.AccessibleField;
 import org.sklsft.commons.mapper.beans.MappableBean;
 import org.sklsft.commons.mapper.beans.MappableBeanFactory;
+import org.sklsft.commons.mapper.interfaces.Mapper;
 
 /**
  * A {@link Mapper} implementation based on field comparison

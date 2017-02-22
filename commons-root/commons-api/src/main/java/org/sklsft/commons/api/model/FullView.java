@@ -11,6 +11,7 @@ import java.io.Serializable;
  *
  * @param <T> id
  * @param <U> form
+ * @param <boolean> canUpdate
  */
 public class FullView<T extends Serializable, U extends Serializable> implements Serializable {
 
@@ -21,7 +22,7 @@ public class FullView<T extends Serializable, U extends Serializable> implements
 	 */
 	protected T id;
 	protected U form;
-	
+	protected boolean canUpdate;	
 
 	/*
 	 * getters and setters
@@ -38,4 +39,11 @@ public class FullView<T extends Serializable, U extends Serializable> implements
 	public void setId(T id) {
 		this.id = id;
 	}
+	public boolean getCanUpdate() {
+		return canUpdate;
+	}
+	public void setCanUpdate(boolean canUpdate) {
+		this.canUpdate = canUpdate;
+	}
+	
 }
