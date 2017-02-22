@@ -5,14 +5,44 @@ import java.io.Serializable;
 import org.sklsft.commons.model.interfaces.Entity;
 
 /**
- * A basic interface to control states
+ * A basic interface to control permissions 
  * 
- * @author Nicolas Thibault
+ * @author Nicolas Thibault, Amine Bouqsimi
  *
  * @param <T> : the object {@link Entity}
  * @param <U> : the type of id used by the object
  */
-public interface StateManager<T extends Entity<U>, U extends Serializable> {
+public interface RightsManager<T extends Entity<U>, U extends Serializable> {
+	
+	/**
+	 * can access all
+	 */
+	boolean canAccess();
+	
+	/**
+	 * check can access all
+	 */
+	void checkCanAccess();
+	
+	/**
+	 * can access
+	 */
+	boolean canAccess(T obj);
+	
+	/**
+	 * check can access
+	 */
+	void checkCanAccess(T obj);	
+	
+	/**
+	 * can create
+	 */
+	boolean canCreate();
+	
+	/**
+	 * check can create
+	 */
+	void checkCanCreate();
 
 	/**
 	 * can save
