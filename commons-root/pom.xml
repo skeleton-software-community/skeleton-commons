@@ -12,6 +12,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>commons-text</module>
 		<module>commons-entities</module>
 		<module>commons-api</module>
 		<module>commons-mvc</module>
@@ -93,6 +94,12 @@
 			<dependency>
 				<groupId>org.sklsft.commons</groupId>
 				<artifactId>commons-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.sklsft.commons</groupId>
+				<artifactId>commons-text</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			
@@ -202,7 +209,7 @@
 				<artifactId>commons-codec</artifactId>
 				<version>${commons.codec.version}</version>
 			</dependency>
-
+			
 
 			<!-- Servlet -->
 			<dependency>
