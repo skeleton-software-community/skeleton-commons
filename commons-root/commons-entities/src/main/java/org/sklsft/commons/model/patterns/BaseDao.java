@@ -8,6 +8,11 @@ import org.sklsft.commons.model.interfaces.Entity;
 public interface BaseDao<T extends Entity<U>, U extends Serializable> {
 
 	/**
+	 * count object list
+	 */
+	Long count();
+	
+	/**
 	 * load object list
 	 */
 	List<T> loadList();

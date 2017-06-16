@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.sklsft.commons.api.exception.repository.ObjectNotFoundException;
 import org.sklsft.commons.model.interfaces.Entity;
 
@@ -34,6 +35,15 @@ public abstract class BaseDaoImpl<T extends Entity<U>, U extends Serializable> i
 	public BaseDaoImpl(Class<T> clazz) {
 		super();
 		this.clazz = clazz;
+	}
+	
+	/**
+	 * count object list
+	 */
+	@Override
+	public Long count() {
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(clazz).setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
 	}
 
 	/**
