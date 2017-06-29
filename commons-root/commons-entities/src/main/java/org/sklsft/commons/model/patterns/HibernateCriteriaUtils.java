@@ -40,9 +40,13 @@ public class HibernateCriteriaUtils {
 		return criteria;
 	}
 	
-	public static Criteria addBooleanRestriction(Criteria criteria, String field, Boolean value) {
+	public static Criteria addBooleanRestriction(Criteria criteria, String field, String value) {
 		if (value != null) {
-			criteria = criteria.add(Restrictions.eq(field, value));
+			if (value.startsWith("t") || value.startsWith("v") || value.startsWith("o")) {
+				criteria = criteria.add(Restrictions.eq(field, true));
+			} else {
+				criteria = criteria.add(Restrictions.eq(field, false));
+			}
 		}
 		return criteria;
 	}
