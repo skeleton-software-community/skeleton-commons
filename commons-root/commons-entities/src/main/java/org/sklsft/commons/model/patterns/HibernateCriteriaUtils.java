@@ -41,7 +41,7 @@ public class HibernateCriteriaUtils {
 	}
 	
 	public static Criteria addBooleanRestriction(Criteria criteria, String field, String value) {
-		if (value != null) {
+		if (!StringUtils.isEmpty(value)) {
 			if (value.startsWith("t") || value.startsWith("v") || value.startsWith("o")) {
 				criteria = criteria.add(Restrictions.eq(field, true));
 			} else {
