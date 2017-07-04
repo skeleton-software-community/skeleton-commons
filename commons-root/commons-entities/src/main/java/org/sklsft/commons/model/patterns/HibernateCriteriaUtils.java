@@ -28,14 +28,21 @@ public class HibernateCriteriaUtils {
 	
 	public static Criteria addLongContainsRestriction(Criteria criteria, String field, String value) {
 		if (!StringUtils.isEmpty(value)) {
-			criteria = criteria.add(Restrictions.sqlRestriction("long_to_string(" + field + ") like ?", "%" + value.toLowerCase() + "%", StringType.INSTANCE));
+			criteria = criteria.add(Restrictions.sqlRestriction("long_to_string(" + field + ") like ?", "%" + value + "%", StringType.INSTANCE));
+		}
+		return criteria;
+	}
+	
+	public static Criteria addDoubleContainsRestriction(Criteria criteria, String field, String value) {
+		if (!StringUtils.isEmpty(value)) {
+			criteria = criteria.add(Restrictions.sqlRestriction("double_to_string(" + field + ") like ?", "%" + value + "%", StringType.INSTANCE));
 		}
 		return criteria;
 	}
 	
 	public static Criteria addDateContainsRestriction(Criteria criteria, String field, String value) {
 		if (!StringUtils.isEmpty(value)) {
-			criteria = criteria.add(Restrictions.sqlRestriction("date_to_string(" + field + ") like ?", "%" + value.toLowerCase() + "%", StringType.INSTANCE));
+			criteria = criteria.add(Restrictions.sqlRestriction("date_to_string(" + field + ") like ?", "%" + value + "%", StringType.INSTANCE));
 		}
 		return criteria;
 	}
