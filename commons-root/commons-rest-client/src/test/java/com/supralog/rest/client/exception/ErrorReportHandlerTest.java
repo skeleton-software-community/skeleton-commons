@@ -54,8 +54,7 @@ public class ErrorReportHandlerTest {
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TestException.class.getName());
 		errorReport.setMessage(message);
-		errorReport.setDetailsClassName(Dummy.class.getName());
-		errorReport.setDetails(objectMapper.writeValueAsString(dummy));
+		errorReport.setDetails(dummy);
 		
 		try {
 			errorReportHandler.convertErrorReport(errorReport);
