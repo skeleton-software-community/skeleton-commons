@@ -46,5 +46,6 @@ public class RestExceptionHandlerTest {
 		Assert.assertEquals(errorReport.getMessage(), message);
 		Assert.assertTrue(errorReport.getExceptionClassName().equals(TestException.class.getName()));
 		Assert.assertNotNull(errorReport.getDetails());
+		Assert.assertTrue(errorReport.getDetails() instanceof Dummy);
 	}
 }
