@@ -1,7 +1,6 @@
 package org.sklsft.commons.api.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class ScrollForm<F extends Serializable, S extends Serializable> implements Serializable {
 

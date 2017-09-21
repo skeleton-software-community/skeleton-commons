@@ -10,7 +10,7 @@ public class StringUtils {
 	}
 	
 	
-	public static String unaccent(String arg) {
+	public static String normalize(String arg) {
 		if (arg == null) {
 			return null;
 		}

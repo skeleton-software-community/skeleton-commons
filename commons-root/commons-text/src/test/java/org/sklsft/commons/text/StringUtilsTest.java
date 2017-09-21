@@ -9,6 +9,6 @@ public class StringUtilsTest {
 	public void test() {
 		String arg = "âãäåāăàÁÂÃÄÅĀĂĄèééêëēĕėęěĒĔĖĘĚìíîïìĩīĭÌÍÎÏÌĨĪĬóôõöōŏőÒÓÔÕÖŌŎŐùúûüũūŭůÙÚÛÜŨŪŬŮ";
 		String expected = "aaaaaaaaaaaaaaaeeeeeeeeeeeeeeeiiiiiiiiiiiiiiiiooooooooooooooouuuuuuuuuuuuuuuu";
-		Assert.assertEquals(StringUtils.unaccent(arg), expected);
+		Assert.assertEquals(StringUtils.normalize(arg), expected);
 	}
 }

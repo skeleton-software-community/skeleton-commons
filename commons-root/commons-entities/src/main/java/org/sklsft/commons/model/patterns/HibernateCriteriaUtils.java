@@ -21,39 +21,24 @@ public class HibernateCriteriaUtils {
 
 	public static Criteria addStringContainsRestriction(Criteria criteria, String field, String value) {
 		if (!StringUtils.isEmpty(value)) {
-			criteria = criteria.add(Restrictions.sqlRestriction("unaccent(" + field + ") like ?", "%" + StringUtils.unaccent(value) + "%", StringType.INSTANCE));
+			criteria = criteria.add(Restrictions.sqlRestriction("normalize(" + field + ") like ?", "%" + StringUtils.normalize(value) + "%", StringType.INSTANCE));
 		}
 		return criteria;
 	}
 	
-	public static Criteria addLongContainsRestriction(Criteria criteria, String field, String value) {
-		if (!StringUtils.isEmpty(value)) {
-			criteria = criteria.add(Restrictions.sqlRestriction("long_to_string(" + field + ") like ?", "%" + value + "%", StringType.INSTANCE));
+	public static <T extends Comparable<T>> Criteria addBetweenRestriction(Criteria criteria, String field, T minValue, T maxValue) {
+		if (minValue != null) {
+			criteria = criteria.add(Restrictions.ge(field, minValue));
+		}
+		if (maxValue != null) {
+			criteria = criteria.add(Restrictions.le(field, maxValue));
 		}
 		return criteria;
 	}
 	
-	public static Criteria addDoubleContainsRestriction(Criteria criteria, String field, String value) {
-		if (!StringUtils.isEmpty(value)) {
-			criteria = criteria.add(Restrictions.sqlRestriction("double_to_string(" + field + ") like ?", "%" + value + "%", StringType.INSTANCE));
-		}
-		return criteria;
-	}
-	
-	public static Criteria addDateContainsRestriction(Criteria criteria, String field, String value) {
-		if (!StringUtils.isEmpty(value)) {
-			criteria = criteria.add(Restrictions.sqlRestriction("date_to_string(" + field + ") like ?", "%" + value + "%", StringType.INSTANCE));
-		}
-		return criteria;
-	}
-	
-	public static Criteria addBooleanRestriction(Criteria criteria, String field, String value) {
-		if (!StringUtils.isEmpty(value)) {
-			if (value.startsWith("t") || value.startsWith("v") || value.startsWith("o")) {
-				criteria = criteria.add(Restrictions.eq(field, true));
-			} else {
-				criteria = criteria.add(Restrictions.eq(field, false));
-			}
+	public static Criteria addBooleanRestriction(Criteria criteria, String field, Boolean value) {
+		if (value != null) {			
+			criteria = criteria.add(Restrictions.eq(field, value));
 		}
 		return criteria;
 	}
