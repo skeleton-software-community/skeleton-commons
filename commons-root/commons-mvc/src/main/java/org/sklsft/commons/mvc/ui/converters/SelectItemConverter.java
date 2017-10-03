@@ -1,4 +1,4 @@
-package org.sklsft.commons.mvc.converters;
+package org.sklsft.commons.mvc.ui.converters;
 
 import org.sklsft.commons.api.model.SelectItem;
 import org.sklsft.commons.crypto.serialization.JsonSerializer;
