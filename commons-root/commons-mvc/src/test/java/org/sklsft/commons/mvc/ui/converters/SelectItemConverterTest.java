@@ -5,7 +5,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.api.model.SelectItem;
 import org.sklsft.commons.crypto.serialization.JsonSerializer;
-import org.sklsft.commons.mvc.ui.converters.SelectItemConverter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
