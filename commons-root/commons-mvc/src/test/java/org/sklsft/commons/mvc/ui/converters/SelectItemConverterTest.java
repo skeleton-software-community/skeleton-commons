@@ -20,7 +20,7 @@ public class SelectItemConverterTest {
 	
 	@Test
 	public void testSelectItemConverter(){
-		SelectItem item = new SelectItem(0L, "test");
+		SelectItem item = new SelectItem("test", "test");
 		SelectItem restoredItem = serializeAndDeserialize(item);
 		Assert.assertEquals(item, restoredItem);
 	}
@@ -36,7 +36,7 @@ public class SelectItemConverterTest {
 	
 	@Test
 	public void testSelectItemConverterForEmpty12L(){
-		SelectItem item = new SelectItem(12L,"");
+		SelectItem item = new SelectItem("test","");
 		String serialized = selectItemConverter.getAsString(null, null, item);
 		SelectItem restoredItem = (SelectItem) selectItemConverter.getAsObject(null, null, serialized);
 		Assert.assertEquals(item, restoredItem);

@@ -11,9 +11,9 @@ public class SelectItemTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		item1 = new SelectItem(5L, "hello");
-		item2 = new SelectItem(5L, "");
-		item3 = new SelectItem(5l, null);
+		item1 = new SelectItem("test", "hello");
+		item2 = new SelectItem("test", "");
+		item3 = new SelectItem("test", null);
 	}
 
 	@Test(expected=NullPointerException.class)
@@ -28,7 +28,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_NullLabelVsNullLabel(){
 		// Given a selectItem with an null label
-		SelectItem item = new SelectItem(5L, null);
+		SelectItem item = new SelectItem("test", null);
 		// When it is compared to a SelectItem with a null label
 		int order = item.compareTo(item3);		
 		// Then it should have the same order
@@ -38,7 +38,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_NullLabelVsEmptyLabel(){
 		// Given a selectItem with an empty label string
-		SelectItem item = new SelectItem(5L, "");
+		SelectItem item = new SelectItem("test", "");
 		// When it is compared to a SelectItem with a null label
 		int order = item.compareTo(item3);		
 		// Then it should be ordered after
@@ -48,7 +48,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_NullLabelVsNonEmptyLabel(){
 		// Given a selectItem with a NON empty label string
-		SelectItem item = new SelectItem(5L, "a");
+		SelectItem item = new SelectItem("test", "a");
 		// When it is compared to a SelectItem with a null label
 		int order = item.compareTo(item3);		
 		// Then it should be ordered after
@@ -58,7 +58,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_EmptyLabelVsEmptyLabel(){
 		// Given a selectItem with an empty label string
-		SelectItem item = new SelectItem(5L, "");
+		SelectItem item = new SelectItem("test", "");
 		// When it is compared to a SelectItem with an empty label
 		int order = item.compareTo(item2);		
 		// Then it should have the same order
@@ -68,7 +68,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_EmptyLabelVsNonEmptyLabel(){
 		// Given a selectItem with a NON empty label string
-		SelectItem item = new SelectItem(5L, "ahah");
+		SelectItem item = new SelectItem("test", "ahah");
 		// When it is compared to a SelectItem with an empty label
 		int order = item.compareTo(item2);		
 		// Then it should be ordered after
@@ -78,7 +78,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_NonEmptyLabelVsNonEmptyLabel_HigherAlphabeticOrder(){
 		// Given a selectItem with a NON empty label string
-		SelectItem item = new SelectItem(5L, "ahah");
+		SelectItem item = new SelectItem("test", "ahah");
 		// When it is compared to a SelectItem with a non empty label whith a HIGHER rank in the alphabetical order
 		int order = item.compareTo(item1);		
 		// Then it should be ordered before
@@ -88,7 +88,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_NonEmptyLabelVsNonEmptyLabel_SameAlphabeticOrder(){
 		// Given a selectItem with a NON empty label string
-		SelectItem item = new SelectItem(5L, "hello");
+		SelectItem item = new SelectItem("test", "hello");
 		// When it is compared to a SelectItem with a non empty label whith the SAME rank in the alphabetical order
 		int order = item.compareTo(item1);		
 		// Then it should be ordered before
@@ -98,7 +98,7 @@ public class SelectItemTest {
 	@Test
 	public void testSelectItemComparator_NonEmptyLabelVsNonEmptyLabel_LowerAlphabeticOrder(){
 		// Given a selectItem with a NON empty label string
-		SelectItem item = new SelectItem(5L, "xx");
+		SelectItem item = new SelectItem("test", "xx");
 		// When it is compared to a SelectItem with a non empty label whith a LOWER rank in the alphabetical order
 		int order = item.compareTo(item2);		
 		// Then it should be ordered before

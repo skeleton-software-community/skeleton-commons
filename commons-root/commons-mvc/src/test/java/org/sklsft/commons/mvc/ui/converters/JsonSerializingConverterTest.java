@@ -20,13 +20,13 @@ private static JsonSerializingConverter<SelectItem> converter;
 	@Test
 	public void testJsonSerializingConverter() {
 		
-		SelectItem item = new SelectItem(0L,"test");
+		SelectItem item = new SelectItem("test","test");
 		
 		String serializeResult = converter.getAsString(null, null, item);
 		
 		SelectItem deserializeResult = (SelectItem) converter.getAsObject(null, null, serializeResult);
 		
-		Assert.assertEquals(deserializeResult.getId(), item.getId());
+		Assert.assertEquals(deserializeResult.getKey(), item.getKey());
 		Assert.assertEquals(deserializeResult.getLabel(), item.getLabel());
 		
 	}	
