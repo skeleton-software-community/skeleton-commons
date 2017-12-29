@@ -1,5 +1,6 @@
 package org.sklsft.commons.mapper.impl;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.util.Date;
@@ -30,6 +31,10 @@ public class StringToObjectConverter {
 
 		if (clazz.equals(Double.class)) {
 			return Double.valueOf(value);
+		}
+		
+		if (clazz.equals(BigDecimal.class)) {
+			return new BigDecimal(value);
 		}
 
 		if (clazz.equals(Long.class)) {
