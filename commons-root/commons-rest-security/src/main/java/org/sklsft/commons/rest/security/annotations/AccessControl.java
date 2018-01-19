@@ -5,14 +5,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.sklsft.commons.rest.security.access.AccessControlType;
 import org.sklsft.commons.rest.security.aspect.AccessControlAspect;
-import org.sklsft.commons.rest.security.validation.AccessControlType;
+import org.sklsft.commons.rest.security.tokens.TokenExtractionMode;
 
 
 /**
- * Used to indicates a rest controller method which {@link AccessControlType} must be considered by the {@link AccessControlAspect}
+ * Used to indicates a rest controller method :
+ * <li>which {@link AccessControlType} must be considered by the {@link AccessControlAspect}
+ * <li>which {@link TokenExtractionMode} to be used to get the tokens
  * 
- * @author Nicolas Thibault
+ * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -20,5 +23,5 @@ import org.sklsft.commons.rest.security.validation.AccessControlType;
 public @interface AccessControl {
 
 	AccessControlType value() default AccessControlType.PRIVATE;
-
+	TokenExtractionMode tokenExtractionMode() default TokenExtractionMode.HEADER;
 }

@@ -1,13 +1,13 @@
-package org.sklsft.commons.rest.security.context.impl;
+package org.sklsft.commons.rest.security.credentials.impl;
 
 import org.sklsft.commons.crypto.ObjectEncoder;
-import org.sklsft.commons.rest.security.context.SecurityCredentialsEncoder;
+import org.sklsft.commons.rest.security.credentials.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
 /**
  * imlementation of a {@link SecurityCredentialsEncoder} that uses an {@link ObjectEncoder}
- * @author Nicolas Thibault
  *
+ * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  */
 public class SecurityCredentialsEncoderImpl<T> implements SecurityCredentialsEncoder<T> {
 	

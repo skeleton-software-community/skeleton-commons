@@ -6,12 +6,12 @@ import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
 /**
  * A security context is handled by a ThreadLocal
  * 
- * @author Nicolas Thibault
+ * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  *
  */
 public class SecurityContextHolder {
 
-	private static ThreadLocal<Object> usersCredentials = new ThreadLocal<>();
+	private static ThreadLocal<Object> userCredentials = new ThreadLocal<>();
 	private static ThreadLocal<Object> applicationCredentials = new ThreadLocal<>();
 
 	public static void bindUserCredentials(Object credentials) {
@@ -19,12 +19,12 @@ public class SecurityContextHolder {
 			throw new NullPointerException("Cannot bind credentials : provided credentials is null");
 		}
 
-		Object currentCredentials = getUserCredentials();
+		Object currentCredentials = getUserCredentialsOrNull();
 		if (currentCredentials != null) {
 			throw new CredentialsConflictException("Credentials has already been bound to the Thread");
 		}
 
-		usersCredentials.set(credentials);
+		userCredentials.set(credentials);
 	}
 
 	public static void bindApplicationCredentials(Object credentials) {
@@ -32,7 +32,7 @@ public class SecurityContextHolder {
 			throw new NullPointerException("Cannot bind credentials : provided credentials is null");
 		}
 
-		Object currentCredentials = getApplicationCredentials();
+		Object currentCredentials = getApplicationCredentialsOrNull();
 		if (currentCredentials != null) {
 			throw new CredentialsConflictException("Credentials has already been bound to the Thread");
 		}
@@ -41,28 +41,28 @@ public class SecurityContextHolder {
 	}
 
 	public static void unbindCredentials() {
-		usersCredentials.remove();
+		userCredentials.remove();
 		applicationCredentials.remove();
 	}
 
-	public static Object getUserCredentials() {
-		return usersCredentials.get();
+	public static Object getUserCredentialsOrNull() {
+		return userCredentials.get();
 	}
 
-	public static Object getApplicationCredentials() {
+	public static Object getApplicationCredentialsOrNull() {
 		return applicationCredentials.get();
 	}
 
-	public static Object getCurrentUserCredentials() {
-		Object credentials = getUserCredentials();
+	public static Object getUserCredentials() {
+		Object credentials = getUserCredentialsOrNull();
 		if (credentials == null) {
 			throw new NoBoundCredentialsException("No credentials bound to Thread");
 		}
 		return credentials;
 	}
 
-	public static Object getCurrentApplicationCredentials() {
-		Object credentials = getApplicationCredentials();
+	public static Object getApplicationCredentials() {
+		Object credentials = getApplicationCredentialsOrNull();
 		if (credentials == null) {
 			throw new NoBoundCredentialsException("No credentials bound to Thread");
 		}
