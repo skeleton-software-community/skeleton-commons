@@ -3,6 +3,7 @@ package org.sklsft.commons.rest.security.context.impl;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.credentials.SecurityCredentialsRetriever;
+import org.sklsft.commons.rest.security.exception.TokenNotFoundException;
 
 /**
  * Implementation of {@link SecurityContextProvider} based on the use of :
@@ -35,6 +36,10 @@ public class SecurityContextProviderImpl<A, U> implements SecurityContextProvide
 	
 	@Override
 	public void provideUserSecurityContext(String userToken) {
+		
+		if (userToken == null) {
+			throw new TokenNotFoundException("token.notFound");
+		}
 
 		U credentials = userCredentialsRetriever.retrieveCredentials(userToken);
 		SecurityContextHolder.bindUserCredentials(credentials);

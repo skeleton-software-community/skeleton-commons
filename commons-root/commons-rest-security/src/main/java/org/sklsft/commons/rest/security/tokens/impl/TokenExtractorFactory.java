@@ -18,7 +18,7 @@ public class TokenExtractorFactory {
 				return new TokenFromHeaderExtractor();
 				
 			case COOKIE:
-				return new TokenFromCookieExtractor();
+				return new TokenFromCookieExtractor(new TokenFromHeaderExtractor());
 	
 			default:
 				throw new IllegalArgumentException("mode " + mode.name() + " not supported for token extraction");

@@ -1,6 +1,5 @@
 package org.sklsft.commons.rest.security.credentials.impl;
 
-import org.sklsft.commons.rest.security.credentials.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.credentials.SecurityCredentialsRetriever;
 import org.sklsft.commons.rest.security.credentials.SecurityCredentialsValidator;
 

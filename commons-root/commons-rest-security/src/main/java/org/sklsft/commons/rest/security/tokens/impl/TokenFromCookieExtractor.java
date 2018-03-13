@@ -13,13 +13,28 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  *
  */
 public class TokenFromCookieExtractor implements TokenExtractor {
+	
+	private TokenFromHeaderExtractor tokenFromHeaderExtractor;
+
+	public TokenFromCookieExtractor(TokenFromHeaderExtractor tokenFromHeaderExtractor) {
+		super();
+		this.tokenFromHeaderExtractor = tokenFromHeaderExtractor;
+	}
+
+
 
 	@Override
 	public String extractToken(String key) {
+		
+		String result = tokenFromHeaderExtractor.extractToken(key);
+		
+		if (result != null) {
+			return result;
+		}
+		
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		Cookie[] cookies = servletRequestAttributes.getRequest().getCookies();
 		
-		String result = null;
 		for(Cookie cookie : cookies){
 			if(cookie.getName().equals(key)){
 				result = cookie.getValue();

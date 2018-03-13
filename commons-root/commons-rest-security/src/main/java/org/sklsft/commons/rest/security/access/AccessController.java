@@ -47,6 +47,8 @@ public class AccessController {
 
 
 	private String extractToken(String key, TokenExtractionMode tokenExtractionMode) {
-		return tokenExtractorFactory.getTokenExtractor(tokenExtractionMode).extractToken(key);
+		String result = tokenExtractorFactory.getTokenExtractor(tokenExtractionMode).extractToken(key);
+		
+		return result;
 	}
 }
