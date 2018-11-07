@@ -2,51 +2,40 @@ package org.sklsft.commons.rest.security.context.impl;
 
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
-import org.sklsft.commons.rest.security.credentials.SecurityCredentialsRetriever;
+import org.sklsft.commons.rest.security.credentials.retriever.SecurityCredentialsRetriever;
+import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.TokenNotFoundException;
 
 /**
  * Implementation of {@link SecurityContextProvider} based on the use of :
  * <li>a {@link SecurityContextHolder} which is based on {@link ThreadLocal}
- * <li>two {@link SecurityCredentialsRetriever}
+ * <li>a {@link SecurityCredentialsRetriever}
+ * <li>a {@link SecurityCredentialsValidator}
  * 
  * @author Nicolas Thibault, Abdessalam El Jai
  */
-public class SecurityContextProviderImpl<A, U> implements SecurityContextProvider {
+public class SecurityContextProviderImpl<U> implements SecurityContextProvider {
 
-	private SecurityCredentialsRetriever<A> applicationCredentialsRetriever;
-	private SecurityCredentialsRetriever<U> userCredentialsRetriever;
+	private SecurityCredentialsRetriever<U> credentialsRetriever;
+	private SecurityCredentialsValidator<U> credentialsValidator;
 	
 
-	public SecurityContextProviderImpl(SecurityCredentialsRetriever<A> applicationCredentialsRetriever,
-			SecurityCredentialsRetriever<U> userCredentialsRetriever) {
+	public SecurityContextProviderImpl(SecurityCredentialsRetriever<U> credentialsRetriever, SecurityCredentialsValidator<U> credentialsValidator) {
 		super();
-		this.applicationCredentialsRetriever = applicationCredentialsRetriever;
-		this.userCredentialsRetriever = userCredentialsRetriever;
+		this.credentialsRetriever = credentialsRetriever;
+		this.credentialsValidator = credentialsValidator;
 	}
 	
 	
 	@Override
-	public void provideApplicationSecurityContext(String applicationToken) {
-
-		A credentials = applicationCredentialsRetriever.retrieveCredentials(applicationToken);
-		SecurityContextHolder.bindApplicationCredentials(credentials);
-
-	}
-	
-	@Override
-	public void provideUserSecurityContext(String userToken) {
+	public void provideSecurityContext(String token) {
 		
-		if (userToken == null) {
+		if (token == null) {
 			throw new TokenNotFoundException("token.notFound");
 		}
 
-		U credentials = userCredentialsRetriever.retrieveCredentials(userToken);
-		SecurityContextHolder.bindUserCredentials(credentials);
-	}
-
-	@Override
-	public void clearSecurityContext() {
-		SecurityContextHolder.unbindCredentials();
+		U credentials = credentialsRetriever.retrieveCredentials(token);
+		credentialsValidator.validateCredentials(credentials, token);
+		SecurityContextHolder.bindCredentials(credentials);
 	}
 }

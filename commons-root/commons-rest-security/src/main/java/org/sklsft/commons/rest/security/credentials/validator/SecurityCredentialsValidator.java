@@ -1,4 +1,4 @@
-package org.sklsft.commons.rest.security.credentials;
+package org.sklsft.commons.rest.security.credentials.validator;
 
 /**
  * Responsible for credentials validation. Has to be fully implemented since it depends on 
@@ -11,6 +11,6 @@ package org.sklsft.commons.rest.security.credentials;
  */
 public interface SecurityCredentialsValidator<T> {
 	
-	void validateCredentials(T securityCredentials);
+	void validateCredentials(T securityCredentials, String token);
 
 }

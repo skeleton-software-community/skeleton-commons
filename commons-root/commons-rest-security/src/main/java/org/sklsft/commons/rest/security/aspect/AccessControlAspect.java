@@ -9,7 +9,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.sklsft.commons.rest.security.access.AccessControlType;
 import org.sklsft.commons.rest.security.access.AccessController;
 import org.sklsft.commons.rest.security.annotations.AccessControl;
-import org.sklsft.commons.rest.security.context.SecurityContextProvider;
+import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.tokens.TokenExtractionMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +31,11 @@ public class AccessControlAspect {
 
 	
 	private AccessController accessController;
-	private SecurityContextProvider securityContextProvider;
 	
 
-	public AccessControlAspect(AccessController accessController, SecurityContextProvider securityContextProvider) {
+	public AccessControlAspect(AccessController accessController) {
 		super();
 		this.accessController = accessController;
-		this.securityContextProvider = securityContextProvider;
 	}
 
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
@@ -57,7 +55,7 @@ public class AccessControlAspect {
 			throw t;
 	
 		} finally {
-			securityContextProvider.clearSecurityContext();
+			SecurityContextHolder.unbindCredentials();
 		}
 	}
 	

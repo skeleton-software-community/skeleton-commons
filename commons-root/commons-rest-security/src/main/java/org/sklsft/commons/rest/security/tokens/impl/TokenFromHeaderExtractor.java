@@ -15,6 +15,12 @@ public class TokenFromHeaderExtractor implements TokenExtractor {
 	@Override
 	public String extractToken(String key) {
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		return servletRequestAttributes.getRequest().getHeader(key);
+		String result = servletRequestAttributes.getRequest().getHeader(key);
+		
+		if (result.toLowerCase().startsWith("bearer ")) {
+			result = result.substring(7);
+		}
+		
+		return result;
 	}
 }

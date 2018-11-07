@@ -38,10 +38,9 @@ public class TokenFromCookieExtractor implements TokenExtractor {
 		for(Cookie cookie : cookies){
 			if(cookie.getName().equals(key)){
 				result = cookie.getValue();
-				break;
+				return result;
 			}
 		}
-		
-		return result;
+		return result;		
 	}
 }

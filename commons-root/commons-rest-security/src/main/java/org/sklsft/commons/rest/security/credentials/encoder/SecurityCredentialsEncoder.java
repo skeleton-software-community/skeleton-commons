@@ -1,4 +1,4 @@
-package org.sklsft.commons.rest.security.credentials;
+package org.sklsft.commons.rest.security.credentials.encoder;
 
 
 /**

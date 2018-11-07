@@ -84,6 +84,7 @@
 		<javax.inject.version>1</javax.inject.version>
 		<jackson.version>2.6.0</jackson.version>
 		<commons.codec.version>1.9</commons.codec.version>
+		<java-jwt.version>3.4.1</java-jwt.version>
 		<servlet.version>3.1.0</servlet.version>
 		<jsf.version>2.2.11</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
@@ -208,6 +209,14 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons.codec.version}</version>
+			</dependency>
+			
+			
+			<!-- java-jwt -->
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>${java-jwt.version}</version>
 			</dependency>
 			
 

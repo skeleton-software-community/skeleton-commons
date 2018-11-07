@@ -1,7 +1,9 @@
-package com.sklsft.commons.rest.security.credentials;
+package com.sklsft.commons.rest.security.credentials.encoder;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.sklsft.commons.rest.security.credentials.CredentialsMock;
 
 public class UserSecurityCredentialsEncoderMockTest {
 
@@ -9,14 +11,14 @@ public class UserSecurityCredentialsEncoderMockTest {
 	
 	@Test
 	public void testEncode() {
-		UserCredentialsMock credentials = new UserCredentialsMock();
-		credentials.setFirstName("Nicolas");
-		credentials.setLastName("Thibault");
+		CredentialsMock credentials = new CredentialsMock();
+		credentials.setUserFirstName("Nicolas");
+		credentials.setUserLastName("Thibault");
 		
 		String token = encoder.encode(credentials);
 		System.out.println(token);
 		
-		UserCredentialsMock decoded = encoder.decode(token);
+		CredentialsMock decoded = encoder.decode(token);
 		Assert.assertEquals(credentials, decoded);
 	}
 }

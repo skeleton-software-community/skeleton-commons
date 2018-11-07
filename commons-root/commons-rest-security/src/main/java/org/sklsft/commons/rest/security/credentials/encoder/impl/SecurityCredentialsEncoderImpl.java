@@ -1,7 +1,7 @@
-package org.sklsft.commons.rest.security.credentials.impl;
+package org.sklsft.commons.rest.security.credentials.encoder.impl;
 
 import org.sklsft.commons.crypto.ObjectEncoder;
-import org.sklsft.commons.rest.security.credentials.SecurityCredentialsEncoder;
+import org.sklsft.commons.rest.security.credentials.encoder.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
 /**

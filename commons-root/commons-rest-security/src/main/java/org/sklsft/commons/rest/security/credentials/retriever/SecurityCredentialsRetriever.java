@@ -1,6 +1,6 @@
-package org.sklsft.commons.rest.security.credentials;
+package org.sklsft.commons.rest.security.credentials.retriever;
 
-import org.sklsft.commons.rest.security.credentials.impl.FromCryptedTokenCredentialsRetriever;
+import org.sklsft.commons.rest.security.credentials.retriever.impl.FromCryptedTokenCredentialsRetriever;
 
 /**
  * Provides Credentials from the Token

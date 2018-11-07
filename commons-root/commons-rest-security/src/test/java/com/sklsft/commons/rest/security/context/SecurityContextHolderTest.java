@@ -7,8 +7,7 @@ import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.exception.CredentialsConflictException;
 import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
 
-import com.sklsft.commons.rest.security.credentials.ApplicationCredentialsMock;
-import com.sklsft.commons.rest.security.credentials.UserCredentialsMock;
+import com.sklsft.commons.rest.security.credentials.CredentialsMock;
 
 public class SecurityContextHolderTest {
 	
@@ -16,49 +15,29 @@ public class SecurityContextHolderTest {
 	public void clear() {
 		SecurityContextHolder.unbindCredentials();
 	}
-
-	@Test(expected=NullPointerException.class)
-	public void testBindNullApplicationCredentials() {
-		SecurityContextHolder.bindApplicationCredentials(null);
-	}
+	
 	
 	@Test(expected=NullPointerException.class)
-	public void testBindNullUserCredentials() {
-		SecurityContextHolder.bindUserCredentials(null);
+	public void testBindNullCredentials() {
+		SecurityContextHolder.bindCredentials(null);
 	}
+	
 	
 	@Test
-	public void testBindApplicationCredentials() {
-		ApplicationCredentialsMock credentials = new ApplicationCredentialsMock();
-		SecurityContextHolder.bindApplicationCredentials(credentials);
-		Assert.assertNotNull(SecurityContextHolder.getApplicationCredentialsOrNull());
+	public void testBindCredentials() {
+		CredentialsMock credentials = new CredentialsMock();
+		SecurityContextHolder.bindCredentials(credentials);
+		Assert.assertNotNull(SecurityContextHolder.getCredentialsOrNull());
 	}
 	
-	@Test
-	public void testBindUserCredentials() {
-		UserCredentialsMock credentials = new UserCredentialsMock();
-		SecurityContextHolder.bindUserCredentials(credentials);
-		Assert.assertNotNull(SecurityContextHolder.getUserCredentialsOrNull());
-	}
-	
-	@Test(expected=CredentialsConflictException.class)
-	public void testBindApplicationCredentialsConflict() {
-		ApplicationCredentialsMock credentials = new ApplicationCredentialsMock();
-		SecurityContextHolder.bindApplicationCredentials(credentials);
-		SecurityContextHolder.bindApplicationCredentials(credentials);
-	}
 	
 	@Test(expected=CredentialsConflictException.class)
 	public void testBindUserCredentialsConflict() {
-		UserCredentialsMock credentials = new UserCredentialsMock();
-		SecurityContextHolder.bindUserCredentials(credentials);
-		SecurityContextHolder.bindUserCredentials(credentials);
+		CredentialsMock credentials = new CredentialsMock();
+		SecurityContextHolder.bindCredentials(credentials);
+		SecurityContextHolder.bindCredentials(credentials);
 	}
 	
-	@Test(expected=NoBoundCredentialsException.class)
-	public void testGetNullApplicationCredentials() {
-		SecurityContextHolder.getApplicationCredentials();
-	}
 	
 	@Test(expected=NoBoundCredentialsException.class)
 	public void testGetNullUserCredentials() {

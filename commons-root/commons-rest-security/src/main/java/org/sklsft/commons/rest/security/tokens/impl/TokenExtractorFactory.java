@@ -12,7 +12,7 @@ import org.sklsft.commons.rest.security.tokens.TokenExtractor;
  */
 public class TokenExtractorFactory {
 
-	public TokenExtractor getTokenExtractor(TokenExtractionMode mode) {
+	public static TokenExtractor getTokenExtractor(TokenExtractionMode mode) {
 		switch (mode) {
 			case HEADER:
 				return new TokenFromHeaderExtractor();

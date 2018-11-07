@@ -7,7 +7,7 @@ import org.sklsft.commons.rest.security.tokens.impl.TokenExtractorFactory;
 /**
  * 
  * This class will :
- * <li>Extract the token and the application secret key with @{link TokenExtractor}
+ * <li>Extract the token with @{link TokenExtractor}
  * <li>Give a security context with the {@link SecurityContextProvider}
  * 
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
@@ -15,40 +15,38 @@ import org.sklsft.commons.rest.security.tokens.impl.TokenExtractorFactory;
  */
 public class AccessController {
 
-	private SecurityContextProvider securityContextProvider;
-	private TokenExtractorFactory tokenExtractorFactory;
-	
-	private String applicationTokenName;
-	private String userTokenName;
-	
-	
-	public AccessController(SecurityContextProvider securityContextProvider,
-			String applicationTokenName, String userTokenName) {
+	private SecurityContextProvider anonymousSecurityContextProvider;
+	private SecurityContextProvider privateSecurityContextProvider;
+	private String anonymousTokenName;
+	private String privateTokenName;
+
+
+	public AccessController(SecurityContextProvider anonymousSecurityContextProvider,
+			SecurityContextProvider privateSecurityContextProvider, String anymousTokenName, String privateTokenName) {
 		super();
-		this.tokenExtractorFactory = new TokenExtractorFactory();
-		this.securityContextProvider = securityContextProvider;		
-		this.applicationTokenName = applicationTokenName;
-		this.userTokenName = userTokenName;
+		this.anonymousSecurityContextProvider = anonymousSecurityContextProvider;
+		this.privateSecurityContextProvider = privateSecurityContextProvider;
+		this.anonymousTokenName = anymousTokenName;
+		this.privateTokenName = privateTokenName;
 	}
 
 
 	public void handshake(AccessControlType accessControlType, TokenExtractionMode tokenExtractionMode) {
 
 		if (!accessControlType.equals(AccessControlType.PUBLIC)) {
-			String secretKey = extractToken(applicationTokenName, tokenExtractionMode);
-			securityContextProvider.provideApplicationSecurityContext(secretKey);
+			if (accessControlType.equals(AccessControlType.ANONYMOUS)) {
+				String token = extractToken(anonymousTokenName, tokenExtractionMode);
+				anonymousSecurityContextProvider.provideSecurityContext(token);
+			} else {
+				String token = extractToken(privateTokenName, tokenExtractionMode);
+				privateSecurityContextProvider.provideSecurityContext(token);
+			}
 		}
-
-		if (accessControlType.equals(AccessControlType.PRIVATE)) {
-			String token = extractToken(userTokenName, tokenExtractionMode);
-			securityContextProvider.provideUserSecurityContext(token);
-		}			
 	}
 
 
 	private String extractToken(String key, TokenExtractionMode tokenExtractionMode) {
-		String result = tokenExtractorFactory.getTokenExtractor(tokenExtractionMode).extractToken(key);
-		
+		String result = TokenExtractorFactory.getTokenExtractor(tokenExtractionMode).extractToken(key);
 		return result;
 	}
 }
