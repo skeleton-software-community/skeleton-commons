@@ -3,8 +3,8 @@ package org.sklsft.commons.mapper;
 import java.util.Date;
 import java.util.List;
 
-import org.sklsft.commons.api.annotations.compare.DeepCompare;
-import org.sklsft.commons.api.annotations.compare.IgnoreCompare;
+import org.sklsft.commons.api.annotations.compare.Deep;
+import org.sklsft.commons.api.annotations.compare.Ignored;
 
 public class Compared {
 
@@ -18,13 +18,13 @@ public class Compared {
 	
 	private List<String> strings;
 	
-	@DeepCompare
+	@Deep
 	private Dummy dummy;
 	
-	@DeepCompare
+	@Deep
 	private List<Fool> fools;
 	
-	@IgnoreCompare
+	@Ignored
 	private String ignoredField;
 	
 	/*

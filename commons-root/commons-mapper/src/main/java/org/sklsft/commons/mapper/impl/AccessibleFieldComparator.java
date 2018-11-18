@@ -2,7 +2,7 @@ package org.sklsft.commons.mapper.impl;
 
 import java.util.Iterator;
 
-import org.sklsft.commons.api.annotations.compare.DeepCompare;
+import org.sklsft.commons.api.annotations.compare.Deep;
 import org.sklsft.commons.mapper.beans.AccessibleField;
 
 public class AccessibleFieldComparator {
@@ -31,7 +31,7 @@ public class AccessibleFieldComparator {
 		
 		Class<?> clazz = accessibleField.field.getType();
 		
-		if (accessibleField.field.isAnnotationPresent(DeepCompare.class)) {
+		if (accessibleField.field.isAnnotationPresent(Deep.class)) {
 			
 			if (accessibleField.isIterable()) {
 				Class<?> iterableClass = accessibleField.getIterableClass();

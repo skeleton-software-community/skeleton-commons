@@ -7,14 +7,14 @@ import java.lang.annotation.Target;
 
 
 /**
- * Used to indicates to ignore field when comparing.
+ * Used to indicates a comparison or a copy must go into a property and introspect its properties.
  * 
  * @author Nicolas Thibault
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.FIELD)
-public @interface IgnoreCompare {
+public @interface Deep {
 
 	
 }

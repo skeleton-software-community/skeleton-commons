@@ -1,6 +1,6 @@
 package org.sklsft.commons.mapper.impl;
 
-import org.sklsft.commons.api.annotations.compare.IgnoreCompare;
+import org.sklsft.commons.api.annotations.compare.Ignored;
 import org.sklsft.commons.mapper.beans.AccessibleField;
 import org.sklsft.commons.mapper.beans.MappableBean;
 import org.sklsft.commons.mapper.beans.MappableBeanFactory;
@@ -35,7 +35,7 @@ public class DeepCopier<T> implements Copier<T> {
 		}		
 
 		for (AccessibleField accessibleField : mappableBean.accessibleFields) {
-			if (copyIgnoredFields || !accessibleField.field.isAnnotationPresent(IgnoreCompare.class)) {		
+			if (copyIgnoredFields || !accessibleField.field.isAnnotationPresent(Ignored.class)) {		
 				accessibleField.setValue(accessibleField.getValue(src), dest);
 			}
 		}

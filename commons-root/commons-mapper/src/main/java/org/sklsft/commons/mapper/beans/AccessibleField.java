@@ -7,6 +7,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Representation of a field with its getters and setters methods<br>
@@ -105,6 +107,18 @@ public class AccessibleField {
 	 */
 	public boolean isIterable() {
 		return Iterable.class.isAssignableFrom(field.getType());
+	}
+	
+	public boolean isList() {
+		return List.class.isAssignableFrom(field.getType());
+	}
+	
+	public boolean isSet() {
+		return Set.class.isAssignableFrom(field.getType());
+	}
+	
+	public boolean isMap() {
+		return Map.class.isAssignableFrom(field.getType());
 	}
 	
 	
