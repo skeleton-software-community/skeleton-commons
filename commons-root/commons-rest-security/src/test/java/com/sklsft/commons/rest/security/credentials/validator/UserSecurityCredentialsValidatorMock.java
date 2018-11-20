@@ -8,7 +8,7 @@ import com.sklsft.commons.rest.security.credentials.CredentialsMock;
 public class UserSecurityCredentialsValidatorMock implements SecurityCredentialsValidator<CredentialsMock> {
 
 	@Override
-	public void validateCredentials(CredentialsMock securityCredentials, String token) {
+	public void validateCredentials(CredentialsMock securityCredentials) {
 		if (!(securityCredentials.getUserFirstName().equals("Nicolas") && securityCredentials.getUserLastName().equals("Thibault"))) {
 			throw new InvalidTokenException("Bad credentials");
 		}

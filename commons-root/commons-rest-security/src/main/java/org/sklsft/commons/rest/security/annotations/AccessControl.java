@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 import org.sklsft.commons.rest.security.access.AccessControlType;
 import org.sklsft.commons.rest.security.aspect.AccessControlAspect;
-import org.sklsft.commons.rest.security.tokens.TokenExtractionMode;
+import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractionMode;
 
 
 /**

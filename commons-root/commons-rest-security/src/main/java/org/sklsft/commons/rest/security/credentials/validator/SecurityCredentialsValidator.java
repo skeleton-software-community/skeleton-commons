@@ -11,6 +11,6 @@ package org.sklsft.commons.rest.security.credentials.validator;
  */
 public interface SecurityCredentialsValidator<T> {
 	
-	void validateCredentials(T securityCredentials, String token);
+	void validateCredentials(T securityCredentials);
 
 }

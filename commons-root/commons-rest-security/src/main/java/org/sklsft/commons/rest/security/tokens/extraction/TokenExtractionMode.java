@@ -1,4 +1,4 @@
-package org.sklsft.commons.rest.security.tokens;
+package org.sklsft.commons.rest.security.tokens.extraction;
 
 import org.sklsft.commons.rest.security.annotations.AccessControl;
 

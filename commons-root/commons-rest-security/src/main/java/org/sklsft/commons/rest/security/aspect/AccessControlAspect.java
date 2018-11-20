@@ -10,7 +10,7 @@ import org.sklsft.commons.rest.security.access.AccessControlType;
 import org.sklsft.commons.rest.security.access.AccessController;
 import org.sklsft.commons.rest.security.annotations.AccessControl;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
-import org.sklsft.commons.rest.security.tokens.TokenExtractionMode;
+import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractionMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

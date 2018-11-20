@@ -1,4 +1,4 @@
-package com.sklsft.commons.rest.security.tokens;
+package com.sklsft.commons.rest.security.tokens.extraction;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.sklsft.commons.api.exception.TechnicalError;
-import org.sklsft.commons.rest.security.tokens.TokenExtractor;
+import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractor;
 
 public class TokenExtractorMock implements TokenExtractor {
 

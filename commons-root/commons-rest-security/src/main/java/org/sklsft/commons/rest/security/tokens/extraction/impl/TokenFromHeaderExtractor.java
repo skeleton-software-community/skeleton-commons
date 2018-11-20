@@ -1,6 +1,6 @@
-package org.sklsft.commons.rest.security.tokens.impl;
+package org.sklsft.commons.rest.security.tokens.extraction.impl;
 
-import org.sklsft.commons.rest.security.tokens.TokenExtractor;
+import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

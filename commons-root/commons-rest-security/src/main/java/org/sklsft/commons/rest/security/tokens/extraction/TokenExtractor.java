@@ -1,6 +1,6 @@
-package org.sklsft.commons.rest.security.tokens;
+package org.sklsft.commons.rest.security.tokens.extraction;
 
-import org.sklsft.commons.rest.security.tokens.impl.TokenExtractorFactory;
+import org.sklsft.commons.rest.security.tokens.extraction.impl.TokenExtractorFactory;
 
 /**
  * 

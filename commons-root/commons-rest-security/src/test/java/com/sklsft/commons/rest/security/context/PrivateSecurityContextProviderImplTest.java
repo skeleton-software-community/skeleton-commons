@@ -11,23 +11,27 @@ import org.sklsft.commons.rest.security.credentials.retriever.SecurityCredential
 import org.sklsft.commons.rest.security.credentials.retriever.impl.FromCryptedTokenCredentialsRetriever;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
+import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
 
 import com.sklsft.commons.rest.security.credentials.CredentialsMock;
 import com.sklsft.commons.rest.security.credentials.encoder.UserSecurityCredentialsEncoderMock;
 import com.sklsft.commons.rest.security.credentials.validator.UserSecurityCredentialsValidatorMock;
+import com.sklsft.commons.rest.security.tokens.verification.TokenVerifierMock;
 
 
 public class PrivateSecurityContextProviderImplTest {
 
+	private static TokenVerifier tokenVerifier;
 	private static SecurityCredentialsRetriever<CredentialsMock> credentialsRetriever;
 	private static SecurityCredentialsValidator<CredentialsMock> credentialsValidator;
 	private static SecurityContextProvider provider;
 	
 	@BeforeClass
 	public static void init() {
+		tokenVerifier = new TokenVerifierMock();
 		credentialsRetriever = new FromCryptedTokenCredentialsRetriever<>(new UserSecurityCredentialsEncoderMock());
 		credentialsValidator = new UserSecurityCredentialsValidatorMock();
-		provider = new SecurityContextProviderImpl<>(credentialsRetriever, credentialsValidator);
+		provider = new SecurityContextProviderImpl<>(tokenVerifier, credentialsRetriever, credentialsValidator);
 	}
 	
 	@After

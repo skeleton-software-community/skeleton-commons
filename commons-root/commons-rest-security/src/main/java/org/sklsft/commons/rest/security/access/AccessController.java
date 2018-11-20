@@ -1,8 +1,8 @@
 package org.sklsft.commons.rest.security.access;
 
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
-import org.sklsft.commons.rest.security.tokens.TokenExtractionMode;
-import org.sklsft.commons.rest.security.tokens.impl.TokenExtractorFactory;
+import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractionMode;
+import org.sklsft.commons.rest.security.tokens.extraction.impl.TokenExtractorFactory;
 
 /**
  * 

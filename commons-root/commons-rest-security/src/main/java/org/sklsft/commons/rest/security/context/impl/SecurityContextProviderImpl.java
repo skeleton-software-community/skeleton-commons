@@ -5,6 +5,7 @@ import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.credentials.retriever.SecurityCredentialsRetriever;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.TokenNotFoundException;
+import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
 
 /**
  * Implementation of {@link SecurityContextProvider} based on the use of :
@@ -16,12 +17,14 @@ import org.sklsft.commons.rest.security.exception.TokenNotFoundException;
  */
 public class SecurityContextProviderImpl<U> implements SecurityContextProvider {
 
+	private TokenVerifier tokenVerifier;
 	private SecurityCredentialsRetriever<U> credentialsRetriever;
 	private SecurityCredentialsValidator<U> credentialsValidator;
 	
 
-	public SecurityContextProviderImpl(SecurityCredentialsRetriever<U> credentialsRetriever, SecurityCredentialsValidator<U> credentialsValidator) {
+	public SecurityContextProviderImpl(TokenVerifier tokenVerifier, SecurityCredentialsRetriever<U> credentialsRetriever, SecurityCredentialsValidator<U> credentialsValidator) {
 		super();
+		this.tokenVerifier = tokenVerifier;
 		this.credentialsRetriever = credentialsRetriever;
 		this.credentialsValidator = credentialsValidator;
 	}
@@ -33,9 +36,9 @@ public class SecurityContextProviderImpl<U> implements SecurityContextProvider {
 		if (token == null) {
 			throw new TokenNotFoundException("token.notFound");
 		}
-
+		tokenVerifier.verifyToken(token);
 		U credentials = credentialsRetriever.retrieveCredentials(token);
-		credentialsValidator.validateCredentials(credentials, token);
+		credentialsValidator.validateCredentials(credentials);
 		SecurityContextHolder.bindCredentials(credentials);
 	}
 }

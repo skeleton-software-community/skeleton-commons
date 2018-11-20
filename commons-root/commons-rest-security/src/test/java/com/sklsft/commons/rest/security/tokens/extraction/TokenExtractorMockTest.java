@@ -1,8 +1,8 @@
-package com.sklsft.commons.rest.security.tokens;
+package com.sklsft.commons.rest.security.tokens.extraction;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.sklsft.commons.rest.security.tokens.TokenExtractor;
+import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractor;
 
 public class TokenExtractorMockTest {
 
