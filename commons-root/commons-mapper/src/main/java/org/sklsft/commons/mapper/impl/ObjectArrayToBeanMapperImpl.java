@@ -28,7 +28,7 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 			//Oracle patch for Long mapping
 			AccessibleField accessibleField = mappableBean.accessibleFields.get(i+startField);
 			Object value = objectArray[i];
-			if (Long.class.isAssignableFrom(accessibleField.field.getType())) {
+			if (Long.class.isAssignableFrom(accessibleField.fieldClass)) {
 				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
 					value = ((BigDecimal)value).longValue();
 				}

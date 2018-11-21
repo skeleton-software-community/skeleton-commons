@@ -25,7 +25,7 @@ public class StringArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 		
 		for (int i = 0;i<stringArray.length;i++) {
 			AccessibleField accessibleField = mappableBean.accessibleFields.get(i + startField);
-			accessibleField.setValue(StringToObjectConverter.getObjectFromString((String)stringArray[i], accessibleField.field.getType()), obj);
+			accessibleField.setValue(StringToObjectConverter.getObjectFromString((String)stringArray[i], accessibleField.fieldClass), obj);
 		}
 		
 		return obj;

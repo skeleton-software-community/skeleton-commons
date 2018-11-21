@@ -2,6 +2,7 @@ package org.sklsft.commons.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.sklsft.commons.api.annotations.compare.Deep;
 import org.sklsft.commons.api.annotations.compare.Ignored;
@@ -18,11 +19,16 @@ public class Compared {
 	
 	private List<String> strings;
 	
+	private Map<String, String> stringMap;
+	
 	@Deep
 	private Dummy dummy;
 	
 	@Deep
 	private List<Fool> fools;
+	
+	@Deep
+	private Map<String, Fool> foolMap;
 	
 	@Ignored
 	private String ignoredField;
@@ -30,24 +36,26 @@ public class Compared {
 	/*
 	 * constructors
 	 */
-	public Compared(Long longField, Date dateField, String stringField,
-			Boolean booleanField, List<String> strings, Dummy dummy,
-			List<Fool> fools) {
+	public Compared() {
+		super();
+	}
+	
+	
+	public Compared(Long longField, Date dateField, String stringField, Boolean booleanField, List<String> strings,
+			Map<String, String> stringMap, Dummy dummy, List<Fool> fools, Map<String, Fool> foolMap) {
 		super();
 		this.longField = longField;
 		this.dateField = dateField;
 		this.stringField = stringField;
 		this.booleanField = booleanField;
 		this.strings = strings;
+		this.stringMap = stringMap;
 		this.dummy = dummy;
 		this.fools = fools;
+		this.foolMap = foolMap;
 	}
-	
-	public Compared() {
-		
-	}
-	
-	
+
+
 	/*
 	 * getters and setters
 	 */
@@ -75,6 +83,18 @@ public class Compared {
 	public void setBooleanField(Boolean booleanField) {
 		this.booleanField = booleanField;
 	}
+	public List<String> getStrings() {
+		return strings;
+	}
+	public void setStrings(List<String> strings) {
+		this.strings = strings;
+	}
+	public Map<String, String> getStringMap() {
+		return stringMap;
+	}
+	public void setStringMap(Map<String, String> stringMap) {
+		this.stringMap = stringMap;
+	}
 	public Dummy getDummy() {
 		return dummy;
 	}
@@ -87,11 +107,11 @@ public class Compared {
 	public void setFools(List<Fool> fools) {
 		this.fools = fools;
 	}
-	public List<String> getStrings() {
-		return strings;
+	public Map<String, Fool> getFoolMap() {
+		return foolMap;
 	}
-	public void setStrings(List<String> strings) {
-		this.strings = strings;
+	public void setFoolMap(Map<String, Fool> foolMap) {
+		this.foolMap = foolMap;
 	}
 	public String getIgnoredField() {
 		return ignoredField;

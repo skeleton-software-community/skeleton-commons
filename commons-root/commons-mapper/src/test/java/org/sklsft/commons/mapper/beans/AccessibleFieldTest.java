@@ -64,16 +64,14 @@ public class AccessibleFieldTest {
 	
 	
 	@Test
-	public void testIterableField() {
-		AccessibleField iterableField = dummyBean.accessibleFieldsMap.get("strings");
-		
-		Assert.assertTrue(iterableField.isIterable());
+	public void testListField() {
+		AccessibleField iterableField = dummyBean.accessibleFieldsMap.get("strings");		
+		Assert.assertTrue(iterableField.isList);
 	}
 	
 	@Test
 	public void testGenericParameter() {
-		AccessibleField iterableField = dummyBean.accessibleFieldsMap.get("strings");
-		
+		AccessibleField iterableField = dummyBean.accessibleFieldsMap.get("strings");		
 		Assert.assertTrue(iterableField.genericParameters.get(0).equals(String.class));
 	}
 }

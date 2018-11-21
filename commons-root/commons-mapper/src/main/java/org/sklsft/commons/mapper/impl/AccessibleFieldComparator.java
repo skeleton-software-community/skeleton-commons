@@ -1,6 +1,8 @@
 package org.sklsft.commons.mapper.impl;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import org.sklsft.commons.api.annotations.compare.Deep;
 import org.sklsft.commons.mapper.beans.AccessibleField;
@@ -29,25 +31,31 @@ public class AccessibleFieldComparator {
 			return val1 == null;
 		}
 		
-		Class<?> clazz = accessibleField.field.getType();
+		Class<?> clazz = accessibleField.fieldClass;
 		
 		if (accessibleField.field.isAnnotationPresent(Deep.class)) {
 			
-			if (accessibleField.isIterable()) {
-				Class<?> iterableClass = accessibleField.getIterableClass();
-				
-				return areIteratorsDeeplyEqual(iterableClass, ((Iterable)val1).iterator(), ((Iterable)val2).iterator());
+			if (accessibleField.isList) {
+				Class<?> genericClass = accessibleField.genericParameters.get(0);				
+				return areIteratorsDeeplyEqual(genericClass, ((Iterable)val1).iterator(), ((Iterable)val2).iterator());
 			}
 			
-			DeepComparator deepComparator = new DeepComparator(clazz);
+			if (accessibleField.isMap) {
+				Class<?> valueClass = accessibleField.genericParameters.get(1);
+				return areMapsDeeplyEqual(valueClass, ((Map)val1), ((Map)val2));
+			}
 			
-			return deepComparator.areEqual(val1, val2);
-			
+			DeepComparator deepComparator = new DeepComparator(clazz);			
+			return deepComparator.areEqual(val1, val2);			
 		}
 		
-		if (accessibleField.isIterable()) {
+		if (accessibleField.isList) {
 			return areIteratorsEqual(((Iterable)val1).iterator(), ((Iterable)val2).iterator());
-		}		
+		}
+		
+		if (accessibleField.isMap) {
+			return areMapsEqual(((Map)val1), ((Map)val2));
+		}
 		
 		return val1.equals(val2);		
 	}
@@ -91,6 +99,45 @@ public class AccessibleFieldComparator {
 			}			
 		}
 		
+		return true;
+	}
+
+
+	@SuppressWarnings("rawtypes")
+	private boolean areMapsDeeplyEqual(Class<?> valueClass, Map map1, Map map2) {
+		
+		DeepComparator deepComparator = new DeepComparator(valueClass);
+		
+		Set<?> keySet1 = map1.keySet();
+		Set<?> keySet2 = map2.keySet();
+		
+		if (keySet1.size()!=keySet2.size()) {
+			return false;
+		}
+		
+		for (Object key:keySet1) {
+			if (!deepComparator.areEqual(map1.get(key), map2.get(key))) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	private boolean areMapsEqual(Map map1, Map map2) {
+		Set<?> keySet1 = map1.keySet();
+		Set<?> keySet2 = map2.keySet();
+		
+		if (keySet1.size()!=keySet2.size()) {
+			return false;
+		}
+		
+		for (Object key:keySet1) {
+			if (!map1.get(key).equals(map2.get(key))) {
+				return false;
+			}
+		}
 		return true;
 	}
 }

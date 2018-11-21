@@ -23,16 +23,29 @@ public class AccessibleField {
 	public Field field;
 	public Method getter;
 	public Method setter;
+	public Class<?> fieldClass;
+	public boolean isParameterized;
 	public List<Class<?>> genericParameters;
+	public boolean isList;
+	public boolean isSet;
+	public boolean isCollection;
+	public boolean isMap;
+	
 	
 	/**
 	 * constructor
 	 */
-	public AccessibleField(Field field,Method getter, Method setter) {
+	public AccessibleField(Field field, Method getter, Method setter) {
 		this.field = field;
 		this.getter = getter;
 		this.setter = setter;
-		this.genericParameters = getGenericParameters();
+		this.fieldClass = field.getType();
+		this.isParameterized = isParameterized();
+		this.genericParameters = getGenericParameters();		
+		this.isList = isList();
+		this.isSet = isSet();
+		this.isCollection = isList || isSet;
+		this.isMap = isMap();
 	}
 	
 	
@@ -81,6 +94,15 @@ public class AccessibleField {
 	
 	
 	/**
+	 * Determines whether the field has Generic Parameters
+	 * @return
+	 */
+	private boolean isParameterized() {
+		return field.getType().getTypeParameters().length > 0;
+	}
+	
+	
+	/**
 	 * construct the Parameterized fields through setters arguments
 	 * If the field has no Generic Parameters, returns an empty list
 	 * @return
@@ -101,37 +123,15 @@ public class AccessibleField {
 	}
 	
 	
-	/**
-	 * Useful when we need to introspect the elements of an iterable property
-	 * @return
-	 */
-	public boolean isIterable() {
-		return Iterable.class.isAssignableFrom(field.getType());
-	}
-	
-	public boolean isList() {
+	private boolean isList() {
 		return List.class.isAssignableFrom(field.getType());
 	}
 	
-	public boolean isSet() {
+	private boolean isSet() {
 		return Set.class.isAssignableFrom(field.getType());
 	}
 	
-	public boolean isMap() {
+	private boolean isMap() {
 		return Map.class.isAssignableFrom(field.getType());
-	}
-	
-	
-	public Class<?> getIterableClass() {
-		return genericParameters.get(0);
-	}
-	
-	
-	/**
-	 * Determines whether the field has Generic Parameters
-	 * @return
-	 */
-	public boolean isParameterized() {
-		return field.getType().getTypeParameters().length > 0;
 	}
 }
