@@ -37,7 +37,7 @@ public class SecurityContextHolder {
 	}
 
 
-	public static Object getUserCredentials() {
+	public static Object getCredentials() {
 		Object credentials = getCredentialsOrNull();
 		if (credentials == null) {
 			throw new NoBoundCredentialsException("No credentials bound to Thread");

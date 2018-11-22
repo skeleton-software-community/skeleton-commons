@@ -7,30 +7,31 @@ import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.context.impl.SecurityContextProviderImpl;
-import org.sklsft.commons.rest.security.credentials.retriever.SecurityCredentialsRetriever;
+import org.sklsft.commons.rest.security.credentials.extractor.SecurityCredentialsExtractor;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
+import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.PlainTextTokenEncoder;
 import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
+import org.sklsft.commons.rest.security.tokens.verification.impl.UnsignedTokenVerifier;
 
-import com.sklsft.commons.rest.security.credentials.CredentialsMock;
-import com.sklsft.commons.rest.security.credentials.retriever.FromMapCredentialsRetrieverMock;
-import com.sklsft.commons.rest.security.credentials.validator.ApplicationSecurityCredentialsValidatorMock;
-import com.sklsft.commons.rest.security.tokens.verification.TokenVerifierMock;
+import com.sklsft.commons.rest.security.credentials.extractor.FromMapCredentialsMockExtractor;
+import com.sklsft.commons.rest.security.credentials.validator.ApplicationCredentialsMockValidator;
+import com.sklsft.commons.rest.security.tokens.CredentialsMock;
 
 
 public class AnonymousSecurityContextProviderImplTest {
+	
+	private static TokenEncoder<String> tokenEncoder = new PlainTextTokenEncoder();
+	private static TokenVerifier<String> tokenVerifier = new UnsignedTokenVerifier<>();
+	private static SecurityCredentialsExtractor<String, CredentialsMock> credentialsExtractor = new FromMapCredentialsMockExtractor();
+	private static SecurityCredentialsValidator<CredentialsMock> credentialsValidator = new ApplicationCredentialsMockValidator();
 
-	private static TokenVerifier tokenVerifier;
-	private static SecurityCredentialsRetriever<CredentialsMock> credentialsRetriever;
-	private static SecurityCredentialsValidator<CredentialsMock> credentialsValidator;
 	private static SecurityContextProvider provider;
 	
 	@BeforeClass
 	public static void init() {
-		tokenVerifier = new TokenVerifierMock();
-		credentialsRetriever = new FromMapCredentialsRetrieverMock();
-		credentialsValidator = new ApplicationSecurityCredentialsValidatorMock();
-		provider = new SecurityContextProviderImpl<>(tokenVerifier, credentialsRetriever, credentialsValidator);
+		provider = new SecurityContextProviderImpl<String, CredentialsMock>(tokenEncoder, tokenVerifier, credentialsExtractor, credentialsValidator);
 	}
 	
 	@After
@@ -42,7 +43,7 @@ public class AnonymousSecurityContextProviderImplTest {
 	public void testProvideValidCredentials() {
 		provider.provideSecurityContext("Sklgen");
 		
-		CredentialsMock credentials = (CredentialsMock) SecurityContextHolder.getUserCredentials();
+		CredentialsMock credentials = (CredentialsMock) SecurityContextHolder.getCredentials();
 		Assert.assertTrue(credentials.getApplicationName().equals("Sklgen") && credentials.getApplicationEditor().equals("Skeleton Software Community"));	
 	}
 	

@@ -1,19 +1,19 @@
-package com.sklsft.commons.rest.security.credentials.retriever;
+package com.sklsft.commons.rest.security.credentials.extractor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.sklsft.commons.rest.security.credentials.retriever.impl.FromMapCredentialsRetriever;
+import org.sklsft.commons.rest.security.credentials.extractor.impl.FromMapCredentialsExtractor;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
-import com.sklsft.commons.rest.security.credentials.CredentialsMock;
+import com.sklsft.commons.rest.security.tokens.CredentialsMock;
 
 /**
  *
  *
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  */
-public class FromMapCredentialsRetrieverMock extends FromMapCredentialsRetriever<CredentialsMock> {
+public class FromMapCredentialsMockExtractor extends FromMapCredentialsExtractor<CredentialsMock> {
 	
 	private static Map<String, CredentialsMock> credentials = new HashMap<>();
 	

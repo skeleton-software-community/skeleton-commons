@@ -1,11 +1,11 @@
-package com.sklsft.commons.rest.security.credentials.encoder;
+package com.sklsft.commons.rest.security.tokens.encoder;
 
-import org.sklsft.commons.rest.security.credentials.encoder.SecurityCredentialsEncoder;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
+import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
 
-import com.sklsft.commons.rest.security.credentials.CredentialsMock;
+import com.sklsft.commons.rest.security.tokens.CredentialsMock;
 
-public class UserSecurityCredentialsEncoderMock implements SecurityCredentialsEncoder<CredentialsMock> {
+public class CredentialsMockEncoder implements TokenEncoder<CredentialsMock> {
 
 	@Override
 	public CredentialsMock decode(String token) {

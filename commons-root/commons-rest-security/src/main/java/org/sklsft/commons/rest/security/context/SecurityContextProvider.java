@@ -1,10 +1,8 @@
 package org.sklsft.commons.rest.security.context;
 
 /**
- * Responsible for :
- * <li>Providing a security context given a user token
- * <li>Destroying security contexts
- * 
+ * Responsible for Providing a security context given a user token
+ *
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  *
  */

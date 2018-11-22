@@ -7,7 +7,7 @@ import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.exception.CredentialsConflictException;
 import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
 
-import com.sklsft.commons.rest.security.credentials.CredentialsMock;
+import com.sklsft.commons.rest.security.tokens.CredentialsMock;
 
 public class SecurityContextHolderTest {
 	
@@ -41,6 +41,6 @@ public class SecurityContextHolderTest {
 	
 	@Test(expected=NoBoundCredentialsException.class)
 	public void testGetNullUserCredentials() {
-		SecurityContextHolder.getUserCredentials();
+		SecurityContextHolder.getCredentials();
 	}
 }

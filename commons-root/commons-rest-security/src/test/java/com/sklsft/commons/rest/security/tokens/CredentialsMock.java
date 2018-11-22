@@ -1,4 +1,4 @@
-package com.sklsft.commons.rest.security.credentials;
+package com.sklsft.commons.rest.security.tokens;
 
 import java.io.Serializable;
 

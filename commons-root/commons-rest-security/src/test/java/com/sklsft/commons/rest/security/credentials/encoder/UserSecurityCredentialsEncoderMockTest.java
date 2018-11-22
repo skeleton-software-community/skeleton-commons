@@ -3,11 +3,12 @@ package com.sklsft.commons.rest.security.credentials.encoder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sklsft.commons.rest.security.credentials.CredentialsMock;
+import com.sklsft.commons.rest.security.tokens.CredentialsMock;
+import com.sklsft.commons.rest.security.tokens.encoder.CredentialsMockEncoder;
 
 public class UserSecurityCredentialsEncoderMockTest {
 
-	private static UserSecurityCredentialsEncoderMock encoder = new UserSecurityCredentialsEncoderMock();
+	private static CredentialsMockEncoder encoder = new CredentialsMockEncoder();
 	
 	@Test
 	public void testEncode() {

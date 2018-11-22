@@ -5,12 +5,13 @@ package org.sklsft.commons.rest.security.credentials.validator;
  * <li>the choice of the credentials type
  * <li>the way user data is stored
  * 
+ * @param <C>
+ * 
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
- *
- * @param <T>
+ * 
  */
-public interface SecurityCredentialsValidator<T> {
+public interface SecurityCredentialsValidator<C> {
 	
-	void validateCredentials(T securityCredentials);
+	void validateCredentials(C credentials);
 
 }

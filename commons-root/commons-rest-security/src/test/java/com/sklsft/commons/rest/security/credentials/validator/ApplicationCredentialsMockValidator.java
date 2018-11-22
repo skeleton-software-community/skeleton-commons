@@ -3,9 +3,9 @@ package com.sklsft.commons.rest.security.credentials.validator;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
-import com.sklsft.commons.rest.security.credentials.CredentialsMock;
+import com.sklsft.commons.rest.security.tokens.CredentialsMock;
 
-public class ApplicationSecurityCredentialsValidatorMock implements SecurityCredentialsValidator<CredentialsMock> {
+public class ApplicationCredentialsMockValidator implements SecurityCredentialsValidator<CredentialsMock> {
 
 	@Override
 	public void validateCredentials(CredentialsMock credentials) {
