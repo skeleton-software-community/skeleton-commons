@@ -12,9 +12,9 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
-public class LoggerInterceptor implements ClientHttpRequestInterceptor {
+public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor {
 
-	final static Logger logger = LoggerFactory.getLogger(LoggerInterceptor.class);
+	private final static Logger logger = LoggerFactory.getLogger(RestClientLoggerInterceptor.class);
 	
 	private String requestIdHeaderKey = "request-id";
 	private boolean handleRequestId = true;
