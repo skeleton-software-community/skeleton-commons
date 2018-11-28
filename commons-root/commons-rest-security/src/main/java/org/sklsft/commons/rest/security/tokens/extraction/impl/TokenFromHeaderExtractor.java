@@ -17,7 +17,7 @@ public class TokenFromHeaderExtractor implements TokenExtractor {
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		String result = servletRequestAttributes.getRequest().getHeader(key);
 		
-		if (result.toLowerCase().startsWith("bearer ")) {
+		if (result != null && result.toLowerCase().startsWith("bearer ")) {
 			result = result.substring(7);
 		}
 		
