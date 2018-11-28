@@ -41,65 +41,58 @@ public class LoggingAspect {
 	private boolean traceRequestHeaders;
 	private boolean traceRequestBody;
 	private ObjectMapper objectMapper;
-	
-		
+
 	public void setTraceRequestHeaders(boolean traceRequestHeaders) {
 		this.traceRequestHeaders = traceRequestHeaders;
 	}
+
 	public void setTraceRequestBody(boolean traceRequestBody) {
 		this.traceRequestBody = traceRequestBody;
 	}
+
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
 	}
-	
-	
+
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
 	public Object handleLogging(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		long start = System.currentTimeMillis();
-		
-		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();		
+
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes();
 		HttpServletRequest request = servletRequestAttributes.getRequest();
-		
-		logger.info("===========================http request received============================");
-		logger.info(request.getMethod() + " " + request.getRequestURI());
-		logger.info("Context : " + getRequestContext());
-		
-		if (logger.isTraceEnabled()) {
-			if (traceRequestHeaders) {
-				logger.trace("Headers : " + getRequestHeaders(request));
-			}
-			if (traceRequestBody) {
-				String body = getRequestBody(joinPoint);
-				if (body != null) {
-					logger.trace("Body : " + body);
-				}
-			}
+
+		String logged = "HTTP request received : Method=" + request.getMethod() + ", URI=" + request.getRequestURI()
+				+ ", Context=" + getRequestContext();
+
+		if (traceRequestHeaders) {
+			logged += ", Headers=" + getRequestHeaders(request);
 		}
+		if (traceRequestBody) {
+			String body = getRequestBody(joinPoint);
+			logged += ",Body=" + body;
+		}
+		logger.info(logged);
+
+		long elapsedTime;
 		
 		try {
-		
 			Object proceed = joinPoint.proceed();
-			
-			long elapsedTime = System.currentTimeMillis() - start;
-			
-			logger.info("Response : OK");
-			logger.info("Time: " + elapsedTime + " ms");
-			logger.info("===========================http request completed===========================");
-			
+			elapsedTime = System.currentTimeMillis() - start;
+			logged = "HTTP request processed : Response=OK, Time=" + elapsedTime + " ms";
+			logger.info(logged);
 			return proceed;
-			
+
 		} catch (Exception e) {
-			
-			logger.error("Response : NOK, " + e.getMessage());
-			logger.info("===========================http request completed===========================");
-			
+			elapsedTime = System.currentTimeMillis() - start;
+			logged = "HTTP request processed : Response=NOK, Message=" + e.getMessage() + ", Time=" + elapsedTime + " ms";
+			logger.info(logged);
+
 			throw e;
 		}
 	}
-	
-	
+
 	private String getRequestContext() {
 		Object credentials = SecurityContextHolder.getCredentialsOrNull();
 		if (credentials == null) {
@@ -113,7 +106,6 @@ public class LoggingAspect {
 		}
 	}
 
-
 	private String getRequestHeaders(HttpServletRequest request) {
 		Map<String, String> headers = new HashMap<>();
 		for (String header : Collections.list(request.getHeaderNames())) {
@@ -124,22 +116,21 @@ public class LoggingAspect {
 		} catch (JsonProcessingException e) {
 			return "Unknown";
 		}
-	}	
-	
-	
+	}
+
 	private String getRequestBody(ProceedingJoinPoint joinPoint) {
 		Method proxiedMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
 		Object[] args = joinPoint.getArgs();
 		Annotation[][] paramsAnnotations = proxiedMethod.getParameterAnnotations();
 		for (int i = 0; i < args.length; i++) {
-			for (int j = 0; j < paramsAnnotations[i].length; j++) {				
+			for (int j = 0; j < paramsAnnotations[i].length; j++) {
 				if (paramsAnnotations[i][j].annotationType().equals(RequestBody.class)) {
 					try {
 						return objectMapper.writeValueAsString(args[i]);
 					} catch (JsonProcessingException e) {
 						return "Unknown";
-					}					
-				}				
+					}
+				}
 			}
 		}
 		return null;

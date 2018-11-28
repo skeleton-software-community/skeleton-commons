@@ -15,77 +15,88 @@ import org.springframework.util.StreamUtils;
 public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor {
 
 	private final static Logger logger = LoggerFactory.getLogger(RestClientLoggerInterceptor.class);
-	
+
 	private String requestIdHeaderKey = "request-id";
 	private boolean handleRequestId = true;
 	private boolean traceRequestHeaders = false;
 	private boolean traceRequestBody = true;
 	private boolean traceResponseHeaders = false;
 	private boolean traceResponseBody = false;
-	
-	
+
 	public void setRequestIdHeaderKey(String requestIdHeaderKey) {
 		this.requestIdHeaderKey = requestIdHeaderKey;
 	}
+
 	public void setHandleRequestId(boolean handleRequestId) {
 		this.handleRequestId = handleRequestId;
 	}
+
 	public void setTraceRequestHeaders(boolean traceRequestHeaders) {
 		this.traceRequestHeaders = traceRequestHeaders;
 	}
+
 	public void setTraceRequestBody(boolean traceRequestBody) {
 		this.traceRequestBody = traceRequestBody;
 	}
+
 	public void setTraceResponseHeaders(boolean traceResponseHeaders) {
 		this.traceResponseHeaders = traceResponseHeaders;
 	}
+
 	public void setTraceResponseBody(boolean traceResponseBody) {
 		this.traceResponseBody = traceResponseBody;
 	}
 
-	
 	@Override
-	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+			throws IOException {
 		traceRequest(request, body);
+		long start = System.currentTimeMillis();
 		ClientHttpResponse response = execution.execute(request, body);
-		traceResponse(response);
+		long elapsedTime = System.currentTimeMillis() - start;
+		traceResponse(request, response, elapsedTime);
 		return response;
 	}
 
 	private void traceRequest(HttpRequest request, byte[] body) throws IOException {
-		logger.info("===========================http request sent===============================");
-		logger.info(request.getMethod() + " " + request.getURI());
+		String logged = "HTTP request sent : Method=" + request.getMethod() + ", URI=" + request.getURI();
+
 		if (handleRequestId) {
-			logger.info("Request id : " + request.getHeaders().get(requestIdHeaderKey).get(0));
+			logged += ", RequestId=" + request.getHeaders().get(requestIdHeaderKey).get(0);
 		}
-		
-		if (logger.isTraceEnabled()) {
-			if (traceRequestHeaders) {
-				logger.trace("Request headers : {}", request.getHeaders());
-			}
-			if (traceRequestBody) {
-				if (!request.getMethod().equals(HttpMethod.GET)) {
-					logger.trace("Request body : {}", new String(body, "UTF-8"));
-				}
+
+		if (traceRequestHeaders) {
+			logged += ", Headers=" + request.getHeaders();
+		}
+		if (traceRequestBody) {
+			if (!request.getMethod().equals(HttpMethod.GET)) {
+				logged += ", Body=" + new String(body, "UTF-8");
 			}
 		}
+		logger.info(logged);
 	}
 
-	private void traceResponse(ClientHttpResponse response) throws IOException {		
+	private void traceResponse(HttpRequest request, ClientHttpResponse response, long elapsedTime) throws IOException {
+
+		String logged = "HTTP response received : Status=" + response.getStatusCode();
 		
-		logger.info("Status code : {}", response.getStatusCode());
-		
-		if (logger.isTraceEnabled()) {
-			if (traceResponseHeaders) {
-				logger.trace("Response headers : {}", response.getHeaders());
-			}
-			if (traceResponseBody) {
-				if (response.getBody() != null) {
-					String responseBody = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
-					logger.trace("Response body : {}", responseBody);
-				}
+		if (handleRequestId) {
+			logged += ", RequestId=" + request.getHeaders().get(requestIdHeaderKey).get(0);
+		} else {
+			logged += ", Method=" + request.getMethod() + ", URI=" + request.getURI();
+		}
+
+		if (traceResponseHeaders) {
+			logged += ", Headers=" + response.getHeaders();
+		}
+		if (traceResponseBody) {
+			if (response.getBody() != null) {
+				String responseBody = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
+				logged += ", Body=" + responseBody;
 			}
 		}
-		logger.info("===========================http request sent end===========================");
+		logged += ", Time=" + elapsedTime + " ms";
+
+		logger.info(logged);
 	}
 }
