@@ -1,4 +1,4 @@
-package org.sklsft.commons.crypto;
+package org.sklsft.commons.crypto.encoding;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -6,20 +6,19 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sklsft.commons.crypto.encoding.AesJsonObjectEncoder;
 import org.sklsft.commons.crypto.miscellaneous.TestObject;
-import org.sklsft.commons.crypto.serialization.JsonSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ObjectEncoderTest {
+public class AesObjectEncoderTest {
 	
 	
-	
-	private static ObjectEncoder objectEncoder;
+	private static AesJsonObjectEncoder objectEncoder;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		objectEncoder = new ObjectEncoder(new JsonSerializer(new ObjectMapper()), new RandomKeyEncryptionParametersAccessor());
+		objectEncoder = new AesJsonObjectEncoder(new ObjectMapper(), new RandomAesKeyAccessor());
 	}
 
 	@Test
