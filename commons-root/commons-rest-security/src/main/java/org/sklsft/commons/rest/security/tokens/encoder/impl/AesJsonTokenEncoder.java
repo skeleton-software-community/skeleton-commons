@@ -1,8 +1,12 @@
 package org.sklsft.commons.rest.security.tokens.encoder.impl;
 
+import org.sklsft.commons.crypto.AesKeyAccessor;
 import org.sklsft.commons.crypto.encoding.AesJsonObjectEncoder;
+import org.sklsft.commons.crypto.encoding.ObjectEncoder;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * imlementation of a {@link TokenEncoder} that uses an {@link AesJsonObjectEncoder}
@@ -11,12 +15,12 @@ import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
  */
 public class AesJsonTokenEncoder<T> implements TokenEncoder<T> {
 	
-	private AesJsonObjectEncoder objectEncoder;
+	private ObjectEncoder objectEncoder;
 	private Class<T> tokenClass;
 	
 	
-	public AesJsonTokenEncoder(AesJsonObjectEncoder objectEncoder, Class<T> tokenClass) {	
-		this.objectEncoder = objectEncoder;
+	public AesJsonTokenEncoder(ObjectMapper objectMapper, AesKeyAccessor keyAccessor, Class<T> tokenClass) {	
+		this.objectEncoder = new AesJsonObjectEncoder(objectMapper, keyAccessor);
 		this.tokenClass = tokenClass;
 	}	
 	
