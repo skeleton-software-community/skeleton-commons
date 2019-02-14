@@ -10,7 +10,7 @@ import org.sklsft.commons.rest.security.credentials.extractor.SecurityCredential
 public abstract class FromMapCredentialsExtractor<C> implements SecurityCredentialsExtractor<String, C> {
 
 	@Override
-	public C extractCredentials(String token) {
+	public C getCredentials(String token) {
 		
 		C credentials = get(token);
 		

@@ -4,7 +4,6 @@ import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.credentials.extractor.SecurityCredentialsExtractor;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
-import org.sklsft.commons.rest.security.exception.TokenNotFoundException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
 import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
 
@@ -18,7 +17,7 @@ import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
  * 
  * @author Nicolas Thibault, Abdessalam El Jai
  */
-public class SecurityContextProviderImpl<T, C> implements SecurityContextProvider {
+public class FromSignedTokenSecurityContextProvider<T, C> extends BasicSecurityContextProvider<C> {
 
 	private TokenEncoder<T> tokenEncoder;
 	private TokenVerifier<T> tokenVerifier;
@@ -26,9 +25,8 @@ public class SecurityContextProviderImpl<T, C> implements SecurityContextProvide
 	private SecurityCredentialsValidator<C> credentialsValidator;
 	
 	
-	public SecurityContextProviderImpl(TokenEncoder<T> tokenEncoder, TokenVerifier<T> tokenVerifier,
-			SecurityCredentialsExtractor<T, C> credentialsExtractor,
-			SecurityCredentialsValidator<C> credentialsValidator) {
+	public FromSignedTokenSecurityContextProvider(TokenEncoder<T> tokenEncoder, TokenVerifier<T> tokenVerifier,
+			SecurityCredentialsExtractor<T, C> credentialsExtractor, SecurityCredentialsValidator<C> credentialsValidator) {
 		super();
 		this.tokenEncoder = tokenEncoder;
 		this.tokenVerifier = tokenVerifier;
@@ -38,14 +36,13 @@ public class SecurityContextProviderImpl<T, C> implements SecurityContextProvide
 
 
 	@Override
-	public void provideSecurityContext(String token) {		
-		if (token == null) {
-			throw new TokenNotFoundException("token.notFound");
-		}
+	protected C getValidCredentials(String token) {		
+		
 		T tokenObject = tokenEncoder.decode(token);
 		tokenVerifier.verifyToken(tokenObject);
-		C credentials = credentialsExtractor.extractCredentials(tokenObject);
+		C credentials = credentialsExtractor.getCredentials(tokenObject);
 		credentialsValidator.validateCredentials(credentials);
-		SecurityContextHolder.bindCredentials(credentials);
+		
+		return credentials;
 	}
 }

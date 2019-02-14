@@ -10,7 +10,7 @@ import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
  *
  
  */
-public class UnsignedTokenVerifier<T> implements TokenVerifier<T> {
+public class JwtVerifier<T> implements TokenVerifier<T> {
 
 	@Override
 	public void verifyToken(T token) {

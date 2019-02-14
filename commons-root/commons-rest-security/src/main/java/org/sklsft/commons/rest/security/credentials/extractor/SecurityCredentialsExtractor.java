@@ -11,5 +11,5 @@ package org.sklsft.commons.rest.security.credentials.extractor;
  */
 public interface SecurityCredentialsExtractor<T, C> {
 
-	C extractCredentials(T token);
+	C getCredentials(T token);
 }

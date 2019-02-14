@@ -10,5 +10,5 @@ public interface TokenEncoder<T> {
 
 	T decode(String token);
 
-	String encode(T credentials);
+	String encode(T token);
 }

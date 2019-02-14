@@ -34,8 +34,8 @@ public class AesJsonTokenEncoder<T> implements TokenEncoder<T> {
 		}
 	}
 	
-	public String encode (T credentials) {
+	public String encode (T token) {
 		
-		return objectEncoder.encode(credentials);
+		return objectEncoder.encode(token);
 	}
 }
