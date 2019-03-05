@@ -8,14 +8,14 @@ import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicCredentials;
 
 import com.sklsft.commons.rest.security.credentials.validator.ApplicationCredentialsMockValidator;
-import com.sklsft.commons.rest.security.tokens.CredentialsMock;
 
 
 public class AnonymousSecurityContextProviderImplTest {
 	
-	private static SecurityCredentialsValidator<CredentialsMock> credentialsValidator = new ApplicationCredentialsMockValidator();
+	private static SecurityCredentialsValidator<BasicCredentials> credentialsValidator = new ApplicationCredentialsMockValidator();
 
 	private static SecurityContextProvider provider;
 	
@@ -31,10 +31,10 @@ public class AnonymousSecurityContextProviderImplTest {
 	
 	@Test
 	public void testProvideValidCredentials() {
-		provider.provideSecurityContext("Sklgen");
+		provider.provideSecurityContext("sklgen");
 		
-		CredentialsMock credentials = (CredentialsMock) SecurityContextHolder.getCredentials();
-		Assert.assertTrue(credentials.getApplicationName().equals("Sklgen") && credentials.getApplicationEditor().equals("Skeleton Software Community"));	
+		BasicCredentials credentials = (BasicCredentials) SecurityContextHolder.getCredentials();
+		Assert.assertTrue(credentials.getApplication().equals("sklgen"));
 	}
 	
 	@Test(expected=InvalidTokenException.class)

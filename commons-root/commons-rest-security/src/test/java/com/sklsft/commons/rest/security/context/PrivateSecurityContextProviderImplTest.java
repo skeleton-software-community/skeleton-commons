@@ -10,22 +10,22 @@ import org.sklsft.commons.rest.security.context.impl.FromCryptedTokenSecurityCon
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicCredentials;
 
 import com.sklsft.commons.rest.security.credentials.validator.UserCredentialsMockValidator;
-import com.sklsft.commons.rest.security.tokens.CredentialsMock;
-import com.sklsft.commons.rest.security.tokens.encoder.CredentialsMockEncoder;
+import com.sklsft.commons.rest.security.tokens.encoder.BasicCredentialsMockEncoder;
 
 
 public class PrivateSecurityContextProviderImplTest {
 
-	private static TokenEncoder<CredentialsMock> tokenEncoder = new CredentialsMockEncoder();
-	private static SecurityCredentialsValidator<CredentialsMock> credentialsValidator = new UserCredentialsMockValidator();
+	private static TokenEncoder<BasicCredentials> tokenEncoder = new BasicCredentialsMockEncoder();
+	private static SecurityCredentialsValidator<BasicCredentials> credentialsValidator = new UserCredentialsMockValidator();
 
 	private static SecurityContextProvider provider;
 	
 	@BeforeClass
 	public static void init() {
-		provider = new FromCryptedTokenSecurityContextProvider<CredentialsMock>(tokenEncoder, credentialsValidator);
+		provider = new FromCryptedTokenSecurityContextProvider<BasicCredentials>(tokenEncoder, credentialsValidator);
 	}
 	
 	@After
@@ -35,10 +35,10 @@ public class PrivateSecurityContextProviderImplTest {
 	
 	@Test
 	public void testProvideValidCredentials() {
-		provider.provideSecurityContext("Nicolas$Thibault");
+		provider.provideSecurityContext("sklgen$nicolas.thibault@sklsft.org");
 		
-		CredentialsMock userCredentials = (CredentialsMock) SecurityContextHolder.getCredentials();
-		Assert.assertTrue(userCredentials.getUserFirstName().equals("Nicolas") && userCredentials.getUserLastName().equals("Thibault"));	
+		BasicCredentials userCredentials = (BasicCredentials) SecurityContextHolder.getCredentials();
+		Assert.assertTrue(userCredentials.getUser().equals("nicolas.thibault@sklsft.org") && userCredentials.getApplication().equals("sklgen"));	
 	}
 	
 	@Test(expected=InvalidTokenException.class)

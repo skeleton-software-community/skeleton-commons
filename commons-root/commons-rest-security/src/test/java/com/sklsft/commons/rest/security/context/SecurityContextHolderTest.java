@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.exception.CredentialsConflictException;
 import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
-
-import com.sklsft.commons.rest.security.tokens.CredentialsMock;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicCredentials;
 
 public class SecurityContextHolderTest {
 	
@@ -25,7 +24,7 @@ public class SecurityContextHolderTest {
 	
 	@Test
 	public void testBindCredentials() {
-		CredentialsMock credentials = new CredentialsMock();
+		BasicCredentials credentials = new BasicCredentials();
 		SecurityContextHolder.bindCredentials(credentials);
 		Assert.assertNotNull(SecurityContextHolder.getCredentialsOrNull());
 	}
@@ -33,7 +32,7 @@ public class SecurityContextHolderTest {
 	
 	@Test(expected=CredentialsConflictException.class)
 	public void testBindUserCredentialsConflict() {
-		CredentialsMock credentials = new CredentialsMock();
+		BasicCredentials credentials = new BasicCredentials();
 		SecurityContextHolder.bindCredentials(credentials);
 		SecurityContextHolder.bindCredentials(credentials);
 	}

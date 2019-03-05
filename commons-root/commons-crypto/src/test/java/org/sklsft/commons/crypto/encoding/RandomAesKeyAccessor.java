@@ -2,7 +2,7 @@ package org.sklsft.commons.crypto.encoding;
 
 import java.security.NoSuchAlgorithmException;
 
-import org.sklsft.commons.crypto.AesKeyAccessor;
+import org.sklsft.commons.crypto.accessors.AesKeyAccessor;
 
 public class RandomAesKeyAccessor implements AesKeyAccessor {
 	

@@ -10,7 +10,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
-import org.sklsft.commons.crypto.AesKeyAccessor;
+import org.sklsft.commons.crypto.accessors.AesKeyAccessor;
 import org.sklsft.commons.crypto.exception.CryptingException;
 
 public class AesStringEncoder implements StringEncoder {

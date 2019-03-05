@@ -8,13 +8,11 @@ import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.exception.TokenEncodingException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
-import org.sklsft.commons.rest.security.tokens.jwt.JwtBody;
-import org.sklsft.commons.rest.security.tokens.jwt.JwtHeader;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JwtEncoder<T extends JsonWebToken<H, B>, H extends JwtHeader, B extends JwtBody> implements TokenEncoder<T> {
+public class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEncoder<T> {
 	
 	private ObjectMapper objectMapper;
 	private Class<H> headerClass;

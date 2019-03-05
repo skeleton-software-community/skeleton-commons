@@ -6,37 +6,34 @@ import java.util.Map;
 import org.sklsft.commons.rest.security.context.impl.FromKeySecurityContextProvider;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-
-import com.sklsft.commons.rest.security.tokens.CredentialsMock;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicCredentials;
 
 /**
  *
  *
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  */
-public class FromMapSecurityContextProviderMock extends FromKeySecurityContextProvider<CredentialsMock> {
+public class FromMapSecurityContextProviderMock extends FromKeySecurityContextProvider<BasicCredentials> {
 	
-	public FromMapSecurityContextProviderMock(SecurityCredentialsValidator<CredentialsMock> credentialsValidator) {
+	public FromMapSecurityContextProviderMock(SecurityCredentialsValidator<BasicCredentials> credentialsValidator) {
 		super(credentialsValidator);
 	}
 
-	private static Map<String, CredentialsMock> credentials = new HashMap<>();
+	private static Map<String, BasicCredentials> credentials = new HashMap<>();
 	
 	static {
-		CredentialsMock credential = new CredentialsMock();
-		credential.setApplicationName("Sklgen");
-		credential.setApplicationEditor("Skeleton Software Community");
-		credentials.put("Sklgen", credential);
+		BasicCredentials credential = new BasicCredentials();
+		credential.setApplication("sklgen");
+		credentials.put("sklgen", credential);
 		
-		credential = new CredentialsMock();
-		credential.setApplicationName("Fake");
-		credential.setApplicationEditor("Skeleton Software Community");
-		credentials.put("Fake", credential);		
+		credential = new BasicCredentials();
+		credential.setApplication("Fake");
+		credentials.put("fake", credential);		
 	}
 	
 	@Override
-	protected CredentialsMock get(String token) {
-		CredentialsMock result = credentials.get(token);
+	protected BasicCredentials get(String token) {
+		BasicCredentials result = credentials.get(token);
 		if (result == null) {
 			throw new InvalidTokenException("Invalid Token");
 		}
