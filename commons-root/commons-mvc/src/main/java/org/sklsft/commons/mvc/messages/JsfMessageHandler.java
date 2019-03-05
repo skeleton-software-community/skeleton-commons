@@ -7,7 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
-import org.sklsft.commons.api.exception.ApplicationException;
+import org.sklsft.commons.api.exception.TechnicalError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +55,7 @@ public class JsfMessageHandler implements MessageHandler {
 	private String getTranslatedMessage(String message) {
 		
 		if (message == null) {
-			message = ApplicationException.ERROR_UNKNOWN;
+			message = TechnicalError.ERROR_UNKNOWN;
 		}
 		
 		String translatedMessage = message;

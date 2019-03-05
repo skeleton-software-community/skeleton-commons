@@ -11,6 +11,8 @@ public class TechnicalError extends ApplicationException {
 
 	private static final long serialVersionUID = 1L;
 	
+	public static final String ERROR_UNKNOWN = "error.unknown";
+	
 	public TechnicalError(){
 		super();
 	}

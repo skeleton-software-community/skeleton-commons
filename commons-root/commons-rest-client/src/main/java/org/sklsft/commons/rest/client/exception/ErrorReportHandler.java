@@ -68,7 +68,7 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 			exception.setDetails(errorReport.getDetails());
 			
 		} catch (Exception e) {
-			exception = new TechnicalError(ApplicationException.ERROR_UNKNOWN, e);
+			exception = new TechnicalError(TechnicalError.ERROR_UNKNOWN, e);
 		}
 		throw exception;
 	}

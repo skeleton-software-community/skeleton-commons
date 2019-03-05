@@ -11,8 +11,6 @@ public abstract class ApplicationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final String ERROR_UNKNOWN = "error.unknown";
-	
 	private String message;
 	
 	private Object details;
