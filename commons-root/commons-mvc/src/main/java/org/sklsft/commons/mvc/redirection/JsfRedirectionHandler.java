@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.api.exception.TechnicalError;
 
 public class JsfRedirectionHandler implements RedirectionHandler {
@@ -21,7 +20,7 @@ public class JsfRedirectionHandler implements RedirectionHandler {
 		try {
 			externalContext.redirect(externalContext.getRequestContextPath() + relativeUrl);
 		} catch (IOException e) {
-			throw new TechnicalError(ApplicationException.ERROR_UNKNOWN, e) ;
+			throw new TechnicalError(TechnicalError.ERROR_UNKNOWN, e) ;
 		}
 	}
 	
@@ -43,7 +42,7 @@ public class JsfRedirectionHandler implements RedirectionHandler {
 		try {
 			externalContext.redirect(url);
 		} catch (IOException e) {
-			throw new TechnicalError(ApplicationException.ERROR_UNKNOWN, e);
+			throw new TechnicalError(TechnicalError.ERROR_UNKNOWN, e);
 		}
 
 	}

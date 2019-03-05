@@ -3,9 +3,13 @@ package org.sklsft.commons.rest.exception;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.api.exception.ErrorReport;
 import org.sklsft.commons.api.exception.TechnicalError;
+import org.sklsft.commons.api.exception.rights.AccessDeniedException;
+import org.sklsft.commons.api.exception.rights.OperationDeniedException;
+import org.sklsft.commons.api.exception.validation.InvalidArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +28,33 @@ public class RestExceptionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(RestExceptionHandler.class);
 
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
+	@ExceptionHandler(AccessDeniedException.class)
+	public @ResponseBody ErrorReport handleApplicationException(AccessDeniedException e) {
+
+		logger.error("exception thrown : " + e.getMessage(), e);
+
+		ErrorReport errorReport = new ErrorReport();
+		errorReport.setExceptionClassName(e.getClass().getName());
+		errorReport.setMessage(e.getMessage());
+		errorReport.setDetails(e.getDetails());
+
+		return errorReport;
+	}
 	
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
+	@ExceptionHandler(OperationDeniedException.class)
+	public @ResponseBody ErrorReport handleApplicationException(OperationDeniedException e) {
+
+		logger.error("exception thrown : " + e.getMessage(), e);
+
+		ErrorReport errorReport = new ErrorReport();
+		errorReport.setExceptionClassName(e.getClass().getName());
+		errorReport.setMessage(e.getMessage());
+		errorReport.setDetails(e.getDetails());
+
+		return errorReport;
+	}
 
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(ApplicationException.class)
@@ -48,7 +78,20 @@ public class RestExceptionHandler {
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TechnicalError.class.getName());
-		errorReport.setMessage(ApplicationException.ERROR_UNKNOWN);
+		errorReport.setMessage(TechnicalError.ERROR_UNKNOWN);
+
+		return errorReport;
+	}
+	
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public @ResponseBody ErrorReport handleException(MethodArgumentNotValidException e) {
+
+		logger.error("exception thrown : " + e.getMessage(), e);
+
+		ErrorReport errorReport = new ErrorReport();
+		errorReport.setExceptionClassName(InvalidArgumentException.class.getName());
+		errorReport.setMessage(InvalidArgumentException.INVALID_ARGUMENTS);
 
 		return errorReport;
 	}
