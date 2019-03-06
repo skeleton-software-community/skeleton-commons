@@ -1,8 +1,8 @@
-package org.sklsft.commons.rest.security.tokens.jwt.rs;
+package org.sklsft.commons.rest.security.tokens.jwt;
 
 import java.io.Serializable;
 
-public class BasicRsJwtHeader implements Serializable {
+public class BasicRsaJwtHeader implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

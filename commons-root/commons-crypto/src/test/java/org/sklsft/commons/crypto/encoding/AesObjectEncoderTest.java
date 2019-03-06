@@ -6,6 +6,7 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sklsft.commons.crypto.accessors.RandomAesKeyAccessor;
 import org.sklsft.commons.crypto.miscellaneous.TestObject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

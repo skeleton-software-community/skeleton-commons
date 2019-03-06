@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sklsft.commons.crypto.accessors.RandomAesKeyAccessor;
 
 public class AesStringEncoderTest {
 	

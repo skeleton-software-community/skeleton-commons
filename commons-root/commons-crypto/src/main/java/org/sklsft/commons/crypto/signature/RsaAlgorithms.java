@@ -1,11 +1,11 @@
-package org.sklsft.commons.rest.security.tokens.jwt.rs;
+package org.sklsft.commons.crypto.signature;
 
-public enum RsAlgorithms {
+public enum RsaAlgorithms {
 	
 	RS256("SHA256withRSA"),
 	RS512("SHA512withRSA");
 	
-	private RsAlgorithms(String name) {
+	private RsaAlgorithms(String name) {
 		this.name = name;
 	}
 	

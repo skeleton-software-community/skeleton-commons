@@ -1,8 +1,9 @@
-package org.sklsft.commons.crypto.encoding;
+package org.sklsft.commons.crypto.accessors;
 
 import java.security.NoSuchAlgorithmException;
 
 import org.sklsft.commons.crypto.accessors.AesKeyAccessor;
+import org.sklsft.commons.crypto.encoding.AesKeyRandomGenerator;
 
 public class RandomAesKeyAccessor implements AesKeyAccessor {
 	
