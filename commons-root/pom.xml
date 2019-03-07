@@ -85,6 +85,7 @@
 		<jackson.version>2.6.0</jackson.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<java-jwt.version>3.4.1</java-jwt.version>
+		<bouncycastle.version>1.61</bouncycastle.version>
 		<servlet.version>3.1.0</servlet.version>
 		<jsf.version>2.2.11</jsf.version>
 		<primefaces.version>5.2</primefaces.version>
@@ -223,6 +224,12 @@
 				<groupId>com.auth0</groupId>
 				<artifactId>java-jwt</artifactId>
 				<version>${java-jwt.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${bouncycastle.version}</version>
 			</dependency>
 			
 

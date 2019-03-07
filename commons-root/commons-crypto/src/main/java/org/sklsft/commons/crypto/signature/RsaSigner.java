@@ -5,13 +5,12 @@ import java.security.Signature;
 
 import org.sklsft.commons.crypto.accessors.RsaPrivateKeyAccessor;
 import org.sklsft.commons.crypto.exception.SignatureException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class RsaSigner {
 	
 	public RsaSigner(RsaPrivateKeyAccessor rsaPrivateKeyAccessor, String keyId, String algorithm) {
 		this.privateKey = rsaPrivateKeyAccessor.getPrivateKey(keyId);
+		this.algorithm = algorithm;
 	}
 	
 	private PrivateKey privateKey;
