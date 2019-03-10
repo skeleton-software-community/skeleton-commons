@@ -2,7 +2,7 @@ package org.sklsft.commons.rest.security.tokens.jwt;
 
 import java.io.Serializable;
 
-public class BasicCredentials implements Serializable {
+public class BasicJwtBody implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -47,7 +47,7 @@ public class BasicCredentials implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BasicCredentials other = (BasicCredentials) obj;
+		BasicJwtBody other = (BasicJwtBody) obj;
 		if (application == null) {
 			if (other.application != null)
 				return false;

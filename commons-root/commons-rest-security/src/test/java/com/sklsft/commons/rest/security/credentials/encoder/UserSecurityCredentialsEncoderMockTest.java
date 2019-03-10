@@ -2,7 +2,7 @@ package com.sklsft.commons.rest.security.credentials.encoder;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicCredentials;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
 import com.sklsft.commons.rest.security.tokens.encoder.BasicCredentialsMockEncoder;
 
@@ -12,14 +12,14 @@ public class UserSecurityCredentialsEncoderMockTest {
 	
 	@Test
 	public void testEncode() {
-		BasicCredentials credentials = new BasicCredentials();
+		BasicJwtBody credentials = new BasicJwtBody();
 		credentials.setApplication("sklgen");
 		credentials.setUser("nicolas.thibault@sklsft.org");
 		
 		String token = encoder.encode(credentials);
 		System.out.println(token);
 		
-		BasicCredentials decoded = encoder.decode(token);
+		BasicJwtBody decoded = encoder.decode(token);
 		Assert.assertEquals(credentials, decoded);
 	}
 }

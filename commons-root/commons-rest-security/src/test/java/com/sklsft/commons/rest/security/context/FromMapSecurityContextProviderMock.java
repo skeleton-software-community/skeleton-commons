@@ -6,34 +6,34 @@ import java.util.Map;
 import org.sklsft.commons.rest.security.context.impl.FromKeySecurityContextProvider;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicCredentials;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
 /**
  *
  *
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  */
-public class FromMapSecurityContextProviderMock extends FromKeySecurityContextProvider<BasicCredentials> {
+public class FromMapSecurityContextProviderMock extends FromKeySecurityContextProvider<BasicJwtBody> {
 	
-	public FromMapSecurityContextProviderMock(SecurityCredentialsValidator<BasicCredentials> credentialsValidator) {
+	public FromMapSecurityContextProviderMock(SecurityCredentialsValidator<BasicJwtBody> credentialsValidator) {
 		super(credentialsValidator);
 	}
 
-	private static Map<String, BasicCredentials> credentials = new HashMap<>();
+	private static Map<String, BasicJwtBody> credentials = new HashMap<>();
 	
 	static {
-		BasicCredentials credential = new BasicCredentials();
+		BasicJwtBody credential = new BasicJwtBody();
 		credential.setApplication("sklgen");
 		credentials.put("sklgen", credential);
 		
-		credential = new BasicCredentials();
+		credential = new BasicJwtBody();
 		credential.setApplication("Fake");
 		credentials.put("fake", credential);		
 	}
 	
 	@Override
-	protected BasicCredentials get(String token) {
-		BasicCredentials result = credentials.get(token);
+	protected BasicJwtBody get(String token) {
+		BasicJwtBody result = credentials.get(token);
 		if (result == null) {
 			throw new InvalidTokenException("Invalid Token");
 		}

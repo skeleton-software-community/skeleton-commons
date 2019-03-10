@@ -15,7 +15,7 @@ import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
  * <li>a {@link SecurityCredentialsExtractor}
  * <li>a {@link SecurityCredentialsValidator}
  * 
- * @author Nicolas Thibault, Abdessalam El Jai
+ * @author Nicolas Thibault
  */
 public class FromSignedTokenSecurityContextProvider<T, C> extends BasicSecurityContextProvider<C> {
 

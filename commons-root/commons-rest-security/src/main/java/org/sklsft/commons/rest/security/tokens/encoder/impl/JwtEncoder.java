@@ -12,6 +12,14 @@ import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Nicolas Thibault
+ *
+ * @param <T>
+ * @param <H>
+ * @param <B>
+ */
 public class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEncoder<T> {
 	
 	private ObjectMapper objectMapper;

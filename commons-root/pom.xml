@@ -78,7 +78,8 @@
 				
 		<hibernate.version>5.0.7.Final</hibernate.version>
 		<slf4j.version>1.7.2</slf4j.version>
-		<junit.version>4.12</junit.version>		
+		<junit.version>4.12</junit.version>
+		<logback.version>1.2.3</logback.version>
 		<spring.version>4.3.6.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
 		<javax.inject.version>1</javax.inject.version>
@@ -135,6 +136,12 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
 			</dependency>
 
 
