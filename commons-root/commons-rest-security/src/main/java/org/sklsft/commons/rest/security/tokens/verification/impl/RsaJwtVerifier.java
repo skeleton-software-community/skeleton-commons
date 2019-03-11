@@ -32,8 +32,7 @@ public class RsaJwtVerifier<T extends JsonWebToken<H, B>, H extends BasicRsaJwtH
 		if (rsAalgorithm == null) {
 			throw new InvalidTokenException("Unsupported algorithm");
 		}
-		String algorithm = rsAalgorithm.getName();
-		boolean valid = rsaSignatureverifier.checkSignature(algorithm, token.getHeader().getPublicKeyId(), token.getPayload(), token.getSignature());
+		boolean valid = rsaSignatureverifier.checkSignature(rsAalgorithm, token.getHeader().getPublicKeyId(), token.getPayload(), token.getSignature());
 		
 		if (!valid) {
 			throw new InvalidTokenException("Wrong signature");

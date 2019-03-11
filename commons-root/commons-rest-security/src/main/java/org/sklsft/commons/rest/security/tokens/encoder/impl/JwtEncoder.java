@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @param <H>
  * @param <B>
  */
-public class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEncoder<T> {
+public abstract class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEncoder<T> {
 	
 	private ObjectMapper objectMapper;
 	private Class<H> headerClass;
@@ -55,14 +55,18 @@ public class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEnco
 	@Override
 	public String encode(T token) {
 		String result = "";
+		String headerPart = "";
+		String bodyPart = "";
+		byte[] payload = null;
+		String signaturePart = "";
 		
 		try {
-			result += Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(token.getHeader()));
-			result += ".";
-			result += Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(token.getBody()));
-			result += ".";
-			result += Base64.encodeBase64URLSafeString(token.getSignature());
-			
+			headerPart += Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(token.getHeader()));
+			bodyPart += Base64.encodeBase64URLSafeString(objectMapper.writeValueAsBytes(token.getBody()));
+			result = headerPart + "." + bodyPart;
+			payload = result.getBytes(StandardCharsets.UTF_8);
+			signaturePart = Base64.encodeBase64URLSafeString(sign(payload));
+			result = result + "." + signaturePart;
 			
 		} catch (JsonProcessingException e) {
 			throw new TokenEncodingException("Failed to encode token", e);
@@ -70,5 +74,9 @@ public class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEnco
 		
 		return result;
 	}
+
+
+
+	protected abstract byte[] sign(byte[] payload);
 
 }

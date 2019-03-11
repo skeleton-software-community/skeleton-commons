@@ -1,9 +1,8 @@
-package org.sklsft.commons.rest.security.tokens.jwt;
+package org.sklsft.commons.rest.security.credentials;
 
 import java.io.Serializable;
-import java.time.Instant;
 
-public class BasicJwtBody implements Serializable {
+public class BasicCredentials implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -12,7 +11,6 @@ public class BasicJwtBody implements Serializable {
 	 */
 	private String application;
 	private String user;
-	private Instant expiryDate;
 	
 	/*
 	 * getters and setters
@@ -29,12 +27,7 @@ public class BasicJwtBody implements Serializable {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public Instant getExpiryDate() {
-		return expiryDate;
-	}
-	public void setExpiryDate(Instant expiryDate) {
-		this.expiryDate = expiryDate;
-	}
+	
 	
 	
 	@Override
@@ -42,7 +35,6 @@ public class BasicJwtBody implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((application == null) ? 0 : application.hashCode());
-		result = prime * result + ((expiryDate == null) ? 0 : expiryDate.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -55,16 +47,11 @@ public class BasicJwtBody implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BasicJwtBody other = (BasicJwtBody) obj;
+		BasicCredentials other = (BasicCredentials) obj;
 		if (application == null) {
 			if (other.application != null)
 				return false;
 		} else if (!application.equals(other.application))
-			return false;
-		if (expiryDate == null) {
-			if (other.expiryDate != null)
-				return false;
-		} else if (!expiryDate.equals(other.expiryDate))
 			return false;
 		if (user == null) {
 			if (other.user != null)

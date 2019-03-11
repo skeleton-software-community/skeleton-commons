@@ -2,7 +2,6 @@ package org.sklsft.commons.crypto.signature;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
@@ -20,10 +19,10 @@ public class RsaSignatureVerifier {
 	
 	private RsaPublicKeyAccessor rsaPublicKeyAccessor;
 
-	public boolean checkSignature(String algorithm, String keyId, byte[] data, byte[] signing) {
+	public boolean checkSignature(RsaAlgorithms algorithm, String keyId, byte[] data, byte[] signing) {
 		
 		try {
-			Signature signature = Signature.getInstance(algorithm);
+			Signature signature = Signature.getInstance(algorithm.getName());
 			signature.initVerify(rsaPublicKeyAccessor.getPublicKey(keyId));
 			signature.update(data);
 			return signature.verify(signing);

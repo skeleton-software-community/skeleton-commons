@@ -1,6 +1,5 @@
 package org.sklsft.commons.crypto.signature;
 
-import java.security.PrivateKey;
 import java.security.Signature;
 
 import org.sklsft.commons.crypto.accessors.RsaPrivateKeyAccessor;
@@ -8,19 +7,17 @@ import org.sklsft.commons.crypto.exception.SignatureException;
 
 public class RsaSigner {
 	
-	public RsaSigner(RsaPrivateKeyAccessor rsaPrivateKeyAccessor, String keyId, String algorithm) {
-		this.privateKey = rsaPrivateKeyAccessor.getPrivateKey(keyId);
-		this.algorithm = algorithm;
+	public RsaSigner(RsaPrivateKeyAccessor rsaPrivateKeyAccessor) {
+		this.rsaPrivateKeyAccessor = rsaPrivateKeyAccessor;
 	}
 	
-	private PrivateKey privateKey;
-	private String algorithm;
+	private RsaPrivateKeyAccessor rsaPrivateKeyAccessor;
 	
 
-	public byte[] sign(byte[] data) {
+	public byte[] sign(RsaAlgorithms algorithm, String keyId, byte[] data) {
 		try {
-			Signature signature = Signature.getInstance(algorithm);
-	        signature.initSign(privateKey);
+			Signature signature = Signature.getInstance(algorithm.getName());
+	        signature.initSign(rsaPrivateKeyAccessor.getPrivateKey(keyId));
 	        signature.update(data);
 	        return signature.sign();
 		} catch (Exception e) {

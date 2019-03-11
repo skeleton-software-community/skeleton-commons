@@ -15,7 +15,7 @@ public class RsaSignatureVerifierTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		signer = new RsaSigner(new RsaPrivateKeyAccessorMock(),"test", RsaAlgorithms.RS256.getName());
+		signer = new RsaSigner(new RsaPrivateKeyAccessorMock());
 		verifier = new RsaSignatureVerifier(new RsaPublicKeyAccessorMock());
 	}
 		
@@ -23,8 +23,8 @@ public class RsaSignatureVerifierTest {
 	public void testCheck() {
 		
 		byte[] data = "test".getBytes(StandardCharsets.UTF_8);
-		byte[] signature = signer.sign(data);
-		boolean checked = verifier.checkSignature(RsaAlgorithms.RS256.getName(), "test", data, signature);
+		byte[] signature = signer.sign(RsaAlgorithms.RS256, "test", data);
+		boolean checked = verifier.checkSignature(RsaAlgorithms.RS256, "test", data, signature);
 		
 		Assert.assertTrue(checked);
 	}
