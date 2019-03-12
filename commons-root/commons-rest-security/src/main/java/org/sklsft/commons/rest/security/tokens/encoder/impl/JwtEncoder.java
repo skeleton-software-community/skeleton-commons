@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @param <H>
  * @param <B>
  */
-public abstract class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements TokenEncoder<T> {
+public abstract class JwtEncoder<H, B> implements TokenEncoder<JsonWebToken<H, B>> {
 	
 	private ObjectMapper objectMapper;
 	private Class<H> headerClass;
@@ -36,8 +36,8 @@ public abstract class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements 
 	
 
 	@Override
-	public T decode(String token) {
-		String[] parts = token.split(".");
+	public JsonWebToken<H, B> decode(String token) {
+		String[] parts = token.split("\\.");
 		JsonWebToken<H, B> result = new JsonWebToken<>();
 		
 		try {
@@ -45,15 +45,15 @@ public abstract class JwtEncoder<T extends JsonWebToken<H, B>, H, B> implements 
 			result.setBody(objectMapper.readValue(Base64.decodeBase64(parts[1]), bodyClass));
 			result.setSignature(Base64.decodeBase64(parts[2]));
 			result.setPayload((parts[0] + "." + parts[1]).getBytes(StandardCharsets.UTF_8));
+			
+			return result;
 		} catch (IOException e) {
 			throw new InvalidTokenException(e.getMessage(), e);
 		}
-		
-		return null;
 	}
 
 	@Override
-	public String encode(T token) {
+	public String encode(JsonWebToken<H, B> token) {
 		String result = "";
 		String headerPart = "";
 		String bodyPart = "";

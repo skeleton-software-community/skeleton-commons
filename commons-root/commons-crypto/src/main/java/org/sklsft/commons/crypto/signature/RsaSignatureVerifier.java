@@ -22,7 +22,7 @@ public class RsaSignatureVerifier {
 	public boolean checkSignature(RsaAlgorithms algorithm, String keyId, byte[] data, byte[] signing) {
 		
 		try {
-			Signature signature = Signature.getInstance(algorithm.getName());
+			Signature signature = Signature.getInstance(algorithm.getFullName());
 			signature.initVerify(rsaPublicKeyAccessor.getPublicKey(keyId));
 			signature.update(data);
 			return signature.verify(signing);

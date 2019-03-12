@@ -1,11 +1,5 @@
 package org.sklsft.commons.rest.security.tokens.verification.impl;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.Signature;
-import java.security.SignatureException;
-
-import org.sklsft.commons.crypto.accessors.RsaPublicKeyAccessor;
 import org.sklsft.commons.crypto.signature.RsaAlgorithms;
 import org.sklsft.commons.crypto.signature.RsaSignatureVerifier;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
@@ -20,14 +14,20 @@ import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
  * @author Nicolas Thibault
  * 
  */
-public class RsaJwtVerifier<T extends JsonWebToken<H, B>, H extends BasicRsaJwtHeader, B> implements TokenVerifier<T> {
+public class RsaJwtVerifier<H extends BasicRsaJwtHeader, B> implements TokenVerifier<JsonWebToken<H, B>> {
 
 	private RsaSignatureVerifier rsaSignatureverifier;
 	
 	
-	
+	public RsaJwtVerifier(RsaSignatureVerifier rsaSignatureverifier) {
+		super();
+		this.rsaSignatureverifier = rsaSignatureverifier;
+	}
+
+
+
 	@Override
-	public void verifyToken(T token) {
+	public void verifyToken(JsonWebToken<H, B> token) {
 		RsaAlgorithms rsAalgorithm = RsaAlgorithms.valueOf(token.getHeader().getAlgorithm());
 		if (rsAalgorithm == null) {
 			throw new InvalidTokenException("Unsupported algorithm");

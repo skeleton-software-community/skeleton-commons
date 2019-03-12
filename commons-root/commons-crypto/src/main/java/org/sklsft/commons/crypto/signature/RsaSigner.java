@@ -16,7 +16,7 @@ public class RsaSigner {
 
 	public byte[] sign(RsaAlgorithms algorithm, String keyId, byte[] data) {
 		try {
-			Signature signature = Signature.getInstance(algorithm.getName());
+			Signature signature = Signature.getInstance(algorithm.getFullName());
 	        signature.initSign(rsaPrivateKeyAccessor.getPrivateKey(keyId));
 	        signature.update(data);
 	        return signature.sign();

@@ -11,7 +11,7 @@ public enum RsaAlgorithms {
 	
 	private String name;
 
-	public String getName() {
+	public String getFullName() {
 		return name;
 	}	
 }

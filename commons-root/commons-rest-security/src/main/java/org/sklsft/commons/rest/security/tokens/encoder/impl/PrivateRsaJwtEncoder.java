@@ -2,7 +2,6 @@ package org.sklsft.commons.rest.security.tokens.encoder.impl;
 
 import org.sklsft.commons.crypto.signature.RsaAlgorithms;
 import org.sklsft.commons.crypto.signature.RsaSigner;
-import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @param <H>
  * @param <B>
  */
-public class PrivateRsaJwtEncoder<T extends JsonWebToken<H, B>, H, B> extends JwtEncoder<T, H, B> {
+public class PrivateRsaJwtEncoder<H, B> extends JwtEncoder<H, B> {
 	
 	private RsaSigner rsaSigner;
 	private RsaAlgorithms algorithm;
