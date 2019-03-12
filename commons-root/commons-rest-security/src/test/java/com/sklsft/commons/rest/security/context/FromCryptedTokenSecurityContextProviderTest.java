@@ -7,25 +7,26 @@ import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.context.impl.FromCryptedTokenSecurityContextProvider;
+import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
-import com.sklsft.commons.rest.security.credentials.validator.UserCredentialsMockValidator;
-import com.sklsft.commons.rest.security.tokens.encoder.BasicCredentialsMockEncoder;
+import com.sklsft.commons.rest.security.credentials.validator.UserCredentialsValidatorMock;
+import com.sklsft.commons.rest.security.tokens.encoder.BasicCredentialsEncoderMock;
+import com.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
 
-public class PrivateSecurityContextProviderImplTest {
+public class FromCryptedTokenSecurityContextProviderTest {
 
-	private static TokenEncoder<BasicJwtBody> tokenEncoder = new BasicCredentialsMockEncoder();
-	private static SecurityCredentialsValidator<BasicJwtBody> credentialsValidator = new UserCredentialsMockValidator();
+	private static TokenEncoder<BasicCredentials> tokenEncoder = new BasicCredentialsEncoderMock();
+	private static SecurityCredentialsValidator<BasicCredentials> credentialsValidator = new UserCredentialsValidatorMock();
 
 	private static SecurityContextProvider provider;
 	
 	@BeforeClass
 	public static void init() {
-		provider = new FromCryptedTokenSecurityContextProvider<BasicJwtBody>(tokenEncoder, credentialsValidator);
+		provider = new FromCryptedTokenSecurityContextProvider<BasicCredentials>(tokenEncoder, credentialsValidator);
 	}
 	
 	@After
@@ -37,8 +38,8 @@ public class PrivateSecurityContextProviderImplTest {
 	public void testProvideValidCredentials() {
 		provider.provideSecurityContext("sklgen$nicolas.thibault@sklsft.org");
 		
-		BasicJwtBody userCredentials = (BasicJwtBody) SecurityContextHolder.getCredentials();
-		Assert.assertTrue(userCredentials.getUser().equals("nicolas.thibault@sklsft.org") && userCredentials.getApplication().equals("sklgen"));	
+		BasicCredentials userCredentials = (BasicCredentials) SecurityContextHolder.getCredentials();
+		Assert.assertTrue(userCredentials.getUser().equals("nicolas.thibault@sklsft.org") && userCredentials.getApplication().equals("sklgen"));
 	}
 	
 	@Test(expected=InvalidTokenException.class)

@@ -1,4 +1,6 @@
-package org.sklsft.commons.rest.security.tokens.jwt;
+package com.sklsft.commons.rest.security.tokens.jwt;
+
+import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 
 public class BasicRsaJsonWebToken extends JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> {
 

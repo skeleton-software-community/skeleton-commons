@@ -6,16 +6,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
+import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
-import com.sklsft.commons.rest.security.credentials.validator.ApplicationCredentialsMockValidator;
+import com.sklsft.commons.rest.security.credentials.validator.ApplicationCredentialsValidatorMock;
 
 
-public class AnonymousSecurityContextProviderImplTest {
+public class FromKeySecurityContextProviderTest {
 	
-	private static SecurityCredentialsValidator<BasicJwtBody> credentialsValidator = new ApplicationCredentialsMockValidator();
+	private static SecurityCredentialsValidator<BasicCredentials> credentialsValidator = new ApplicationCredentialsValidatorMock();
 
 	private static SecurityContextProvider provider;
 	
@@ -33,7 +33,7 @@ public class AnonymousSecurityContextProviderImplTest {
 	public void testProvideValidCredentials() {
 		provider.provideSecurityContext("sklgen");
 		
-		BasicJwtBody credentials = (BasicJwtBody) SecurityContextHolder.getCredentials();
+		BasicCredentials credentials = (BasicCredentials) SecurityContextHolder.getCredentials();
 		Assert.assertTrue(credentials.getApplication().equals("sklgen"));
 	}
 	

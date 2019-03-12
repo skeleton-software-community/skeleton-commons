@@ -3,9 +3,10 @@ package org.sklsft.commons.rest.security.tokens.verification.impl;
 import org.sklsft.commons.crypto.signature.RsaAlgorithms;
 import org.sklsft.commons.crypto.signature.RsaSignatureVerifier;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
+
+import com.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 
 /**
  *

@@ -1,13 +1,13 @@
 package com.sklsft.commons.rest.security.tokens.encoder;
 
+import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
-public class BasicCredentialsMockEncoder implements TokenEncoder<BasicJwtBody> {
+public class BasicCredentialsEncoderMock implements TokenEncoder<BasicCredentials> {
 
 	@Override
-	public BasicJwtBody decode(String token) {
+	public BasicCredentials decode(String token) {
 
 		String[] tokens = token.split("\\$");
 		
@@ -15,7 +15,7 @@ public class BasicCredentialsMockEncoder implements TokenEncoder<BasicJwtBody> {
 			throw new InvalidTokenException("Bad token");
 		}
 		
-		BasicJwtBody result = new BasicJwtBody();
+		BasicCredentials result = new BasicCredentials();
 		result.setApplication(tokens[0]);
 		result.setUser(tokens[1]);		
 		
@@ -23,7 +23,7 @@ public class BasicCredentialsMockEncoder implements TokenEncoder<BasicJwtBody> {
 	}
 
 	@Override
-	public String encode(BasicJwtBody credentials) {
+	public String encode(BasicCredentials credentials) {
 		String result = "";
 		result += credentials.getApplication();
 		result += "$";

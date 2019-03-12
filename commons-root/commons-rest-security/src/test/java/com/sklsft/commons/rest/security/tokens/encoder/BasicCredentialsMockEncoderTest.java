@@ -2,21 +2,21 @@ package com.sklsft.commons.rest.security.tokens.encoder;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
 public class BasicCredentialsMockEncoderTest {
 	
-	private static BasicCredentialsMockEncoder encoder;
+	private static BasicCredentialsEncoderMock encoder;
 	
 	@BeforeClass
 	public static void init() {
-		encoder = new BasicCredentialsMockEncoder();
+		encoder = new BasicCredentialsEncoderMock();
 	}
 	
 	@Test
 	public void testGoodCredentials() {
-		BasicJwtBody credentials =encoder.decode("Nicolas$Thibault");
+		BasicCredentials credentials = encoder.decode("sklgen$nicolas.thibault@sklsft.org");
 		System.out.println(credentials);
 	}
 	
