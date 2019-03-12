@@ -1,9 +1,10 @@
 package org.sklsft.commons.rest.aspect;
 
+import java.util.UUID;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,6 +23,9 @@ public class RestRequestAspect {
 	public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
 		
 		String requestId = getHeader("request-id");
+		if (requestId == null) {
+			requestId = UUID.randomUUID().toString();
+		}
 		
 		RestRequestContextHolder.bind(new RestRequestContext(requestId));
 
@@ -29,11 +33,8 @@ public class RestRequestAspect {
 			
 			return joinPoint.proceed();
 	
-		} catch (Throwable t) {
-			throw t;
-	
 		} finally {
-			SecurityContextHolder.unbindCredentials();
+			RestRequestContextHolder.unbind();
 		}
 
 	}
