@@ -14,7 +14,6 @@ import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
 
 import com.sklsft.commons.rest.security.credentials.validator.UserCredentialsValidatorMock;
 import com.sklsft.commons.rest.security.tokens.encoder.BasicCredentialsEncoderMock;
-import com.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
 
 public class FromCryptedTokenSecurityContextProviderTest {

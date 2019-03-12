@@ -2,14 +2,10 @@ package com.sklsft.commons.rest.security.crypto;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.sklsft.commons.crypto.accessors.RsaPublicKeyAccessor;

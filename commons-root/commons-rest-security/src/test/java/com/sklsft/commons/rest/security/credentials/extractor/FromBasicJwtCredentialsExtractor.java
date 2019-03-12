@@ -2,9 +2,9 @@ package com.sklsft.commons.rest.security.credentials.extractor;
 
 import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.credentials.extractor.impl.FromJwtCredentialsExtractor;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 
 import com.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import com.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 
 public class FromBasicJwtCredentialsExtractor extends FromJwtCredentialsExtractor<BasicRsaJwtHeader, BasicJwtBody, BasicCredentials>{
 

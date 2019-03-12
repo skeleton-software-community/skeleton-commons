@@ -1,4 +1,4 @@
-package com.sklsft.commons.rest.security.tokens.jwt;
+package org.sklsft.commons.rest.security.tokens.jwt;
 
 import java.io.Serializable;
 

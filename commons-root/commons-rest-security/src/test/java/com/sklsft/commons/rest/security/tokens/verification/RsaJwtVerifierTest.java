@@ -8,6 +8,7 @@ import org.sklsft.commons.crypto.signature.RsaSigner;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.impl.PrivateRsaJwtEncoder;
 import org.sklsft.commons.rest.security.tokens.encoder.impl.PublicJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 import org.sklsft.commons.rest.security.tokens.verification.impl.RsaJwtVerifier;
 import org.slf4j.Logger;
@@ -18,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sklsft.commons.rest.security.crypto.RsaPrivateKeyAccessorMock;
 import com.sklsft.commons.rest.security.crypto.RsaPublicKeyAccessorMock;
 import com.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import com.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 
 public class RsaJwtVerifierTest {
 	

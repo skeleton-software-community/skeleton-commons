@@ -1,6 +1,7 @@
 package com.sklsft.commons.rest.security.context;
 
 import org.apache.commons.codec.binary.Base64;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sklsft.commons.crypto.signature.RsaAlgorithms;
@@ -12,6 +13,7 @@ import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.impl.PrivateRsaJwtEncoder;
 import org.sklsft.commons.rest.security.tokens.encoder.impl.PublicJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 import org.sklsft.commons.rest.security.tokens.verification.impl.RsaJwtVerifier;
 import org.slf4j.Logger;
@@ -24,7 +26,6 @@ import com.sklsft.commons.rest.security.credentials.validator.BasicCredentialsVa
 import com.sklsft.commons.rest.security.crypto.RsaPrivateKeyAccessorMock;
 import com.sklsft.commons.rest.security.crypto.RsaPublicKeyAccessorMock;
 import com.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import com.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 import com.sklsft.commons.rest.security.tokens.verification.RsaJwtVerifierTest;
 
 public class FromJwtSecurityContextProviderTest {
@@ -39,6 +40,11 @@ public class FromJwtSecurityContextProviderTest {
 	
 	static {
 		provider = new FromJwtSecurityContextProvider<BasicRsaJwtHeader, BasicJwtBody, BasicCredentials>(new ObjectMapper(), BasicRsaJwtHeader.class, BasicJwtBody.class, verifier, new FromBasicJwtCredentialsExtractor(), new BasicCredentialsValidatorMock());
+	}
+	
+	@After
+	public void clear() {
+		SecurityContextHolder.unbindCredentials();
 	}
 	
 	@Test
