@@ -10,7 +10,14 @@ public class ScrollView<T extends Serializable> implements Serializable {
 	/*
 	 * properties
 	 */
+	/**
+	 * global number of elements
+	 */
 	private Long size;
+	/**
+	 * number of filtered elements
+	 */
+	private Long count;
 	private Long numberOfPages;
 	private Long currentPage;	
 	private List<T> elements;
@@ -24,6 +31,12 @@ public class ScrollView<T extends Serializable> implements Serializable {
 	}
 	public void setSize(Long size) {
 		this.size = size;
+	}
+	public Long getCount() {
+		return count;
+	}
+	public void setCount(Long count) {
+		this.count = count;
 	}
 	public Long getNumberOfPages() {
 		return numberOfPages;
