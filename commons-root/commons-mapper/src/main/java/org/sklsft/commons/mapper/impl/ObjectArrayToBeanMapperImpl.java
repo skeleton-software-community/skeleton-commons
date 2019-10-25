@@ -33,6 +33,16 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 					value = ((BigDecimal)value).longValue();
 				}
 			}
+			if (Integer.class.isAssignableFrom(accessibleField.fieldClass)) {
+				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
+					value = ((BigDecimal)value).intValue();
+				}
+			}
+			if (Short.class.isAssignableFrom(accessibleField.fieldClass)) {
+				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
+					value = ((BigDecimal)value).shortValue();
+				}
+			}
 			accessibleField.setValue(value, obj);
 		}
 		

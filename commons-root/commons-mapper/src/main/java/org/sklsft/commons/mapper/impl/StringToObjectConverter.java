@@ -40,9 +40,17 @@ public class StringToObjectConverter {
 		if (clazz.equals(Long.class)) {
 			return Long.valueOf(value);
 		}
+		
+		if (clazz.equals(Integer.class)) {
+			return Integer.valueOf(value);
+		}
+		
+		if (clazz.equals(Short.class)) {
+			return Short.valueOf(value);
+		}
 
 		if (clazz.equals(Boolean.class)) {
-                return Boolean.valueOf(value);
+			return Boolean.valueOf(value);
 		}
 		
 		return value;
