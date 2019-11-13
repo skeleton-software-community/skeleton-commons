@@ -83,7 +83,7 @@
 		<spring.version>4.3.6.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
 		<javax.inject.version>1</javax.inject.version>
-		<jackson.version>2.6.0</jackson.version>
+		<jackson.version>2.10.1</jackson.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<java-jwt.version>3.4.1</java-jwt.version>
 		<bouncycastle.version>1.61</bouncycastle.version>
