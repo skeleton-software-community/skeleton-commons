@@ -7,9 +7,9 @@
 		<version>3.1.0-M1</version>
 	</parent>
 
-	<artifactId>commons-rest</artifactId>
-	<name>Commons REST</name>
-	<description>Commons REST</description>
+	<artifactId>commons-log</artifactId>
+	<name>Commons log</name>
+	<description>Commons log</description>
 
 	<packaging>jar</packaging>
 
@@ -25,16 +25,6 @@
 			<artifactId>commons-crypto</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.sklsft.commons</groupId>
-			<artifactId>commons-rest-security</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.sklsft.commons</groupId>
-			<artifactId>commons-log</artifactId>
-		</dependency>
-		
 		
 		<!-- loggers -->
 		<dependency>
@@ -42,29 +32,12 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		
-		
-		<!-- spring webmvc -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>test</scope>
 		</dependency>
 		
-		
-		<!-- AspectJ -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjtools</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-		</dependency>
 		
 		
 		<!-- Junit -->

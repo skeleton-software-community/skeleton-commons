@@ -11,11 +11,17 @@ public abstract class ApplicationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String message;
-	
+	/*
+	 * properties
+	 */
+	private String message;	
 	private Object details;
+	private String transactionId;
 	
 
+	/*
+	 * constructors
+	 */
 	public ApplicationException(){
 		super();
 	}
@@ -43,20 +49,32 @@ public abstract class ApplicationException extends RuntimeException {
 		this.details = details;
 	}
 	
+	
+	/*
+	 * getters and setters
+	 */
 	@Override
 	public String getMessage() {
 		return this.message;
-	}
-	
+	}	
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
 	public Object getDetails() {
 		return details;
 	}
-
 	public void setDetails(Object details) {
 		this.details = details;
+	}
+	public String getTransactionId() {
+		return transactionId;
+	}
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
+	}
+	
+	
+	public String getHttpErrorCode() {
+		return "500";
 	}
 }

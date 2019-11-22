@@ -25,4 +25,9 @@ public class AccessDeniedException extends ApplicationException {
 	public AccessDeniedException(String message, Throwable cause) {
 		super(message, cause);
 	}
+	
+	@Override
+	public String getHttpErrorCode() {
+		return "403";
+	}
 }

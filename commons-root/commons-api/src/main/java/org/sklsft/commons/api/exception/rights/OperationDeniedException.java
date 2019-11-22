@@ -25,4 +25,10 @@ public class OperationDeniedException extends ApplicationException {
 	public OperationDeniedException(String message, Throwable cause) {
 		super(message, cause);
 	}
+	
+	
+	@Override
+	public String getHttpErrorCode() {
+		return "500";
+	}
 }
