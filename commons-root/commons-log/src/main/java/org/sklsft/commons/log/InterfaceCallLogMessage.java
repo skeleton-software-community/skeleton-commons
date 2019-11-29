@@ -19,10 +19,6 @@ public class InterfaceCallLogMessage implements Serializable {
 	private String responseLabel;
 	
 	
-	/*
-	 * constructor
-	 */
-	
 	
 	/*
 	 * getters and setters

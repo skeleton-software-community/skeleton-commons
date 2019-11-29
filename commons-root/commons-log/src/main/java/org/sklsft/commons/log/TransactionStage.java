@@ -4,5 +4,6 @@ public enum TransactionStage {
 	
 	REQUEST,
 	RESPONSE,
-	PROCESSING;
+	INTERFACE_CALL,
+	INTERFACE_CALLBACK;
 }

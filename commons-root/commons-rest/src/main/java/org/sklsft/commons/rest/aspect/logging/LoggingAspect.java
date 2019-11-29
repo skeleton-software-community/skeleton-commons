@@ -2,9 +2,6 @@ package org.sklsft.commons.rest.aspect.logging;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,16 +11,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.log.AccessLogger;
-import org.sklsft.commons.rest.security.context.SecurityContextHolder;
+import org.sklsft.commons.log.ErrorLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * A simple login aspect that logs :
@@ -38,10 +32,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Order(2)
 public class LoggingAspect {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
-
 	private AccessLogger accessLogger;
-	private ObjectMapper objectMapper;
+	private ErrorLogger errorLogger;
 	
 	private boolean traceRequestBody;
 	private boolean traceResponseBody;
@@ -50,10 +42,9 @@ public class LoggingAspect {
 	public void setAccessLogger(AccessLogger accessLogger) {
 		this.accessLogger = accessLogger;
 	}
-	public void setObjectMapper(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
+	public void setErrorLogger(ErrorLogger errorLogger) {
+		this.errorLogger = errorLogger;
 	}
-
 	public void setTraceRequestBody(boolean traceRequestBody) {
 		this.traceRequestBody = traceRequestBody;
 	}
@@ -101,10 +92,12 @@ public class LoggingAspect {
 		} catch (ApplicationException e) {
 			elapsedTime = System.currentTimeMillis() - start;
 			accessLogger.logResponse(transactionType, "HTTP response sent", null, elapsedTime, e.getHttpErrorCode(), e.getMessage());
+			errorLogger.logApplicationException(e);
 			throw e;
 		} catch (Exception e) {
 			elapsedTime = System.currentTimeMillis() - start;
 			accessLogger.logResponse(transactionType, "HTTP response sent", null, elapsedTime, "500", e.getMessage());
+			errorLogger.logException(e);
 			throw e;
 		}
 	}

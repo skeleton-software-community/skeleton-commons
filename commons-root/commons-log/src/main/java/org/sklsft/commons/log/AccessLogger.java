@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class AccessLogger {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AccessLogger.class);
+	private static final Logger logger = LoggerFactory.getLogger("ACCESS_LOG");
 	
 	private Serializer serializer;
 	
@@ -18,7 +18,9 @@ public class AccessLogger {
 		this.serializer = serializer;
 	}
 	
-
+	/**
+	 * Used to log a request received as a backend
+	 */
 	public void logRequest(String transactionType, String message, Object requestPayload) {
 		AccessLogMessage accessMessage = new AccessLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.REQUEST);
@@ -34,6 +36,10 @@ public class AccessLogger {
 		}		
 	}
 	
+	
+	/**
+	 * Used to log a response sent as a backend
+	 */
 	public void logResponse(String transactionType, String message, Object responsePayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
 		AccessLogMessage accessMessage = new AccessLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.RESPONSE);
@@ -50,5 +56,46 @@ public class AccessLogger {
 		} catch (IOException e) {
 			throw new TechnicalError("failed to log response : " + e.getMessage());
 		}
+	}
+	
+	
+	/**
+	 * Used to log a request sent as a client
+	 */
+	public void logInterfaceCall(String interfaceName, String interfaceChannel, Object sentPayload) {
+		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
+		accessMessage.setTransactionStage(TransactionStage.INTERFACE_CALL);
+		accessMessage.setInterfaceName(interfaceName);
+		accessMessage.setInterfaceChannel(interfaceChannel);
+		accessMessage.setSentPayload(sentPayload);
+		String serialized;
+		try {
+			serialized = serializer.serialize(accessMessage);
+			logger.info(serialized);
+		} catch (IOException e) {
+			throw new TechnicalError("failed to log request : " + e.getMessage());
+		}		
+	}
+	
+	
+	/**
+	 * Used to log a response received as a client
+	 */
+	public void logInterfaceCallback(String interfaceName, String interfaceChannel, Object receivedPayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
+		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
+		accessMessage.setTransactionStage(TransactionStage.INTERFACE_CALLBACK);
+		accessMessage.setInterfaceName(interfaceName);
+		accessMessage.setInterfaceChannel(interfaceChannel);
+		accessMessage.setReceivedPayload(receivedPayload);
+		accessMessage.setResponseTimeMillis(responseTimeMillis);
+		accessMessage.setResponseStatus(responseStatus);
+		accessMessage.setResponseLabel(responseLabel);
+		String serialized;
+		try {
+			serialized = serializer.serialize(accessMessage);
+			logger.info(serialized);
+		} catch (IOException e) {
+			throw new TechnicalError("failed to log request : " + e.getMessage());
+		}		
 	}
 }

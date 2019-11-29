@@ -17,36 +17,20 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 	private final static Logger logger = LoggerFactory.getLogger(RestClientLoggerInterceptor.class);
 
 	private String requestIdHeaderKey = "request-id";
-	private boolean handleRequestId = true;
-	private boolean traceRequestHeaders = false;
 	private boolean traceRequestBody = true;
-	private boolean traceResponseHeaders = false;
 	private boolean traceResponseBody = false;
 
 	public void setRequestIdHeaderKey(String requestIdHeaderKey) {
 		this.requestIdHeaderKey = requestIdHeaderKey;
 	}
-
-	public void setHandleRequestId(boolean handleRequestId) {
-		this.handleRequestId = handleRequestId;
-	}
-
-	public void setTraceRequestHeaders(boolean traceRequestHeaders) {
-		this.traceRequestHeaders = traceRequestHeaders;
-	}
-
 	public void setTraceRequestBody(boolean traceRequestBody) {
 		this.traceRequestBody = traceRequestBody;
 	}
-
-	public void setTraceResponseHeaders(boolean traceResponseHeaders) {
-		this.traceResponseHeaders = traceResponseHeaders;
-	}
-
 	public void setTraceResponseBody(boolean traceResponseBody) {
 		this.traceResponseBody = traceResponseBody;
 	}
 
+	
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
@@ -61,13 +45,10 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 	private void traceRequest(HttpRequest request, byte[] body) throws IOException {
 		String logged = "HTTP request sent : Method=" + request.getMethod() + ", URI=" + request.getURI();
 
-		if (handleRequestId) {
-			logged += ", RequestId=" + request.getHeaders().get(requestIdHeaderKey).get(0);
-		}
-
-		if (traceRequestHeaders) {
-			logged += ", Headers=" + request.getHeaders();
-		}
+//		if (handleRequestId) {
+//			logged += ", RequestId=" + request.getHeaders().get(requestIdHeaderKey).get(0);
+//		}
+		
 		if (traceRequestBody) {
 			if (!request.getMethod().equals(HttpMethod.GET)) {
 				logged += ", Body=" + new String(body, "UTF-8");
@@ -80,15 +61,12 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 
 		String logged = "HTTP response received : Status=" + response.getStatusCode();
 		
-		if (handleRequestId) {
-			logged += ", RequestId=" + request.getHeaders().get(requestIdHeaderKey).get(0);
-		} else {
-			logged += ", Method=" + request.getMethod() + ", URI=" + request.getURI();
-		}
+//		if (handleRequestId) {
+//			logged += ", RequestId=" + request.getHeaders().get(requestIdHeaderKey).get(0);
+//		} else {
+//			logged += ", Method=" + request.getMethod() + ", URI=" + request.getURI();
+//		}
 
-		if (traceResponseHeaders) {
-			logged += ", Headers=" + response.getHeaders();
-		}
 		if (traceResponseBody) {
 			if (response.getBody() != null) {
 				String responseBody = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
