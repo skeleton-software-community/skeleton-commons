@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sklsft.commons.api.exception.ApplicationException;
+import org.sklsft.commons.log.AccessLogger;
+import org.sklsft.commons.log.ErrorLogger;
 import org.sklsft.commons.mvc.annotations.AjaxMethod;
 import org.sklsft.commons.mvc.messages.MessageHandler;
 import org.slf4j.Logger;
@@ -31,14 +33,11 @@ import org.slf4j.LoggerFactory;
 @Aspect
 public class AjaxMethodAspect {
 	
-	private static final Logger logger = LoggerFactory.getLogger(AjaxMethodAspect.class);
+	private AjaxMethodExecutor executor;	
 	
-	private MessageHandler messageHandler;
-	
-	public void setMessageHandler(MessageHandler messageHandler) {
-		this.messageHandler = messageHandler;
-	}
-	
+	public void setExecutor(AjaxMethodExecutor executor) {
+		this.executor = executor;
+	}	
 
 
 	@Pointcut("@annotation(org.sklsft.commons.mvc.annotations.AjaxMethod)")
@@ -51,18 +50,15 @@ public class AjaxMethodAspect {
 		AjaxMethod ajaxMethod = proxiedMethod.getAnnotation(AjaxMethod.class);
 		String value = ajaxMethod.value();
 		
-		try {
-			logger.info(value);
-			joinPoint.proceed();
-			messageHandler.displayInfo(value + ".success");
-			logger.info("completed");
-		} catch (ApplicationException e) {
-			messageHandler.displayError(e.getMessage());
-			logger.error("failed : " + e.getClass().getSimpleName() + " - " + e.getMessage(), e);
-		} catch (Exception e) {
-			messageHandler.displayError(value + ".failure");
-			logger.error("failed : " + e.getClass().getSimpleName() + " - " + e.getMessage(), e);
-		}
+		executor.executeAjaxMethod(value, new AjaxMethodTemplate() {			
+			@Override
+			public void redirectOnComplete(Object result) {				
+			}
+			
+			@Override
+			public Object execute() throws Throwable {
+				return joinPoint.proceed();
+			}
+		});
 	}
-
 }

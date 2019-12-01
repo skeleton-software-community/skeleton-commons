@@ -30,7 +30,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 @Aspect
 @Order(2)
-public class LoggingAspect {
+public class RestLoggingAspect {
 
 	private AccessLogger accessLogger;
 	private ErrorLogger errorLogger;

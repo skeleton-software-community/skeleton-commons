@@ -12,7 +12,7 @@ package org.sklsft.commons.mvc.ajax;
  */
 public interface AjaxMethodTemplate {
 	
-	Object execute();
+	Object execute() throws Throwable;
 	
 	void redirectOnComplete(Object result);
 

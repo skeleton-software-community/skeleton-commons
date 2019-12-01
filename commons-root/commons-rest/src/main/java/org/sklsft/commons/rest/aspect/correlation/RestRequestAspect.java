@@ -5,8 +5,10 @@ import java.util.UUID;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.sklsft.commons.api.context.RequestContext;
+import org.sklsft.commons.api.context.RequestContextHolder;
 import org.springframework.core.annotation.Order;
-import org.springframework.web.context.request.RequestContextHolder;
+
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
@@ -27,20 +29,20 @@ public class RestRequestAspect {
 			requestId = UUID.randomUUID().toString();
 		}
 		
-		RestRequestContextHolder.bind(new RestRequestContext(requestId));
+		RequestContextHolder.bind(new RequestContext(requestId));
 
 		try {
 			
 			return joinPoint.proceed();
 	
 		} finally {
-			RestRequestContextHolder.unbind();
+			RequestContextHolder.unbind();
 		}
 
 	}
 
 	private String getHeader(String key) {
-		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) org.springframework.web.context.request.RequestContextHolder.getRequestAttributes();
 		String result = servletRequestAttributes.getRequest().getHeader(key);
 		return result;
 	}

@@ -1,12 +1,12 @@
-package org.sklsft.commons.rest.aspect.correlation;
+package org.sklsft.commons.api.context;
 
 import java.io.Serializable;
 
-public class RestRequestContext implements Serializable {
+public class RequestContext implements Serializable {
 	
 private static final long serialVersionUID = 1L;
 	
-	public RestRequestContext(String requestId) {
+	public RequestContext(String requestId) {
 		super();
 		this.requestId = requestId;
 	}

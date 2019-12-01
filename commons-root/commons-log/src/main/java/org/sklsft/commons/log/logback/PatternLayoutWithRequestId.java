@@ -1,4 +1,4 @@
-package org.sklsft.commons.rest.aspect.logging;
+package org.sklsft.commons.log.logback;
 
 import ch.qos.logback.classic.PatternLayout;
 
