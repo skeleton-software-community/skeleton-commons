@@ -29,7 +29,7 @@ public class RestRequestAspect {
 			requestId = UUID.randomUUID().toString();
 		}
 		
-		RequestContextHolder.bind(new RequestContext(requestId));
+		RequestContextHolder.bind(new RequestContext(requestId, "HTTP REST"));
 
 		try {
 			

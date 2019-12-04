@@ -53,7 +53,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 				sentPayload = new String(body, "UTF-8");
 			}
 		}
-		accessLogger.logInterfaceCall(interfaceName, "REST", sentPayload);
+		accessLogger.logInterfaceCall(interfaceName, "HTTP REST", sentPayload);
 	}
 
 	private void traceResponse(HttpRequest request, ClientHttpResponse response, long elapsedTime) throws IOException {
@@ -69,6 +69,6 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 			}
 		}
 
-		accessLogger.logInterfaceCallback(interfaceName, "REST", receivedPayload, elapsedTime, status, message);
+		accessLogger.logInterfaceCallback(interfaceName, "HTTP REST", receivedPayload, elapsedTime, status, message);
 	}
 }

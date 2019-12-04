@@ -35,7 +35,7 @@ public class RequestContextFilter implements Filter {
  
     	if (RequestContextHolder.getContextOrNull() == null) {
 			String requestId = UUID.randomUUID().toString();
-			RequestContext context = new RequestContext(requestId);
+			RequestContext context = new RequestContext(requestId, "HTTP HTML");
 			RequestContextHolder.bind(context);
 		}
         chain.doFilter(request, response);

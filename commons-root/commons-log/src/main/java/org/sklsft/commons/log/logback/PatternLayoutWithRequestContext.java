@@ -6,5 +6,6 @@ public class PatternLayoutWithRequestContext extends PatternLayout {
 
 	static {
 		PatternLayout.defaultConverterMap.put("requestId", RequestIdConverter.class.getName());
+		PatternLayout.defaultConverterMap.put("channel", ChannelConverter.class.getName());
 	}
 }

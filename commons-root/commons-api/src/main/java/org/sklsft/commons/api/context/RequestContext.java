@@ -6,9 +6,13 @@ public class RequestContext implements Serializable {
 	
 private static final long serialVersionUID = 1L;
 	
-	public RequestContext(String requestId) {
+	/*
+	 * constructor
+	 */
+	public RequestContext(String requestId, String channel) {
 		super();
 		this.requestId = requestId;
+		this.channel = channel;
 	}
 	
 	
@@ -16,6 +20,7 @@ private static final long serialVersionUID = 1L;
 	 * properties
 	 */
 	private String requestId;
+	private String channel;
 
 	
 	/*
@@ -26,5 +31,11 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
+	}	
+	public String getChannel() {
+		return channel;
+	}
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 }
