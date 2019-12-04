@@ -19,17 +19,17 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 
 	private AccessLogger accessLogger;
 	
-	private boolean traceRequestBody = true;
-	private boolean traceResponseBody = false;
+	private boolean traceRequestPayload = true;
+	private boolean traceResponsePayload = false;
 
 	public void setAccessLogger(AccessLogger accessLogger) {
 		this.accessLogger = accessLogger;
 	}
-	public void setTraceRequestBody(boolean traceRequestBody) {
-		this.traceRequestBody = traceRequestBody;
+	public void setTraceRequestPayload(boolean traceRequestPayload) {
+		this.traceRequestPayload = traceRequestPayload;
 	}
-	public void setTraceResponseBody(boolean traceResponseBody) {
-		this.traceResponseBody = traceResponseBody;
+	public void setTraceResponsePayload(boolean traceResponsePayload) {
+		this.traceResponsePayload = traceResponsePayload;
 	}
 
 	
@@ -48,7 +48,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 		String interfaceName = request.getMethod() + " " + request.getURI();
 		Object sentPayload = null;
 		
-		if (traceRequestBody) {
+		if (traceRequestPayload) {
 			if (!request.getMethod().equals(HttpMethod.GET)) {
 				sentPayload = new String(body, "UTF-8");
 			}
@@ -63,7 +63,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 		String receivedPayload = null;
 		String interfaceName = request.getMethod() + " " + request.getURI();
 
-		if (traceResponseBody) {
+		if (traceResponsePayload) {
 			if (response.getBody() != null) {
 				receivedPayload = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
 			}
