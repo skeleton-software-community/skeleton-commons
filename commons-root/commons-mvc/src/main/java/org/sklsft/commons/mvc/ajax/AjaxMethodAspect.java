@@ -8,12 +8,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.sklsft.commons.api.exception.ApplicationException;
-import org.sklsft.commons.log.AccessLogger;
-import org.sklsft.commons.log.ErrorLogger;
 import org.sklsft.commons.mvc.annotations.AjaxMethod;
 import org.sklsft.commons.mvc.messages.MessageHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**

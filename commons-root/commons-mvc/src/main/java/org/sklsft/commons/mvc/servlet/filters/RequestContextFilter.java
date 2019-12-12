@@ -21,12 +21,12 @@ public class RequestContextFilter implements Filter {
  
     @Override
     public void init(FilterConfig fConfig) throws ServletException {
-        logger.trace("Requset Context Filter initiated");
+        logger.info("Requset Context Filter initiated");
     }
  
     @Override
     public void destroy() {
-    	logger.trace("Requset Context Filter destroyed");
+    	logger.info("Requset Context Filter destroyed");
     }
  
     @Override
@@ -34,8 +34,9 @@ public class RequestContextFilter implements Filter {
             throws IOException, ServletException {
  
     	if (RequestContextHolder.getContextOrNull() == null) {
-			String requestId = UUID.randomUUID().toString();
-			RequestContext context = new RequestContext(requestId, "HTTP HTML");
+			String transactionId = UUID.randomUUID().toString();
+			String correlationId = transactionId;
+			RequestContext context = new RequestContext(transactionId, correlationId, "HTTP HTML");
 			RequestContextHolder.bind(context);
 		}
         chain.doFilter(request, response);

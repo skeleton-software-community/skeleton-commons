@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.sklsft.commons.api.context.RequestContext;
 import org.sklsft.commons.api.context.RequestContextHolder;
 import org.springframework.core.annotation.Order;
-
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
@@ -24,12 +23,14 @@ public class RestRequestAspect {
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
 	public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
 		
-		String requestId = getHeader("request-id");
-		if (requestId == null) {
-			requestId = UUID.randomUUID().toString();
+		String transactionId = UUID.randomUUID().toString();
+		
+		String correlationId = getHeader("correlation-id");
+		if (correlationId == null) {
+			correlationId = transactionId;
 		}
 		
-		RequestContextHolder.bind(new RequestContext(requestId, "HTTP REST"));
+		RequestContextHolder.bind(new RequestContext(transactionId, correlationId, "HTTP REST"));
 
 		try {
 			

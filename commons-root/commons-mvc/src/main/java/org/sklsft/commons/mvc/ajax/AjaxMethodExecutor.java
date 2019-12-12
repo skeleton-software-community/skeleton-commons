@@ -5,8 +5,6 @@ import org.sklsft.commons.api.exception.TechnicalError;
 import org.sklsft.commons.log.AccessLogger;
 import org.sklsft.commons.log.ErrorLogger;
 import org.sklsft.commons.mvc.messages.MessageHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * when {@link AjaxMethodAspect} is impossible due to redirection<br>

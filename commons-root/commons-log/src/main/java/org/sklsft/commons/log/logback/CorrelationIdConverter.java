@@ -6,7 +6,7 @@ import org.sklsft.commons.api.context.RequestContextHolder;
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
-public class ChannelConverter extends ClassicConverter {
+public class CorrelationIdConverter extends ClassicConverter {
 	
 	@Override
 	public String convert(ILoggingEvent event) {
@@ -14,8 +14,8 @@ public class ChannelConverter extends ClassicConverter {
 		RequestContext context = RequestContextHolder.getContextOrNull();
 		
 		if (context != null) {
-			if (context.getChannel() != null) {
-				return context.getChannel();
+			if (context.getCorrelationId() != null) {
+				return context.getCorrelationId();
 			}
 		}
 		return null;

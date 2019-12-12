@@ -6,7 +6,7 @@ import org.sklsft.commons.api.context.RequestContextHolder;
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
-public class RequestIdConverter extends ClassicConverter {
+public class TransactionIdConverter extends ClassicConverter {
 	
 	@Override
 	public String convert(ILoggingEvent event) {
@@ -14,13 +14,10 @@ public class RequestIdConverter extends ClassicConverter {
 		RequestContext context = RequestContextHolder.getContextOrNull();
 		
 		if (context != null) {
-			if (context.getRequestId() != null) {
-				return context.getRequestId();
-			} else {
-				return "no request id";
+			if (context.getTransactionId() != null) {
+				return context.getTransactionId();
 			}
-		} else {
-			return "no request";
 		}
+		return null;
 	}
 }
