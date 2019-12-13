@@ -16,7 +16,6 @@ public abstract class ApplicationException extends RuntimeException {
 	 */
 	private String message;	
 	private Object details;
-	private String transactionId;
 	
 
 	/*
@@ -65,12 +64,6 @@ public abstract class ApplicationException extends RuntimeException {
 	}
 	public void setDetails(Object details) {
 		this.details = details;
-	}
-	public String getTransactionId() {
-		return transactionId;
-	}
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
 	}
 	
 	

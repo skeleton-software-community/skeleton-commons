@@ -5,13 +5,14 @@ import java.util.UUID;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.sklsft.commons.api.context.RequestChannels;
 import org.sklsft.commons.api.context.RequestContext;
 import org.sklsft.commons.api.context.RequestContextHolder;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * An aspect to put the request id in a ThreadLocal. This will be useful for logs tracking.
+ * An aspect to put the transaction id and correlation id in the {@link RequestContext}. This will be useful for logs tracking.
  * 
  * @author Nicolas Thibault
  *
@@ -30,7 +31,7 @@ public class RestRequestAspect {
 			correlationId = transactionId;
 		}
 		
-		RequestContextHolder.bind(new RequestContext(transactionId, correlationId, "HTTP REST"));
+		RequestContextHolder.bind(new RequestContext(transactionId, correlationId, RequestChannels.HTTP_REST));
 
 		try {
 			

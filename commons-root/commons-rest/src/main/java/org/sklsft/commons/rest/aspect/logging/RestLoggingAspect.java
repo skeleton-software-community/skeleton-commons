@@ -20,8 +20,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  * A simple login aspect that logs :
  * <li>The request
- * <li>The response, if it is OK
+ * <li>The response
  * <li>Any exception thrown
+ * It uses {@link AccessLogger} and {@link ErrorLogger}
  * 
  * @author Nicolas Thibault
  *

@@ -2,6 +2,8 @@ package org.sklsft.commons.log;
 
 import java.io.Serializable;
 
+import org.sklsft.commons.api.context.RequestChannels;
+
 public class InterfaceCallLogMessage implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -11,7 +13,7 @@ public class InterfaceCallLogMessage implements Serializable {
 	 */
 	private TransactionStage transactionStage;
 	private String interfaceName;
-	private String interfaceChannel;
+	private RequestChannels interfaceChannel;
 	private Object sentPayload;
 	private Object receivedPayload;
 	private Long responseTimeMillis;
@@ -35,10 +37,10 @@ public class InterfaceCallLogMessage implements Serializable {
 	public void setInterfaceName(String interfaceName) {
 		this.interfaceName = interfaceName;
 	}
-	public String getInterfaceChannel() {
+	public RequestChannels getInterfaceChannel() {
 		return interfaceChannel;
 	}
-	public void setInterfaceChannel(String interfaceChannel) {
+	public void setInterfaceChannel(RequestChannels interfaceChannel) {
 		this.interfaceChannel = interfaceChannel;
 	}
 	public Object getSentPayload() {

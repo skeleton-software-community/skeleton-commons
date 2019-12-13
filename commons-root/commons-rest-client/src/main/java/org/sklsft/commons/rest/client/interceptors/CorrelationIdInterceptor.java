@@ -10,6 +10,13 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
+/**
+ * An interceptor to be associated to a {link RestTemplate} that aims at:
+ * Injecting a correlationId from the {@link RequestContext} in a HTTP header
+ * 
+ * @author Nicolas Thibault
+ *
+ */
 public class CorrelationIdInterceptor implements ClientHttpRequestInterceptor {
 
     @Override

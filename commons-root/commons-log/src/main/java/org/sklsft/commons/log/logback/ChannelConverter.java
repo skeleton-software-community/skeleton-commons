@@ -15,7 +15,7 @@ public class ChannelConverter extends ClassicConverter {
 		
 		if (context != null) {
 			if (context.getChannel() != null) {
-				return context.getChannel();
+				return context.getChannel().name();
 			}
 		}
 		return null;

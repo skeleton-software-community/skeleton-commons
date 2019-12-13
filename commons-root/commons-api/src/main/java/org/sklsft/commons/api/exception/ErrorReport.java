@@ -21,7 +21,6 @@ public class ErrorReport implements Serializable {
 	private String message;
 	@JsonTypeInfo(use = Id.CLASS, include = As.PROPERTY, property = "class")
 	private Object details;
-	private String transactionId;
 
 	/*
 	 * getters and setters
@@ -44,11 +43,4 @@ public class ErrorReport implements Serializable {
 	public void setDetails(Object details) {
 		this.details = details;
 	}
-	public String getTransactionId() {
-		return transactionId;
-	}
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
-
 }

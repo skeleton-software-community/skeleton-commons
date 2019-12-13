@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.sklsft.commons.api.context.RequestChannels;
 import org.sklsft.commons.api.context.RequestContext;
 import org.sklsft.commons.api.context.RequestContextHolder;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class RequestContextFilter implements Filter {
     	if (RequestContextHolder.getContextOrNull() == null) {
 			String transactionId = UUID.randomUUID().toString();
 			String correlationId = transactionId;
-			RequestContext context = new RequestContext(transactionId, correlationId, "HTTP HTML");
+			RequestContext context = new RequestContext(transactionId, correlationId, RequestChannels.HTTP_HTML);
 			RequestContextHolder.bind(context);
 		}
         chain.doFilter(request, response);

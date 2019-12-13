@@ -3,6 +3,7 @@ package org.sklsft.commons.rest.client.interceptors;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import org.sklsft.commons.api.context.RequestChannels;
 import org.sklsft.commons.log.AccessLogger;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
@@ -11,6 +12,14 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
+/**
+ * An interceptor to be associated to a {link RestTemplate} that aims at:
+ * <li>Logging when you send the request
+ * <li>Logging when you receive the response
+ * 
+ * @author Nicolas Thibault
+ *
+ */
 public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor {
 
 	private AccessLogger accessLogger;
@@ -49,7 +58,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 				sentPayload = new String(body, "UTF-8");
 			}
 		}
-		accessLogger.logInterfaceCall(interfaceName, "HTTP REST", sentPayload);
+		accessLogger.logInterfaceCall(interfaceName, RequestChannels.HTTP_REST, sentPayload);
 	}
 
 	private void traceResponse(HttpRequest request, ClientHttpResponse response, long elapsedTime) throws IOException {
@@ -65,6 +74,6 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 			}
 		}
 
-		accessLogger.logInterfaceCallback(interfaceName, "HTTP REST", receivedPayload, elapsedTime, status, message);
+		accessLogger.logInterfaceCallback(interfaceName, RequestChannels.HTTP_REST, receivedPayload, elapsedTime, status, message);
 	}
 }

@@ -21,5 +21,9 @@ public class InvalidArgumentException extends ApplicationException {
 	public InvalidArgumentException(String message, Throwable cause) {
 		super(message, cause);
 	}
+	
+	public String getHttpErrorCode() {
+		return "422";
+	}
 
 }

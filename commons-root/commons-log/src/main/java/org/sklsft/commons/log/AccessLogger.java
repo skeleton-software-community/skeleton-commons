@@ -2,6 +2,7 @@ package org.sklsft.commons.log;
 
 import java.io.IOException;
 
+import org.sklsft.commons.api.context.RequestChannels;
 import org.sklsft.commons.api.exception.TechnicalError;
 import org.sklsft.commons.crypto.serialization.Serializer;
 import org.slf4j.Logger;
@@ -62,7 +63,7 @@ public class AccessLogger {
 	/**
 	 * Used to log a request sent as a client
 	 */
-	public void logInterfaceCall(String interfaceName, String interfaceChannel, Object sentPayload) {
+	public void logInterfaceCall(String interfaceName, RequestChannels interfaceChannel, Object sentPayload) {
 		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_CALL);
 		accessMessage.setInterfaceName(interfaceName);
@@ -81,7 +82,7 @@ public class AccessLogger {
 	/**
 	 * Used to log a response received as a client
 	 */
-	public void logInterfaceCallback(String interfaceName, String interfaceChannel, Object receivedPayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
+	public void logInterfaceCallback(String interfaceName, RequestChannels interfaceChannel, Object receivedPayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
 		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_CALLBACK);
 		accessMessage.setInterfaceName(interfaceName);

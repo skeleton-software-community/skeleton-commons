@@ -29,6 +29,6 @@ public class OperationDeniedException extends ApplicationException {
 	
 	@Override
 	public String getHttpErrorCode() {
-		return "500";
+		return "403";
 	}
 }
