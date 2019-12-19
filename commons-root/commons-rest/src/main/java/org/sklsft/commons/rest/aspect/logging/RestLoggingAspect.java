@@ -71,7 +71,7 @@ public class RestLoggingAspect {
 			body = getRequestBody(joinPoint);			
 		}
 		
-		accessLogger.logRequest(transactionType, "HTTP request received", body);
+		accessLogger.logRequest(transactionType, body);
 
 		long elapsedTime;
 		
@@ -84,18 +84,18 @@ public class RestLoggingAspect {
 				responseBody = proceed;
 			}
 			
-			accessLogger.logResponse(transactionType, "HTTP response sent", responseBody, elapsedTime, "200", "OK");
+			accessLogger.logResponse(transactionType, responseBody, elapsedTime, "200", "OK");
 			
 			return proceed;
 
 		} catch (ApplicationException e) {
 			elapsedTime = System.currentTimeMillis() - start;
-			accessLogger.logResponse(transactionType, "HTTP response sent", null, elapsedTime, e.getHttpErrorCode(), e.getMessage());
+			accessLogger.logResponse(transactionType, null, elapsedTime, e.getHttpErrorCode(), e.getMessage());
 			errorLogger.logApplicationException(e);
 			throw e;
 		} catch (Exception e) {
 			elapsedTime = System.currentTimeMillis() - start;
-			accessLogger.logResponse(transactionType, "HTTP response sent", null, elapsedTime, "500", e.getMessage());
+			accessLogger.logResponse(transactionType, null, elapsedTime, "500", e.getMessage());
 			errorLogger.logException(e);
 			throw e;
 		}
