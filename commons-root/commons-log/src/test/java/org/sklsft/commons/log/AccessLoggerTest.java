@@ -24,12 +24,12 @@ public class AccessLoggerTest {
 	@Test
 	public void test() {
 		
-		logger.logRequest("MY_SERVICE", "my request message", new Dummy(1L,"dummy request"));
+		logger.logRequest("MY_SERVICE", new Dummy(1L,"dummy request"));
 		
 		logger.logInterfaceCall("EXTERNAL_SERVICE", RequestChannels.HTTP_REST, new Dummy(2L,"dummy call"));
 		
 		logger.logInterfaceCallback("EXTERNAL_SERVICE", RequestChannels.HTTP_REST, new Dummy(2L,"dummy callback"), 5L, "200", "OK");
 		
-		logger.logResponse("MY_SERVICE", "my response message", new Dummy(4L,"dummy response"), 10L, "200", "OK");
+		logger.logResponse("MY_SERVICE", new Dummy(4L,"dummy response"), 10L, "200", "OK");
 	}
 }

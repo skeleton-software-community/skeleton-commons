@@ -34,20 +34,20 @@ public class AjaxMethodExecutor {
 		long elapsedTime;
 		long start = System.currentTimeMillis();
 		try {
-			accessLogger.logRequest(value, "calling ajax method " + value, null);			
+			accessLogger.logRequest(value, null);			
 			Object result = template.execute();
 			elapsedTime = System.currentTimeMillis() - start;
-			accessLogger.logResponse(value, "ajax method " + value + " completed", null, elapsedTime, "200", "OK");
+			accessLogger.logResponse(value, null, elapsedTime, "200", "OK");
 			messageHandler.displayInfo(value + ".success");
 			template.redirectOnComplete(result);
 		} catch (ApplicationException e) {
 			elapsedTime = System.currentTimeMillis() - start;
-			accessLogger.logResponse(value, "ajax method " + value + " completed with error", null, elapsedTime, e.getHttpErrorCode(), e.getMessage());
+			accessLogger.logResponse(value, null, elapsedTime, e.getHttpErrorCode(), e.getMessage());
 			errorLogger.logException(e);
 			messageHandler.displayError(e.getMessage());
 		} catch (Exception e) {
 			elapsedTime = System.currentTimeMillis() - start;
-			accessLogger.logResponse(value, "ajax method " + value + " completed with error", null, elapsedTime, "500", e.getMessage());
+			accessLogger.logResponse(value, null, elapsedTime, "500", e.getMessage());
 			errorLogger.logException(e);
 			messageHandler.displayError(value + ".failure");
 		} catch (Throwable e) {
