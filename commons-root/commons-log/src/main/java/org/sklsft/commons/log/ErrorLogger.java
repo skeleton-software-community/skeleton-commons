@@ -1,11 +1,9 @@
 package org.sklsft.commons.log;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.sklsft.commons.api.exception.ApplicationException;
-import org.sklsft.commons.api.exception.TechnicalError;
 import org.sklsft.commons.crypto.serialization.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public class ErrorLogger {
 	
 	private static final Logger logger = LoggerFactory.getLogger("ERROR_LOG");
+	private static final Logger classLogger = LoggerFactory.getLogger(ErrorLogger.class);
 	
 	private Serializer serializer;
 	
@@ -40,8 +39,8 @@ public class ErrorLogger {
 		try {
 			serialized = serializer.serialize(errorLogMessage);
 			logger.error(serialized);
-		} catch (IOException ioe) {
-			throw new TechnicalError("failed to log request : " + ioe.getMessage(), e);
+		} catch (Exception ex) {
+			classLogger.error("failed to log application exception : " + ex.getMessage(),ex);
 		}
 	}
 	
@@ -62,8 +61,8 @@ public class ErrorLogger {
 		try {
 			serialized = serializer.serialize(errorLogMessage);
 			logger.error(serialized);
-		} catch (IOException ioe) {
-			throw new TechnicalError("failed to log request : " + ioe.getMessage(), e);
+		} catch (Exception ex) {
+			classLogger.error("failed to log exception : " + ex.getMessage(),ex);
 		}
 	}
 }

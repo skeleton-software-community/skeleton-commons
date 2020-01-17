@@ -74,6 +74,6 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 			}
 		}
 
-		accessLogger.logInterfaceCallback(interfaceName, RequestChannels.HTTP_REST, receivedPayload, elapsedTime, status, message);
+		accessLogger.logInterfaceAnswer(interfaceName, RequestChannels.HTTP_REST, receivedPayload, elapsedTime, status, message);
 	}
 }

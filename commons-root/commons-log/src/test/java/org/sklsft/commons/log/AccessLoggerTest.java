@@ -28,7 +28,7 @@ public class AccessLoggerTest {
 		
 		logger.logInterfaceCall("EXTERNAL_SERVICE", RequestChannels.HTTP_REST, new Dummy(2L,"dummy call"));
 		
-		logger.logInterfaceCallback("EXTERNAL_SERVICE", RequestChannels.HTTP_REST, new Dummy(2L,"dummy callback"), 5L, "200", "OK");
+		logger.logInterfaceAnswer("EXTERNAL_SERVICE", RequestChannels.HTTP_REST, new Dummy(2L,"dummy callback"), 5L, "200", "OK");
 		
 		logger.logResponse("MY_SERVICE", new Dummy(4L,"dummy response"), 10L, "200", "OK");
 	}

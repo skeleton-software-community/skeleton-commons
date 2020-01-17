@@ -1,9 +1,6 @@
 package org.sklsft.commons.log;
 
-import java.io.IOException;
-
 import org.sklsft.commons.api.context.RequestChannels;
-import org.sklsft.commons.api.exception.TechnicalError;
 import org.sklsft.commons.crypto.serialization.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +8,7 @@ import org.slf4j.LoggerFactory;
 public class AccessLogger {
 	
 	private static final Logger logger = LoggerFactory.getLogger("ACCESS_LOG");
+	private static final Logger classLogger = LoggerFactory.getLogger(AccessLogger.class);
 	
 	private Serializer serializer;
 	
@@ -31,9 +29,9 @@ public class AccessLogger {
 		try {
 			serialized = serializer.serialize(accessMessage);
 			logger.info(serialized);
-		} catch (IOException e) {
-			throw new TechnicalError("failed to log request : " + e.getMessage());
-		}		
+		} catch (Exception e) {
+			classLogger.error("failed to log request : " + e.getMessage(),e);
+		}
 	}
 	
 	
@@ -52,8 +50,8 @@ public class AccessLogger {
 		try {
 			serialized = serializer.serialize(accessMessage);
 			logger.info(serialized);
-		} catch (IOException e) {
-			throw new TechnicalError("failed to log response : " + e.getMessage());
+		} catch (Exception e) {
+			classLogger.error("failed to log response : " + e.getMessage(),e);
 		}
 	}
 	
@@ -71,16 +69,16 @@ public class AccessLogger {
 		try {
 			serialized = serializer.serialize(accessMessage);
 			logger.info(serialized);
-		} catch (IOException e) {
-			throw new TechnicalError("failed to log request : " + e.getMessage());
-		}		
+		} catch (Exception e) {
+			classLogger.error("failed to log interface call : " + e.getMessage(),e);
+		}
 	}
 	
 	
 	/**
 	 * Used to log a response received as a client
 	 */
-	public void logInterfaceCallback(String interfaceName, RequestChannels interfaceChannel, Object receivedPayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
+	public void logInterfaceAnswer(String interfaceName, RequestChannels interfaceChannel, Object receivedPayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
 		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_ANSWER);
 		accessMessage.setInterfaceName(interfaceName);
@@ -93,8 +91,8 @@ public class AccessLogger {
 		try {
 			serialized = serializer.serialize(accessMessage);
 			logger.info(serialized);
-		} catch (IOException e) {
-			throw new TechnicalError("failed to log request : " + e.getMessage());
-		}		
+		} catch (Exception e) {
+			classLogger.error("failed to log interface answer : " + e.getMessage(),e);
+		}
 	}
 }
