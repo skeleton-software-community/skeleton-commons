@@ -44,8 +44,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 		traceRequest(request, body);
 		long start = System.currentTimeMillis();
 		ClientHttpResponse response = execution.execute(request, body);
-		long elapsedTime = System.currentTimeMillis() - start;
-		traceResponse(request, response, elapsedTime);
+		traceResponse(request, response, start);
 		return response;
 	}
 
@@ -61,7 +60,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 		accessLogger.logInterfaceCall(interfaceName, RequestChannels.HTTP_REST, sentPayload);
 	}
 
-	private void traceResponse(HttpRequest request, ClientHttpResponse response, long elapsedTime) throws IOException {
+	private void traceResponse(HttpRequest request, ClientHttpResponse response, long start) throws IOException {
 
 		String status = response.getStatusCode().toString();
 		String message = response.getStatusText();
@@ -73,6 +72,8 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 				receivedPayload = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
 			}
 		}
+		
+		long elapsedTime = System.currentTimeMillis() - start;
 
 		accessLogger.logInterfaceAnswer(interfaceName, RequestChannels.HTTP_REST, receivedPayload, elapsedTime, status, message);
 	}
