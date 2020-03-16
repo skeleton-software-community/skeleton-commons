@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.api.model.SelectItem;
-import org.sklsft.commons.crypto.serialization.JsonSerializer;
+import org.sklsft.commons.text.serialization.JsonSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 import org.apache.commons.codec.binary.Base64;
-import org.sklsft.commons.crypto.serialization.JsonSerializer;
+import org.sklsft.commons.text.serialization.JsonSerializer;
 
 
 /**
@@ -50,7 +50,7 @@ public class JsonSerializingConverter<T> implements Converter {
 		
 		try {
 			return Base64.encodeBase64URLSafeString(serializer.serialize(value).getBytes());
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return "";
 		}
 	}

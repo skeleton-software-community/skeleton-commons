@@ -1,10 +1,7 @@
 package org.sklsft.commons.crypto.encoding;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 import org.sklsft.commons.crypto.exception.CryptingException;
-import org.sklsft.commons.crypto.serialization.Serializer;
+import org.sklsft.commons.text.serialization.Serializer;
 
 public class BasicObjectEncoder implements ObjectEncoder {
 	
@@ -22,7 +19,7 @@ public class BasicObjectEncoder implements ObjectEncoder {
 	public String encode(Object object) {
 		try {
 			return encoder.encode(serializer.serialize(object));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new CryptingException("Failed to encode " + object.toString(), e);
 		}
 	}
@@ -33,7 +30,7 @@ public class BasicObjectEncoder implements ObjectEncoder {
 		
 		try {
 			return serializer.deserialize(serializing, targetClass);
-		} catch (ParseException | IOException e) {
+		} catch (Exception e) {
 			throw new CryptingException("Failed to decode " + cryptedText, e);
 		}
 	}

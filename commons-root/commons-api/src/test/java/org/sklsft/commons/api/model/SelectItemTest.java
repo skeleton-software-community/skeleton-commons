@@ -3,6 +3,7 @@ package org.sklsft.commons.api.model;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.sklsft.commons.api.model.SelectItem;
 
 public class SelectItemTest {
 	private static SelectItem item1;

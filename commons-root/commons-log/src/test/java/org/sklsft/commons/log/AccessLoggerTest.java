@@ -3,7 +3,7 @@ package org.sklsft.commons.log;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.api.context.RequestChannels;
-import org.sklsft.commons.crypto.serialization.JsonSerializer;
+import org.sklsft.commons.text.serialization.JsonSerializer;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;

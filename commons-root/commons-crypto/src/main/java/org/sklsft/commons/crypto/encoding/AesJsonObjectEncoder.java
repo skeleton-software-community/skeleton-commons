@@ -1,7 +1,7 @@
 package org.sklsft.commons.crypto.encoding;
 
 import org.sklsft.commons.crypto.accessors.AesKeyAccessor;
-import org.sklsft.commons.crypto.serialization.JsonSerializer;
+import org.sklsft.commons.text.serialization.JsonSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.sklsft.commons.aop.AspectJUtils;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.log.AccessLogger;
 import org.sklsft.commons.log.ErrorLogger;
+import org.sklsft.commons.rest.annotations.RestMethod;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -52,9 +53,6 @@ public class RestLoggingAspect {
 	}
 
 	
-
-	
-
 	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) || "
 		+ "@annotation(org.springframework.web.bind.annotation.GetMapping) || "
 		+ "@annotation(org.springframework.web.bind.annotation.PostMapping) || "
@@ -107,17 +105,22 @@ public class RestLoggingAspect {
 	}
 
 	private String getTransactionType(HttpServletRequest request, ProceedingJoinPoint joinPoint) {
-		String result = request.getMethod();
 		
-		result = result + " " + request.getRequestURI();
+		Method proxiedMethod = AspectJUtils.getProxiedMethodImplementation(joinPoint);
 		
-		return result;
+		if (proxiedMethod.isAnnotationPresent(RestMethod.class)) {
+			return proxiedMethod.getAnnotation(RestMethod.class).value();
+		}
 		
+		String result = request.getMethod();		
+		result = result + " " + request.getRequestURI();		
+		return result;		
 	}
+	
 	
 
 	private Object getRequestBody(ProceedingJoinPoint joinPoint) {
-		Method proxiedMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
+		Method proxiedMethod = AspectJUtils.getProxiedMethodImplementation(joinPoint);
 		Object[] args = joinPoint.getArgs();
 		Annotation[][] paramsAnnotations = proxiedMethod.getParameterAnnotations();
 		for (int i = 0; i < args.length; i++) {

@@ -7,33 +7,36 @@
 		<version>3.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>commons-text</artifactId>
-	<name>Commons Text</name>
-	<description>Commons Text</description>
+	<artifactId>commons-aop</artifactId>
+	<name>Commons AOP</name>
+	<description>Commons AOP</description>
 
 	<packaging>jar</packaging>
 
 	<dependencies>
 	
+		<!-- AspectJ -->
 		<dependency>
-			<groupId>org.sklsft.commons</groupId>
-			<artifactId>commons-api</artifactId>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
 		</dependency>
-	
-		<!-- json mapper -->
+
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
 		</dependency>
 		
-				
 		<!-- Junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 		
 	</dependencies>
 

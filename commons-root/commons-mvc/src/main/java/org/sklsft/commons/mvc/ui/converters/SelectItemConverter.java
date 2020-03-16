@@ -1,7 +1,7 @@
 package org.sklsft.commons.mvc.ui.converters;
 
 import org.sklsft.commons.api.model.SelectItem;
-import org.sklsft.commons.crypto.serialization.JsonSerializer;
+import org.sklsft.commons.text.serialization.JsonSerializer;
 
 /**
  * {@link JsonSerializingConverter} for {@link SelectItem}
