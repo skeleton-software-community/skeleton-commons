@@ -9,10 +9,7 @@ import org.sklsft.commons.text.StringUtils;
 
 /**
  * Some Hibernate criteria functions used to build restrictions
- * <br>We assume some sql functions are present in db such as :
- * <li>unaccent
- * <li>long_to_string
- * <li>date_to_string
+ * <br>We assume sql function normalize is present in db
  * 
  * @author Nicolas Thibault
  *

@@ -1,14 +1,19 @@
 package org.sklsft.commons.model.patterns;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
 import org.sklsft.commons.api.exception.repository.ObjectNotFoundException;
+import org.sklsft.commons.api.model.OrderType;
 import org.sklsft.commons.model.interfaces.Entity;
 
 public abstract class BaseDaoImpl<T extends Entity<U>, U extends Serializable> implements BaseDao<T, U> {
@@ -42,18 +47,28 @@ public abstract class BaseDaoImpl<T extends Entity<U>, U extends Serializable> i
 	 */
 	@Override
 	public Long count() {
-		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(clazz).setProjection(Projections.rowCount());
-		return (Long) criteria.uniqueResult();
+		Session session = this.sessionFactory.getCurrentSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+		Root<T> root = criteria.from(clazz);
+		criteria.select(builder.count(root));		 
+		return session.createQuery(criteria).getSingleResult();
 	}
 
 	/**
 	 * load object list
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<T> loadList() {
-		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(clazz);
-		return criteria.list();
+		Session session = this.sessionFactory.getCurrentSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(clazz);
+		Root<T> root = criteria.from(clazz);
+		criteria.select(root);
+		List<Order> orders = new ArrayList<>();
+		JpaCriteriaUtils.addOrder(builder, orders, root.get("id"), OrderType.DESC);
+		criteria.orderBy(orders);
+		return session.createQuery(criteria).getResultList();
 	}
 
 	/**
