@@ -35,10 +35,12 @@ public class TokenFromCookieExtractor implements TokenExtractor {
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		Cookie[] cookies = servletRequestAttributes.getRequest().getCookies();
 		
-		for(Cookie cookie : cookies){
-			if(cookie.getName().equals(key)){
-				result = cookie.getValue();
-				return result;
+		if (cookies!=null) {
+			for(Cookie cookie : cookies){
+				if(cookie.getName().equals(key)){
+					result = cookie.getValue();
+					return result;
+				}
 			}
 		}
 		return result;		

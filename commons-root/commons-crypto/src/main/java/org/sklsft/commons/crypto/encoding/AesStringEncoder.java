@@ -15,15 +15,15 @@ import org.sklsft.commons.crypto.exception.CryptingException;
 
 public class AesStringEncoder implements StringEncoder {
 	
-	private byte[] key;
+	private AesKeyAccessor keyAccessor;
 	
 	public AesStringEncoder(AesKeyAccessor keyAccessor) {
-		this.key = keyAccessor.getAesKey();
+		this.keyAccessor = keyAccessor;
 	}
 	
 	@Override
 	public String encode(String plainText) {
-		SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+		SecretKeySpec secretKey = new SecretKeySpec(getKey(), "AES");
 		try {
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -35,7 +35,7 @@ public class AesStringEncoder implements StringEncoder {
 	
 	@Override
 	public String decode(String cryptedText) {
-		SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+		SecretKeySpec secretKey = new SecretKeySpec(getKey(), "AES");
 		try {
 			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey);
@@ -43,6 +43,10 @@ public class AesStringEncoder implements StringEncoder {
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
 			throw new CryptingException("Failed to decode " + cryptedText, e);
 		}
+	}
+	
+	private byte[] getKey() {
+		return keyAccessor.getAesKey();
 	}
 
 }
