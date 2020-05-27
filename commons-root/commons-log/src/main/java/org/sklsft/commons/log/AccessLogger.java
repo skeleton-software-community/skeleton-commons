@@ -20,11 +20,11 @@ public class AccessLogger {
 	/**
 	 * Used to log a request received as a backend
 	 */
-	public void logRequest(String transactionType, Object requestPayload) {
+	public void logRequest(String transactionType, Object requestBody) {
 		AccessLogMessage accessMessage = new AccessLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.REQUEST);
 		accessMessage.setTransactionType(transactionType);
-		accessMessage.setRequestPayload(requestPayload);
+		accessMessage.setRequestBody(requestBody);
 		String serialized;
 		try {
 			serialized = serializer.serialize(accessMessage);
@@ -38,11 +38,11 @@ public class AccessLogger {
 	/**
 	 * Used to log a response sent as a backend
 	 */
-	public void logResponse(String transactionType, Object responsePayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
+	public void logResponse(String transactionType, Object responseBody, Long responseTimeMillis, String responseStatus, String responseLabel) {
 		AccessLogMessage accessMessage = new AccessLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.RESPONSE);
 		accessMessage.setTransactionType(transactionType);	
-		accessMessage.setResponsePayload(responsePayload);
+		accessMessage.setResponseBody(responseBody);
 		accessMessage.setResponseTimeMillis(responseTimeMillis);
 		accessMessage.setResponseStatus(responseStatus);
 		accessMessage.setResponseLabel(responseLabel);
@@ -59,12 +59,12 @@ public class AccessLogger {
 	/**
 	 * Used to log a request sent as a client
 	 */
-	public void logInterfaceCall(String interfaceName, RequestChannels interfaceChannel, Object sentPayload) {
+	public void logInterfaceCall(String interfaceName, RequestChannels interfaceChannel, Object sentBody) {
 		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_CALL);
 		accessMessage.setInterfaceName(interfaceName);
 		accessMessage.setInterfaceChannel(interfaceChannel);
-		accessMessage.setSentPayload(sentPayload);
+		accessMessage.setSentBody(sentBody);
 		String serialized;
 		try {
 			serialized = serializer.serialize(accessMessage);
@@ -78,12 +78,12 @@ public class AccessLogger {
 	/**
 	 * Used to log a response received as a client
 	 */
-	public void logInterfaceAnswer(String interfaceName, RequestChannels interfaceChannel, Object receivedPayload, Long responseTimeMillis, String responseStatus, String responseLabel) {
+	public void logInterfaceAnswer(String interfaceName, RequestChannels interfaceChannel, Object receivedBody, Long responseTimeMillis, String responseStatus, String responseLabel) {
 		InterfaceCallLogMessage accessMessage = new InterfaceCallLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_ANSWER);
 		accessMessage.setInterfaceName(interfaceName);
 		accessMessage.setInterfaceChannel(interfaceChannel);
-		accessMessage.setReceivedPayload(receivedPayload);
+		accessMessage.setReceivedBody(receivedBody);
 		accessMessage.setResponseTimeMillis(responseTimeMillis);
 		accessMessage.setResponseStatus(responseStatus);
 		accessMessage.setResponseLabel(responseLabel);

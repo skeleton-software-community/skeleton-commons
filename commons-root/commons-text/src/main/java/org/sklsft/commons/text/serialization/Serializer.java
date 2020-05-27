@@ -1,9 +1,5 @@
 package org.sklsft.commons.text.serialization;
 
-import java.io.IOException;
-import java.text.ParseException;
-
-
 /**
  * A very basic interface to serialize/deserialize objects<br>
  * 

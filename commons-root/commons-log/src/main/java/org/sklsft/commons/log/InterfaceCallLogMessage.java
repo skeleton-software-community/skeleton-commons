@@ -14,8 +14,8 @@ public class InterfaceCallLogMessage implements Serializable {
 	private TransactionStage transactionStage;
 	private String interfaceName;
 	private RequestChannels interfaceChannel;
-	private Object sentPayload;
-	private Object receivedPayload;
+	private Object sentBody;
+	private Object receivedBody;
 	private Long responseTimeMillis;
 	private String responseStatus;
 	private String responseLabel;
@@ -43,17 +43,17 @@ public class InterfaceCallLogMessage implements Serializable {
 	public void setInterfaceChannel(RequestChannels interfaceChannel) {
 		this.interfaceChannel = interfaceChannel;
 	}
-	public Object getSentPayload() {
-		return sentPayload;
+	public Object getSentBody() {
+		return sentBody;
 	}
-	public void setSentPayload(Object sentPayload) {
-		this.sentPayload = sentPayload;
+	public void setSentBody(Object sentBody) {
+		this.sentBody = sentBody;
 	}
-	public Object getReceivedPayload() {
-		return receivedPayload;
+	public Object getReceivedBody() {
+		return receivedBody;
 	}
-	public void setReceivedPayload(Object receivedPayload) {
-		this.receivedPayload = receivedPayload;
+	public void setReceivedBody(Object receivedBody) {
+		this.receivedBody = receivedBody;
 	}
 	public Long getResponseTimeMillis() {
 		return responseTimeMillis;

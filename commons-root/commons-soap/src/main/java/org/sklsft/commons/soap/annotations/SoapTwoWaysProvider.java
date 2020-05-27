@@ -1,4 +1,4 @@
-package org.sklsft.commons.rest.annotations;
+package org.sklsft.commons.soap.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,13 +7,12 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.METHOD)
-public @interface RestMethod {
-	
+public @interface SoapTwoWaysProvider {
+
 	/**
-	 * will be used to name a REST method
+	 * will be used to name a SOAP service provider
 	 * 
-	 * @return
+	 * @author Nicolas Thibault
 	 */
 	String value();
-
 }

@@ -1,5 +1,6 @@
 package org.sklsft.commons.rest.client.interceptors;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -24,17 +25,17 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 
 	private AccessLogger accessLogger;
 	
-	private boolean traceRequestPayload = true;
-	private boolean traceResponsePayload = false;
+	private boolean traceSentBody = true;
+	private boolean traceReceivedBody = false;
 
 	public void setAccessLogger(AccessLogger accessLogger) {
 		this.accessLogger = accessLogger;
 	}
-	public void setTraceRequestPayload(boolean traceRequestPayload) {
-		this.traceRequestPayload = traceRequestPayload;
+	public void setTraceSentBody(boolean traceSentBody) {
+		this.traceSentBody = traceSentBody;
 	}
-	public void setTraceResponsePayload(boolean traceResponsePayload) {
-		this.traceResponsePayload = traceResponsePayload;
+	public void setTraceReceivedBody(boolean traceReceivedBody) {
+		this.traceReceivedBody = traceReceivedBody;
 	}
 
 	
@@ -52,9 +53,9 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 		String interfaceName = request.getMethod() + " " + request.getURI();
 		Object sentPayload = null;
 		
-		if (traceRequestPayload) {
+		if (traceSentBody) {
 			if (!request.getMethod().equals(HttpMethod.GET)) {
-				sentPayload = new String(body, "UTF-8");
+				sentPayload = StreamUtils.copyToString(new ByteArrayInputStream(body), StandardCharsets.UTF_8);
 			}
 		}
 		accessLogger.logInterfaceCall(interfaceName, RequestChannels.HTTP_REST, sentPayload);
@@ -67,7 +68,7 @@ public class RestClientLoggerInterceptor implements ClientHttpRequestInterceptor
 		String receivedPayload = null;
 		String interfaceName = request.getMethod() + " " + request.getURI();
 
-		if (traceResponsePayload) {
+		if (traceReceivedBody) {
 			if (response.getBody() != null) {
 				receivedPayload = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
 			}

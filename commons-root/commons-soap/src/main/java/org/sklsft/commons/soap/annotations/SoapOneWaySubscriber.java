@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface SoapOneWaySubscriber {
 
 	/**
-	 * will be used to name a JMS Channel
+	 * will be used to name a SOAP JMS Channel
 	 * 
 	 * @author Nicolas Thibault
 	 */
