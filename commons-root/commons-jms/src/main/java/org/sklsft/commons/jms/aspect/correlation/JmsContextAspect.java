@@ -1,18 +1,12 @@
 package org.sklsft.commons.jms.aspect.correlation;
 
-import java.util.UUID;
-
 import javax.jms.Message;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.sklsft.commons.api.context.RequestChannels;
-import org.sklsft.commons.api.context.RequestContext;
-import org.sklsft.commons.api.context.RequestContextHolder;
-import org.sklsft.commons.text.StringUtils;
+import org.sklsft.commons.log.aspects.RequestContextAspectTemplate;
+import org.sklsft.commons.log.context.RequestChannels;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -25,38 +19,21 @@ import org.springframework.core.annotation.Order;
  */
 @Aspect
 @Order(0)
-public class JmsContextAspect {
+public class JmsContextAspect extends RequestContextAspectTemplate {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JmsContextAspect.class);
+	
+	public JmsContextAspect() {
+		super(RequestChannels.JMS);
+	}	
 
+	@Override
 	@Pointcut("@annotation(org.springframework.jms.annotation.JmsListener)")
-	private void onMessages(){}
+	protected void onPointcut(){}
 	
 	
-
-	@Around("onMessages()")
-	public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
-		
-		String transactionId = UUID.randomUUID().toString();
-		
-		String correlationId = getCorrelationId(joinPoint);
-		if (StringUtils.isEmpty(correlationId)) {
-			correlationId = transactionId;
-		}
-		
-		RequestContextHolder.bind(new RequestContext(transactionId, correlationId, RequestChannels.JMS));
-
-		try {
-			
-			return joinPoint.proceed();
-	
-		} finally {
-			RequestContextHolder.unbind();
-		}
-
-	}
-
-	private String getCorrelationId(JoinPoint joinPoint) {
+	@Override
+	protected String getCorrelationId(JoinPoint joinPoint) {
 		Object[] args = joinPoint.getArgs();
 		Message message;
 		

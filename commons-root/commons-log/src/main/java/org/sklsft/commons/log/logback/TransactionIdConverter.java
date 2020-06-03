@@ -1,7 +1,7 @@
 package org.sklsft.commons.log.logback;
 
-import org.sklsft.commons.api.context.RequestContext;
-import org.sklsft.commons.api.context.RequestContextHolder;
+import org.sklsft.commons.log.context.RequestContext;
+import org.sklsft.commons.log.context.RequestContextHolder;
 
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;

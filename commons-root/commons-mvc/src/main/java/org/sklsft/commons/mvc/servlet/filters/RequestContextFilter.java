@@ -10,9 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.sklsft.commons.api.context.RequestChannels;
-import org.sklsft.commons.api.context.RequestContext;
-import org.sklsft.commons.api.context.RequestContextHolder;
+import org.sklsft.commons.log.context.RequestChannels;
+import org.sklsft.commons.log.context.RequestContext;
+import org.sklsft.commons.log.context.RequestContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

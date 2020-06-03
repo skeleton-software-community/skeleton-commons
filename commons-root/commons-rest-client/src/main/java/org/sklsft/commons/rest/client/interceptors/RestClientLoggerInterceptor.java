@@ -4,8 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import org.sklsft.commons.api.context.RequestChannels;
 import org.sklsft.commons.log.AccessLogger;
+import org.sklsft.commons.log.context.RequestChannels;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

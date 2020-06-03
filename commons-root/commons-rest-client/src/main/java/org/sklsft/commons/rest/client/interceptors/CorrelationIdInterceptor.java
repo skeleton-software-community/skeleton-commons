@@ -2,8 +2,8 @@ package org.sklsft.commons.rest.client.interceptors;
 
 import java.io.IOException;
 
-import org.sklsft.commons.api.context.RequestContext;
-import org.sklsft.commons.api.context.RequestContextHolder;
+import org.sklsft.commons.log.context.RequestContext;
+import org.sklsft.commons.log.context.RequestContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

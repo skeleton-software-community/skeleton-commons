@@ -1,6 +1,6 @@
 package org.sklsft.commons.log;
 
-import org.sklsft.commons.api.context.RequestChannels;
+import org.sklsft.commons.log.context.RequestChannels;
 import org.sklsft.commons.text.serialization.Serializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

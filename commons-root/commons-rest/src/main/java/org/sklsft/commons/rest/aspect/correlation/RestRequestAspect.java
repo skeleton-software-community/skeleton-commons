@@ -1,13 +1,11 @@
 package org.sklsft.commons.rest.aspect.correlation;
 
-import java.util.UUID;
-
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
-import org.sklsft.commons.api.context.RequestChannels;
-import org.sklsft.commons.api.context.RequestContext;
-import org.sklsft.commons.api.context.RequestContextHolder;
+import org.aspectj.lang.annotation.Pointcut;
+import org.sklsft.commons.log.aspects.RequestContextAspectTemplate;
+import org.sklsft.commons.log.context.RequestChannels;
+import org.sklsft.commons.log.context.RequestContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,38 +17,31 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 @Aspect
 @Order(0)
-public class RestRequestAspect {
+public class RestRequestAspect extends RequestContextAspectTemplate {
 
-	@Around("@annotation(org.springframework.web.bind.annotation.RequestMapping) || "
-			+ "@annotation(org.springframework.web.bind.annotation.GetMapping) || "
-			+ "@annotation(org.springframework.web.bind.annotation.PostMapping) || "
-			+ "@annotation(org.springframework.web.bind.annotation.PutMapping) || "
-			+ "@annotation(org.springframework.web.bind.annotation.PatchMapping) || "
-			+ "@annotation(org.springframework.web.bind.annotation.DeleteMapping)")
-	public Object handle(ProceedingJoinPoint joinPoint) throws Throwable {
-		
-		String transactionId = UUID.randomUUID().toString();
-		
-		String correlationId = getHeader("correlation-id");
-		if (correlationId == null) {
-			correlationId = transactionId;
-		}
-		
-		RequestContextHolder.bind(new RequestContext(transactionId, correlationId, RequestChannels.HTTP_REST));
-
-		try {
-			
-			return joinPoint.proceed();
-	
-		} finally {
-			RequestContextHolder.unbind();
-		}
-
+	public RestRequestAspect() {
+		super(RequestChannels.HTTP_REST);
 	}
+	
 
 	private String getHeader(String key) {
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) org.springframework.web.context.request.RequestContextHolder.getRequestAttributes();
 		String result = servletRequestAttributes.getRequest().getHeader(key);
 		return result;
+	}
+
+	@Override
+	@Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) || "
+			+ "@annotation(org.springframework.web.bind.annotation.GetMapping) || "
+			+ "@annotation(org.springframework.web.bind.annotation.PostMapping) || "
+			+ "@annotation(org.springframework.web.bind.annotation.PutMapping) || "
+			+ "@annotation(org.springframework.web.bind.annotation.PatchMapping) || "
+			+ "@annotation(org.springframework.web.bind.annotation.DeleteMapping)")
+	protected void onPointcut() {}
+	
+
+	@Override
+	protected String getCorrelationId(JoinPoint joinPoint) {
+		return getHeader("correlation-id");
 	}
 }

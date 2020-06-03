@@ -1,4 +1,4 @@
-package org.sklsft.commons.api.context;
+package org.sklsft.commons.log.context;
 
 /**
  * A class containing a static {@link ThreadLocal} that holds a {@link RequestContext}.

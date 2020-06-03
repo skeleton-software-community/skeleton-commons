@@ -2,7 +2,7 @@ package org.sklsft.commons.log;
 
 import java.io.Serializable;
 
-import org.sklsft.commons.api.context.RequestChannels;
+import org.sklsft.commons.log.context.RequestChannels;
 
 public class InterfaceCallLogMessage implements Serializable {
 
