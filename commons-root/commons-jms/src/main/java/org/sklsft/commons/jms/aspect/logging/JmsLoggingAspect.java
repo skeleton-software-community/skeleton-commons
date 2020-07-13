@@ -4,11 +4,13 @@ import java.lang.reflect.Method;
 
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.TextMessage;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.sklsft.commons.jms.reader.MessageReader;
 import org.sklsft.commons.log.AccessLogger;
 import org.sklsft.commons.log.aspects.LoggingAspectTemplate;
 import org.slf4j.Logger;
@@ -38,21 +40,14 @@ public class JmsLoggingAspect extends LoggingAspectTemplate {
 		
 		try {
 			for (Object arg:args) {
-				if (arg instanceof TextMessage) {
-					return (String)(((TextMessage)arg).getText());
-				}
-				if (arg instanceof BytesMessage) {
-					BytesMessage message = (BytesMessage)arg;
-					int lentgh = (int)message.getBodyLength();
-					byte[] content = new byte[lentgh];
-					message.readBytes(content);
-					return new String(content);
+				if (MessageReader.isMessage(arg)) {
+					return MessageReader.getMessageContent((Message)arg);
 				}
 			}
 			logger.warn("could not get message content due to missing message argument");
 			return null;
 			
-		} catch (JMSException e) {
+		} catch (Exception e) {
 			logger.error("could not get message content : " + e.getMessage(), e);
 			return null;
 		}
