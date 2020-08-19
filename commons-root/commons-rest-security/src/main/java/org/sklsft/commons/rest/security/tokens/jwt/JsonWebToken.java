@@ -15,6 +15,19 @@ public class JsonWebToken<H,B> implements Serializable {
 	private byte[] signature;
 	
 	
+	
+	/*
+	 * constructors
+	 */
+	public JsonWebToken() {
+		super();
+	}
+	
+	public JsonWebToken(H header, B body) {
+		super();
+		this.header = header;
+		this.body = body;
+	}
 	/*
 	 * getters and setters
 	 */

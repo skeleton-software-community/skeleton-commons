@@ -6,6 +6,7 @@ import org.sklsft.commons.crypto.signature.RsaAlgorithms;
 import org.sklsft.commons.crypto.signature.RsaSigner;
 import org.sklsft.commons.rest.security.tokens.encoder.impl.PrivateRsaJwtEncoder;
 import org.sklsft.commons.rest.security.tokens.encoder.impl.PublicJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sklsft.commons.rest.security.crypto.RsaPrivateKeyAccessorMock;
-import com.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
 
 public class BasicRsaJwtEncoderTest {
 	
@@ -30,13 +30,9 @@ public class BasicRsaJwtEncoderTest {
 		body.setApplication("sklgen");
 		body.setUser("nicolas.thibault@sklsft.org");
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader();
-		header.setAlgorithm(RsaAlgorithms.RS256.name());
-		header.setPublicKeyId("test");
+		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>();
-		jwt.setHeader(header);
-		jwt.setBody(body);
+		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>(header, body);
 		
 		String encoded = encoder.encode(jwt);
 		logger.debug(encoded);

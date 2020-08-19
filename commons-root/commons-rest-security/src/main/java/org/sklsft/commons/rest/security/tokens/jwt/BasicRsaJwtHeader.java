@@ -2,6 +2,8 @@ package org.sklsft.commons.rest.security.tokens.jwt;
 
 import java.io.Serializable;
 
+import org.sklsft.commons.crypto.signature.RsaAlgorithms;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BasicRsaJwtHeader implements Serializable {
@@ -16,6 +18,22 @@ public class BasicRsaJwtHeader implements Serializable {
 	@JsonProperty("typ")
 	private String type = "JWT";
 	private String publicKeyId;
+	
+	
+
+	/*
+	 * constructor
+	 */
+	public BasicRsaJwtHeader() {
+		super();
+	}
+	
+	public BasicRsaJwtHeader(RsaAlgorithms alg, String publicKeyId) {
+		super();
+		this.algorithm = alg.name();
+		this.type = "JWT";
+		this.publicKeyId = publicKeyId;
+	}
 	
 	
 	/*

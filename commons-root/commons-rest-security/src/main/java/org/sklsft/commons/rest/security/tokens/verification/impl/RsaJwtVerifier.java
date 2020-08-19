@@ -14,7 +14,7 @@ import org.sklsft.commons.rest.security.tokens.verification.TokenVerifier;
  * @author Nicolas Thibault
  * 
  */
-public class RsaJwtVerifier<H extends BasicRsaJwtHeader, B> implements TokenVerifier<JsonWebToken<H, B>> {
+public abstract class RsaJwtVerifier<H extends BasicRsaJwtHeader, B> implements TokenVerifier<JsonWebToken<H, B>> {
 
 	private RsaSignatureVerifier rsaSignatureverifier;
 	
@@ -37,5 +37,9 @@ public class RsaJwtVerifier<H extends BasicRsaJwtHeader, B> implements TokenVeri
 		if (!valid) {
 			throw new InvalidTokenException("Wrong signature");
 		}
+		
+		verifyBody(token.getBody());
 	}
+
+	protected abstract void verifyBody(B body);
 }
