@@ -2,10 +2,7 @@ package org.sklsft.commons.jms.aspect.logging;
 
 import java.lang.reflect.Method;
 
-import javax.jms.BytesMessage;
-import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.TextMessage;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,7 +26,7 @@ import org.springframework.jms.annotation.JmsListener;
  */
 @Aspect
 @Order(2)
-public class JmsLoggingAspect extends LoggingAspectTemplate {
+public class JmsListenerLoggingAspect extends LoggingAspectTemplate {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AccessLogger.class);
 	

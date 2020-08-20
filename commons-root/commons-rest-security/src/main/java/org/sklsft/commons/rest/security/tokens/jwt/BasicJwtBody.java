@@ -1,7 +1,6 @@
 package org.sklsft.commons.rest.security.tokens.jwt;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Date;
 
 public class BasicJwtBody implements Serializable {

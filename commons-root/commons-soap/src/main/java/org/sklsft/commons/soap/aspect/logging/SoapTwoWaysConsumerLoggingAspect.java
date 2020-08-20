@@ -6,7 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.sklsft.commons.log.AccessLogger;
-import org.sklsft.commons.log.aspects.ClientLoggingInterceptorTemplate;
+import org.sklsft.commons.log.aspects.TwoWaysConsumerLoggingInterceptorTemplate;
 import org.sklsft.commons.log.context.RequestChannels;
 import org.sklsft.commons.soap.annotations.SoapTwoWaysConsumer;
 import org.sklsft.commons.text.serialization.XmlSerializer;
@@ -16,7 +16,7 @@ import org.springframework.core.annotation.Order;
 
 @Aspect
 @Order(2)
-public class SoapTwoWaysConsumerLoggingAspect extends ClientLoggingInterceptorTemplate {
+public class SoapTwoWaysConsumerLoggingAspect extends TwoWaysConsumerLoggingInterceptorTemplate {
 
 	public SoapTwoWaysConsumerLoggingAspect() {
 		super(RequestChannels.HTTP_SOAP);

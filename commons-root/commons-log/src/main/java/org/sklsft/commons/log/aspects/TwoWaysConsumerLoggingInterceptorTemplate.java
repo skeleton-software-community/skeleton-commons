@@ -7,14 +7,13 @@ import org.aspectj.lang.annotation.Around;
 import org.sklsft.commons.aop.AspectJUtils;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.log.AccessLogger;
-import org.sklsft.commons.log.ErrorLogger;
 import org.sklsft.commons.log.aspects.annotations.ClientLoggingInterceptorPointcut;
 import org.sklsft.commons.log.aspects.annotations.LoggingAspectPointcut;
 import org.sklsft.commons.log.context.RequestChannels;
 import org.sklsft.commons.text.StringUtils;
 
 
-public abstract class ClientLoggingInterceptorTemplate {
+public abstract class TwoWaysConsumerLoggingInterceptorTemplate {
 	
 	private RequestChannels interfaceChannel;
 	
@@ -34,7 +33,7 @@ public abstract class ClientLoggingInterceptorTemplate {
 	}
 	
 		
-	public ClientLoggingInterceptorTemplate(RequestChannels interfaceChannel) {
+	public TwoWaysConsumerLoggingInterceptorTemplate(RequestChannels interfaceChannel) {
 		super();
 		this.interfaceChannel = interfaceChannel;
 	}

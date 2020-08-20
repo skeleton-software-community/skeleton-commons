@@ -1,6 +1,5 @@
 package org.sklsft.commons.rest.security.tokens.encoder.impl;
 
-import org.sklsft.commons.crypto.accessors.AesKeyAccessor;
 import org.sklsft.commons.crypto.encoding.ObjectEncoder;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
