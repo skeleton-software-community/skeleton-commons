@@ -15,6 +15,8 @@ public class ErrorLogger {
 	
 	private Serializer serializer;
 	
+	private boolean printErrorStackInRootLogger = true;
+	
 	public ErrorLogger(Serializer serializer) {
 		super();
 		this.serializer = serializer;
@@ -39,6 +41,7 @@ public class ErrorLogger {
 		try {
 			serialized = serializer.serialize(errorLogMessage);
 			logger.error(serialized);
+			if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 		} catch (Exception ex) {
 			classLogger.error("failed to log application exception : " + ex.getMessage(),ex);
 		}
@@ -61,6 +64,7 @@ public class ErrorLogger {
 		try {
 			serialized = serializer.serialize(errorLogMessage);
 			logger.error(serialized);
+			if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 		} catch (Exception ex) {
 			classLogger.error("failed to log exception : " + ex.getMessage(),ex);
 		}

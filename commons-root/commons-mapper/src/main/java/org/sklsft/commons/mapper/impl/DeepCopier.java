@@ -1,6 +1,7 @@
 package org.sklsft.commons.mapper.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -16,6 +17,8 @@ public class DeepCopier<T> implements Copier<T> {
 	private final MappableBean<T> mappableBean;
 	
 	private Class<T> clazz;
+	
+	private Map<Class<?>, Copier<?>> copiers = new HashMap<>();
 	
 	
 	public DeepCopier (Class<T> clazz) {
@@ -50,7 +53,7 @@ public class DeepCopier<T> implements Copier<T> {
 					
 					if (accessibleField.isCollection) {
 						
-						DeepCopier<?> copier = new DeepCopier<>(accessibleField.genericParameters.get(0));
+						Copier<?> copier = getCopier(accessibleField.genericParameters.get(0));
 						
 						Collection srcCollection = (Collection) accessibleField.getValue(src);
 						try {							
@@ -65,7 +68,7 @@ public class DeepCopier<T> implements Copier<T> {
 						}
 					} else if (accessibleField.isMap) {
 						
-						DeepCopier<?> copier = new DeepCopier<>(accessibleField.genericParameters.get(1));
+						Copier<?> copier = getCopier(accessibleField.genericParameters.get(1));
 						
 						Map srcMap = (Map) accessibleField.getValue(src);
 						try {							
@@ -80,7 +83,7 @@ public class DeepCopier<T> implements Copier<T> {
 						}
 					} else {
 						Class<?> fieldClass = accessibleField.fieldClass;
-						DeepCopier<?> copier = new DeepCopier<>(fieldClass);
+						Copier<?> copier = getCopier(fieldClass);
 						accessibleField.setValue(copier.copy(accessibleField.getValue(src), copyIgnoredFields), dest);
 					}
 				} else {
@@ -124,6 +127,13 @@ public class DeepCopier<T> implements Copier<T> {
 	@Override
 	public T copy(Object src) {
 		return copy(src, false);
+	}
+	
+	private Copier<?> getCopier(Class<?> clazz) {
+		if (!copiers.containsKey(clazz)) {
+			copiers.put(clazz, new DeepCopier<>(clazz));
+		}
+		return copiers.get(clazz);
 	}
 	
 }
