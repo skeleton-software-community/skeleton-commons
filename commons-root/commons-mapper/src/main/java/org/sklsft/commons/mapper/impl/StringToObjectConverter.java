@@ -1,10 +1,10 @@
 package org.sklsft.commons.mapper.impl;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 public class StringToObjectConverter {
 	
@@ -15,18 +15,11 @@ public class StringToObjectConverter {
 		}
 
 		if (clazz.equals(Date.class)) {
-			Date date = null;
-			try {
-				if (Pattern.matches("^[0-9]{4}[-]{1}[0-9]{2}[-]{1}[0-9]{2}$", value)) {
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-					date = format.parse(value);
-				} else {
-					date = Date.from(OffsetDateTime.parse(value).toInstant());
-				}
-				return date;
-			} catch (Exception e) {
-				throw new IllegalArgumentException("Invalid string representation of a date", e);
-			}
+			return Date.from(OffsetDateTime.parse(value).toInstant());
+		}
+		
+		if (clazz.equals(LocalDate.class)) {
+			return LocalDate.parse(value, DateTimeFormatter.ISO_DATE);
 		}
 
 		if (clazz.equals(Double.class)) {
