@@ -2,7 +2,7 @@ package org.sklsft.commons.mvc.messages;
 
 import javax.faces.application.FacesMessage.Severity;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 
 /**
@@ -17,7 +17,7 @@ public class PrimefacesMessageHandler extends JsfMessageHandler {
 	@Override
 	protected void displayMessage(String message, Severity severity) {
 		
-		RequestContext.getCurrentInstance().addCallbackParam("maximumSeverity",severity);
+		PrimeFaces.current().ajax().addCallbackParam("maximumSeverity",severity);
 		
 		super.displayMessage(message, severity);
 	}

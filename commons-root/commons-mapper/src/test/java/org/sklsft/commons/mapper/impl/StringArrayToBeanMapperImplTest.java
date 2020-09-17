@@ -1,7 +1,8 @@
 package org.sklsft.commons.mapper.impl;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,8 +13,6 @@ public class StringArrayToBeanMapperImplTest {
 	
 	private StringArrayToBeanMapperImpl<Dummy> mapper;
 	
-	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	
 	@Before
 	public void setUp() {
 		mapper = new StringArrayToBeanMapperImpl<Dummy> (Dummy.class);
@@ -23,7 +22,7 @@ public class StringArrayToBeanMapperImplTest {
 	public void testMapFrom() throws ParseException {
 		
 		String longField = "1";
-		String dateField = "2016-01-01";
+		String dateField = "2016-01-01T00:00:00Z";
 		String stringField = "test";
 		String booleanField = "true";
 		
@@ -32,7 +31,7 @@ public class StringArrayToBeanMapperImplTest {
 		Dummy dummy = mapper.mapFrom(new Dummy(), objectArray);
 		
 		Assert.assertEquals(dummy.getLongField(), Long.valueOf(objectArray[0]));
-		Assert.assertEquals(dummy.getDateField(), format.parse(objectArray[1]));
+		Assert.assertEquals(dummy.getDateField(), Date.from(OffsetDateTime.parse(objectArray[1]).toInstant()));
 		Assert.assertEquals(dummy.getStringField(), objectArray[2]);		
 		Assert.assertEquals(dummy.isBooleanField(), Boolean.valueOf(objectArray[3]));
 		
