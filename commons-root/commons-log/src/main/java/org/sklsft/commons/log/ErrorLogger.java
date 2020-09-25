@@ -13,13 +13,31 @@ public class ErrorLogger {
 	private static final Logger logger = LoggerFactory.getLogger("ERROR_LOG");
 	private static final Logger classLogger = LoggerFactory.getLogger(ErrorLogger.class);
 	
-	private Serializer serializer;
-	
+	private Serializer serializer;	
 	private boolean printErrorStackInRootLogger = true;
 	
+
+	public void setPrintErrorStackInRootLogger(boolean printErrorStackInRootLogger) {
+		this.printErrorStackInRootLogger = printErrorStackInRootLogger;
+	}
+
+	public void setSerializer(Serializer serializer) {
+		this.serializer = serializer;
+	}
+	
+	
+	/*
+	 * cnstructors
+	 */
 	public ErrorLogger(Serializer serializer) {
 		super();
 		this.serializer = serializer;
+	}
+	
+	public ErrorLogger(Serializer serializer, boolean printErrorStackInRootLogger) {
+		super();
+		this.serializer = serializer;
+		this.printErrorStackInRootLogger = printErrorStackInRootLogger;
 	}
 	
 	/**

@@ -6,6 +6,8 @@ import org.sklsft.commons.api.exception.TechnicalError;
 import org.sklsft.commons.api.exception.rights.AccessDeniedException;
 import org.sklsft.commons.api.exception.rights.OperationDeniedException;
 import org.sklsft.commons.api.exception.validation.InvalidArgumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,11 +24,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  */
 @ControllerAdvice
-public class RestExceptionHandler {
+public class RestExceptionHandler {	
+	
+	private static final Logger classLogger = LoggerFactory.getLogger(RestExceptionHandler.class);
+	
+	private boolean printErrorStackInRootLogger = true;
+	
+	public void setPrintErrorStackInRootLogger(boolean printErrorStackInRootLogger) {
+		this.printErrorStackInRootLogger = printErrorStackInRootLogger;
+	}
 
 	@ResponseStatus(value = HttpStatus.FORBIDDEN)
 	@ExceptionHandler(AccessDeniedException.class)
 	public @ResponseBody ErrorReport handleApplicationException(AccessDeniedException e) {
+		
+		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
@@ -39,6 +51,8 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.FORBIDDEN)
 	@ExceptionHandler(OperationDeniedException.class)
 	public @ResponseBody ErrorReport handleApplicationException(OperationDeniedException e) {
+		
+		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
@@ -51,6 +65,8 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(ApplicationException.class)
 	public @ResponseBody ErrorReport handleApplicationException(ApplicationException e) {
+		
+		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
@@ -63,6 +79,8 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
 	public @ResponseBody ErrorReport handleException(Exception e) {
+		
+		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TechnicalError.class.getName());
@@ -74,6 +92,8 @@ public class RestExceptionHandler {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public @ResponseBody ErrorReport handleException(MethodArgumentNotValidException e) {
+		
+		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(InvalidArgumentException.class.getName());
