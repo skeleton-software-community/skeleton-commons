@@ -1,6 +1,10 @@
 package org.sklsft.commons.mapper.impl;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Date;
 
 import org.sklsft.commons.mapper.beans.AccessibleField;
 import org.sklsft.commons.mapper.beans.MappableBean;
@@ -25,7 +29,7 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 	public T mapFrom(T obj, Object[] objectArray, int startField) {
 		
 		for (int i = 0;i<objectArray.length;i++) {
-			//Oracle patch for Long mapping
+			//Oracle patch for integers mapping
 			AccessibleField accessibleField = mappableBean.accessibleFields.get(i+startField);
 			Object value = objectArray[i];
 			if (Long.class.isAssignableFrom(accessibleField.fieldClass)) {
@@ -41,6 +45,12 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 			if (Short.class.isAssignableFrom(accessibleField.fieldClass)) {
 				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
 					value = ((BigDecimal)value).shortValue();
+				}
+			}
+			//Oracle patch for dates mapping
+			if (LocalDate.class.isAssignableFrom(accessibleField.fieldClass)) {
+				if (Date.class.isAssignableFrom(value.getClass())) {
+					value = ((Date)value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				}
 			}
 			accessibleField.setValue(value, obj);
