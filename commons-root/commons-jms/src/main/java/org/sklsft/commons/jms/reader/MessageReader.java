@@ -1,5 +1,7 @@
 package org.sklsft.commons.jms.reader;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -23,7 +25,8 @@ public class MessageReader {
 				int lentgh = (int)message.getBodyLength();
 				byte[] content = new byte[lentgh];
 				message.readBytes(content);
-				return new String(content);
+				message.reset();
+				return new String(content, StandardCharsets.UTF_8);
 			}
 		} catch (JMSException e) {
 			throw new TechnicalError("failed to read message : " + e.getMessage(), e);
