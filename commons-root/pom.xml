@@ -4,7 +4,7 @@
 
 	<groupId>org.sklsft.commons</groupId>
 	<artifactId>commons-root</artifactId>
-	<version>3.1.4-SNAPSHOT</version>
+	<version>3.1.4</version>
 	<name>Skeleton Commons - Root</name>
 	<description>Root module of Commons project</description>
 	<url>http://skeleton-software-community.github.io/skeleton-commons</url>
@@ -192,6 +192,12 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
 			
