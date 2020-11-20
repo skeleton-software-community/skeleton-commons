@@ -27,8 +27,12 @@ public class ErrorLogger {
 	
 	
 	/*
-	 * cnstructors
+	 * constructors
 	 */
+	public ErrorLogger() {
+		super();
+	}
+	
 	public ErrorLogger(Serializer serializer) {
 		super();
 		this.serializer = serializer;
