@@ -3,7 +3,6 @@ package org.sklsft.commons.mapper.impl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Date;
 
 import org.sklsft.commons.mapper.beans.AccessibleField;
@@ -45,6 +44,11 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 			if (Short.class.isAssignableFrom(accessibleField.fieldClass)) {
 				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
 					value = ((BigDecimal)value).shortValue();
+				}
+			}
+			if (Boolean.class.isAssignableFrom(accessibleField.fieldClass)) {
+				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
+					value = ((BigDecimal)value).shortValue()>0;
 				}
 			}
 			//Oracle patch for dates mapping
