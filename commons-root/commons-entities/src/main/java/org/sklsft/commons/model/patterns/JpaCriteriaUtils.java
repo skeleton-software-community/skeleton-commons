@@ -54,6 +54,12 @@ public class JpaCriteriaUtils {
 		}
 	}
 	
+	public static void addEqualsIfNotNullRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<?> expression, Object value) {
+		if (value != null) {			
+			predicates.add(builder.equal(expression, value));
+		}
+	}
+	
 	public static void addOrder(CriteriaBuilder builder, List<Order> orders, Expression<String> expression, OrderType orderType) {
 		if (orderType != null) {
 			if (orderType.equals(OrderType.ASC)) {
