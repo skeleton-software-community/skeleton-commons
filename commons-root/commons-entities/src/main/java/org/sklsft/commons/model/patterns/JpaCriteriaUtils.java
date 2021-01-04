@@ -60,7 +60,7 @@ public class JpaCriteriaUtils {
 		}
 	}
 	
-	public static void addOrder(CriteriaBuilder builder, List<Order> orders, Expression<String> expression, OrderType orderType) {
+	public static void addOrder(CriteriaBuilder builder, List<Order> orders, Expression<?> expression, OrderType orderType) {
 		if (orderType != null) {
 			if (orderType.equals(OrderType.ASC)) {
 				orders.add(builder.asc(expression));
