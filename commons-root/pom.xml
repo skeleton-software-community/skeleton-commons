@@ -95,7 +95,7 @@
 		<servlet.version>3.1.0</servlet.version>
 		<jsf.version>2.2.13</jsf.version>
 		<primefaces.version>8.0</primefaces.version>
-		<junit.version>4.13</junit.version>
+		<junit.version>4.13.1</junit.version>
 	</properties>
 
 	<dependencyManagement>
