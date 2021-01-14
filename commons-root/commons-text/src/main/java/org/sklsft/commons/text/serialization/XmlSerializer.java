@@ -57,6 +57,28 @@ public class XmlSerializer implements Serializer {
 		}
 	}
 	
+	
+	public <T> String serialize(JAXBElement<T> element) {
+		if (element == null) {
+			return null;
+		}
+		try {
+			Class<T> clazz = element.getDeclaredType();
+			Marshaller marshaller = marshallers.get(clazz);
+			if (marshaller == null) {
+				JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+				marshaller = jaxbContext.createMarshaller();
+				marshallers.put(clazz, marshaller);
+			}
+			StringWriter stringWriter = new StringWriter();
+			marshaller.marshal(element, stringWriter);
+			return stringWriter.toString();
+
+		} catch (Exception e) {
+			throw new SerializationException("failed to serialize object : " + e.getMessage(), e);
+		}
+	}
+	
 
 	
 	@Override
