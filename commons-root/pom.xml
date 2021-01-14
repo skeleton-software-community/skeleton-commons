@@ -4,7 +4,7 @@
 
 	<groupId>org.sklsft.commons</groupId>
 	<artifactId>commons-root</artifactId>
-	<version>3.1.6-SNAPSHOT</version>
+	<version>3.1.6</version>
 	<name>Skeleton Commons - Root</name>
 	<description>Root module of Commons project</description>
 	<url>http://skeleton-software-community.github.io/skeleton-commons</url>
