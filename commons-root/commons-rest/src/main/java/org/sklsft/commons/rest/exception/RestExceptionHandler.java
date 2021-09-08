@@ -3,6 +3,7 @@ package org.sklsft.commons.rest.exception;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.api.exception.ErrorReport;
 import org.sklsft.commons.api.exception.TechnicalError;
+import org.sklsft.commons.api.exception.repository.ObjectNotFoundException;
 import org.sklsft.commons.api.exception.rights.AccessDeniedException;
 import org.sklsft.commons.api.exception.rights.OperationDeniedException;
 import org.sklsft.commons.api.exception.validation.InvalidArgumentException;
@@ -43,7 +44,6 @@ public class RestExceptionHandler {
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
 		errorReport.setMessage(e.getMessage());
-		errorReport.setDetails(e.getDetails());
 
 		return errorReport;
 	}
@@ -57,7 +57,19 @@ public class RestExceptionHandler {
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
 		errorReport.setMessage(e.getMessage());
-		errorReport.setDetails(e.getDetails());
+
+		return errorReport;
+	}
+	
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public @ResponseBody ErrorReport handleApplicationException(ObjectNotFoundException e) {
+		
+		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
+
+		ErrorReport errorReport = new ErrorReport();
+		errorReport.setExceptionClassName(e.getClass().getName());
+		errorReport.setMessage(e.getMessage());
 
 		return errorReport;
 	}
@@ -71,11 +83,10 @@ public class RestExceptionHandler {
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(e.getClass().getName());
 		errorReport.setMessage(e.getMessage());
-		errorReport.setDetails(e.getDetails());
 
 		return errorReport;
 	}
-
+	
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
 	public @ResponseBody ErrorReport handleException(Exception e) {
@@ -84,7 +95,7 @@ public class RestExceptionHandler {
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TechnicalError.class.getName());
-		errorReport.setMessage(TechnicalError.ERROR_UNKNOWN);
+		errorReport.setMessage(e.getMessage());
 
 		return errorReport;
 	}

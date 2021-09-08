@@ -27,25 +27,5 @@ public class RestExceptionHandlerTest {
 		
 		Assert.assertEquals(errorReport.getMessage(), message);
 		Assert.assertTrue(errorReport.getExceptionClassName().equals(TestException.class.getName()));
-		Assert.assertNull(errorReport.getDetails());
-	}
-	
-	
-	@Test
-	public void testApplicationExceptionDummyDetails() {
-		
-		Dummy dummy = new Dummy();
-		dummy.setLongField(1L);
-		dummy.setStringField("test");
-		
-		String message = "test";
-		ApplicationException e = new TestException(message, dummy);
-		
-		ErrorReport errorReport = restExceptionHandler.handleApplicationException(e);
-		
-		Assert.assertEquals(errorReport.getMessage(), message);
-		Assert.assertTrue(errorReport.getExceptionClassName().equals(TestException.class.getName()));
-		Assert.assertNotNull(errorReport.getDetails());
-		Assert.assertTrue(errorReport.getDetails() instanceof Dummy);
 	}
 }

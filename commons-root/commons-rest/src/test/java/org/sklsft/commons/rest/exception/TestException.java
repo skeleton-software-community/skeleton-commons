@@ -13,16 +13,7 @@ public class TestException extends ApplicationException {
 		super(message);
 	}
 
-	public TestException(String message, Object details) {
-		super(message, details);
-	}
-
 	public TestException(String message, Throwable cause) {
 		super(message, cause);
 	}
-
-	public TestException(String message, Throwable cause, Object details) {
-		super(message, cause, details);
-	}
-
 }

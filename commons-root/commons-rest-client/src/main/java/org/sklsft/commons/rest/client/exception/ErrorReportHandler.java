@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.sklsft.commons.api.exception.ApplicationException;
 import org.sklsft.commons.api.exception.ErrorReport;
 import org.sklsft.commons.api.exception.TechnicalError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -20,6 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class ErrorReportHandler implements ResponseErrorHandler {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ErrorReportHandler.class);
 	
 	private ObjectMapper objectMapper;
 	
@@ -48,9 +52,13 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 	@Override
 	public void handleError(ClientHttpResponse response) throws IOException {
 
-		ErrorReport errorReport = objectMapper.readValue(response.getBody(), ErrorReport.class);
-		convertErrorReport(errorReport);
-		
+		try {
+			ErrorReport errorReport = objectMapper.readValue(response.getBody(), ErrorReport.class);
+			convertErrorReport(errorReport);
+		} catch (IOException e) {
+			logger.warn("Could not read error report : a TechnicalError will be thrown");
+			throw new TechnicalError(TechnicalError.ERROR_UNKNOWN, e);
+		}
 	}
 
 	
@@ -65,9 +73,9 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 		try {
 			exception = (ApplicationException) Class.forName(errorReport.getExceptionClassName()).newInstance();
 			exception.setMessage(errorReport.getMessage());
-			exception.setDetails(errorReport.getDetails());
 			
 		} catch (Exception e) {
+			logger.warn("Could not instantiate exception from rest response : a TechnicalError will be used instead");
 			exception = new TechnicalError(TechnicalError.ERROR_UNKNOWN, e);
 		}
 		throw exception;

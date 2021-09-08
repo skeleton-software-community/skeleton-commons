@@ -37,7 +37,6 @@ public class ErrorReportHandlerTest {
 		} catch (ApplicationException e) {
 			Assert.assertEquals(e.getMessage(), message);
 			Assert.assertTrue(e instanceof TestException);
-			Assert.assertNull(e.getDetails());
 			
 			return;
 		}
@@ -54,14 +53,12 @@ public class ErrorReportHandlerTest {
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TestException.class.getName());
 		errorReport.setMessage(message);
-		errorReport.setDetails(dummy);
 		
 		try {
 			errorReportHandler.convertErrorReport(errorReport);
 		} catch (ApplicationException e) {
 			Assert.assertEquals(e.getMessage(), message);
 			Assert.assertTrue(e instanceof TestException);
-			Assert.assertTrue(e.getDetails().equals(dummy));
 
 			return;
 		}

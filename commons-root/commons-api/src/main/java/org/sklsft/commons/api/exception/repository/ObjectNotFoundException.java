@@ -1,5 +1,7 @@
 package org.sklsft.commons.api.exception.repository;
 
+import org.sklsft.commons.api.exception.ApplicationException;
+
 /**
  * Exception thrown when a dao does not find a requested object
  * <br>Similar to hibernate ObjectNotFoundException
@@ -7,7 +9,7 @@ package org.sklsft.commons.api.exception.repository;
  * @author Nicolas Thibault
  *
  */
-public class ObjectNotFoundException extends RuntimeException {
+public class ObjectNotFoundException extends ApplicationException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,5 +23,10 @@ public class ObjectNotFoundException extends RuntimeException {
 
 	public ObjectNotFoundException(String message, Throwable cause) {
 		super(message, cause);
+	}
+	
+	@Override
+	public String getHttpErrorCode() {
+		return "404";
 	}
 }

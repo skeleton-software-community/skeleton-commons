@@ -2,10 +2,6 @@ package org.sklsft.commons.api.exception;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-
 /**
  * A class used to serialize an {@link ApplicationException} in json
  *
@@ -19,8 +15,7 @@ public class ErrorReport implements Serializable {
 	 */
 	private String exceptionClassName;
 	private String message;
-	@JsonTypeInfo(use = Id.CLASS, include = As.PROPERTY, property = "class")
-	private Object details;
+
 
 	/*
 	 * getters and setters
@@ -36,11 +31,5 @@ public class ErrorReport implements Serializable {
 	}
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	public Object getDetails() {
-		return details;
-	}
-	public void setDetails(Object details) {
-		this.details = details;
 	}
 }
