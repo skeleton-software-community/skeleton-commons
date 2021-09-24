@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.sklsft.commons</groupId>
 		<artifactId>commons-root</artifactId>
-		<version>3.2.0-SNAPSHOT</version>
+		<version>3.2.0</version>
 	</parent>
 
 	<artifactId>commons-text</artifactId>
