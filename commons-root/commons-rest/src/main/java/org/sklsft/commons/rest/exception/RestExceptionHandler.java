@@ -5,7 +5,6 @@ import org.sklsft.commons.api.exception.ErrorReport;
 import org.sklsft.commons.api.exception.TechnicalError;
 import org.sklsft.commons.api.exception.repository.ObjectNotFoundException;
 import org.sklsft.commons.api.exception.rights.AccessDeniedException;
-import org.sklsft.commons.api.exception.rights.OperationDeniedException;
 import org.sklsft.commons.api.exception.validation.InvalidArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,14 +48,14 @@ public class RestExceptionHandler {
 	}
 	
 	@ResponseStatus(value = HttpStatus.FORBIDDEN)
-	@ExceptionHandler(OperationDeniedException.class)
-	public @ResponseBody ErrorReport handleApplicationException(OperationDeniedException e) {
+	@ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+	public @ResponseBody ErrorReport handleApplicationException(org.springframework.security.access.AccessDeniedException e) {
 		
 		if (printErrorStackInRootLogger) classLogger.error(e.getMessage(),e);
 
 		ErrorReport errorReport = new ErrorReport();
-		errorReport.setExceptionClassName(e.getClass().getName());
-		errorReport.setMessage(e.getMessage());
+		errorReport.setExceptionClassName(AccessDeniedException.class.getName());
+		errorReport.setMessage(AccessDeniedException.ACCESS_DENIED);
 
 		return errorReport;
 	}

@@ -11,6 +11,8 @@ import org.sklsft.commons.api.exception.ApplicationException;
 public class AccessDeniedException extends ApplicationException {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ACCESS_DENIED = "access.denied";
 
 	
 	public AccessDeniedException(){

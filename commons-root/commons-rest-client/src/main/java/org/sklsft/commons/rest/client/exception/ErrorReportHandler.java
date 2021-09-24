@@ -80,5 +80,4 @@ public class ErrorReportHandler implements ResponseErrorHandler {
 		}
 		throw exception;
 	}
-
 }
