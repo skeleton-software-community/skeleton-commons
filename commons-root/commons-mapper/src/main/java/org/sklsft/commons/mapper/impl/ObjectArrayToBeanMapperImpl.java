@@ -28,35 +28,12 @@ public class ObjectArrayToBeanMapperImpl<T> implements ObjectArrayToBeanMapper<T
 	public T mapFrom(T obj, Object[] objectArray, int startField) {
 		
 		for (int i = 0;i<objectArray.length;i++) {
-			//Oracle patch for integers mapping
+			
 			AccessibleField accessibleField = mappableBean.accessibleFields.get(i+startField);
-			Object value = objectArray[i];
-			if (Long.class.isAssignableFrom(accessibleField.fieldClass)) {
-				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
-					value = ((BigDecimal)value).longValue();
-				}
-			}
-			if (Integer.class.isAssignableFrom(accessibleField.fieldClass)) {
-				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
-					value = ((BigDecimal)value).intValue();
-				}
-			}
-			if (Short.class.isAssignableFrom(accessibleField.fieldClass)) {
-				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
-					value = ((BigDecimal)value).shortValue();
-				}
-			}
-			if (Boolean.class.isAssignableFrom(accessibleField.fieldClass)) {
-				if (BigDecimal.class.isAssignableFrom(value.getClass())) {
-					value = ((BigDecimal)value).shortValue()>0;
-				}
-			}
-			//Oracle patch for dates mapping
-			if (LocalDate.class.isAssignableFrom(accessibleField.fieldClass)) {
-				if (Date.class.isAssignableFrom(value.getClass())) {
-					value = ((Date)value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				}
-			}
+			Object dbValue = objectArray[i];
+			
+			Object value = DbObjectToObjectConverter.getObjectFromDbObject(dbValue, accessibleField.fieldClass);
+			
 			accessibleField.setValue(value, obj);
 		}
 		

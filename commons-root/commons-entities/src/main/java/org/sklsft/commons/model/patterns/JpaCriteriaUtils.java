@@ -31,6 +31,19 @@ public class JpaCriteriaUtils {
 		}
 	}
 	
+	public static Predicate getUnaccentuatedStringContainsRestriction(CriteriaBuilder builder, Expression<String> expression, String value) {	
+		if (!StringUtils.isEmpty(value)) {
+			return builder.like(builder.lower(expression), "%" + value.toLowerCase() + "%");
+		}
+		return null;
+	}
+
+	public static void addUnaccentuatedStringContainsRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<String> expression, String value) {	
+		if (!StringUtils.isEmpty(value)) {
+			predicates.add(builder.like(builder.lower(expression), "%" + value.toLowerCase() + "%"));
+		}
+	}
+	
 	public static <T extends Comparable<? super T>> void addBetweenRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<T> expression, T minValue, T maxValue) {
 		if (minValue != null) {
 			predicates.add(builder.greaterThanOrEqualTo(expression, minValue));
