@@ -24,7 +24,13 @@ public class AccessLogger {
 		AccessLogMessage accessMessage = new AccessLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.REQUEST);
 		accessMessage.setTransactionType(transactionType);
-		accessMessage.setRequestBody(requestBody);
+		if (requestBody != null) {
+			if (String.class.isAssignableFrom(requestBody.getClass())) {
+				accessMessage.setRequestBody((String)requestBody);
+			} else {
+				accessMessage.setRequestBody(serializer.serialize(requestBody));
+			}
+		}
 		String serialized;
 		try {
 			serialized = serializer.serialize(accessMessage);
@@ -42,7 +48,13 @@ public class AccessLogger {
 		AccessLogMessage accessMessage = new AccessLogMessage();
 		accessMessage.setTransactionStage(TransactionStage.RESPONSE);
 		accessMessage.setTransactionType(transactionType);	
-		accessMessage.setResponseBody(responseBody);
+		if (responseBody != null) {
+			if (String.class.isAssignableFrom(responseBody.getClass())) {
+				accessMessage.setRequestBody((String)responseBody);
+			} else {
+				accessMessage.setRequestBody(serializer.serialize(responseBody));
+			}
+		}
 		accessMessage.setResponseTimeMillis(responseTimeMillis);
 		accessMessage.setResponseStatus(responseStatus);
 		accessMessage.setResponseLabel(responseLabel);
@@ -64,7 +76,14 @@ public class AccessLogger {
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_CALL);
 		accessMessage.setInterfaceName(interfaceName);
 		accessMessage.setInterfaceChannel(interfaceChannel);
-		accessMessage.setSentBody(sentBody);
+		if (sentBody != null) {
+			if (String.class.isAssignableFrom(sentBody.getClass())) {
+				accessMessage.setSentBody((String)sentBody);
+			} else {
+				accessMessage.setSentBody(serializer.serialize(sentBody));
+			}
+		}
+		
 		String serialized;
 		try {
 			serialized = serializer.serialize(accessMessage);
@@ -83,7 +102,13 @@ public class AccessLogger {
 		accessMessage.setTransactionStage(TransactionStage.INTERFACE_ANSWER);
 		accessMessage.setInterfaceName(interfaceName);
 		accessMessage.setInterfaceChannel(interfaceChannel);
-		accessMessage.setReceivedBody(receivedBody);
+		if (receivedBody != null) {
+			if (String.class.isAssignableFrom(receivedBody.getClass())) {
+				accessMessage.setReceivedBody((String)receivedBody);
+			} else {
+				accessMessage.setReceivedBody(serializer.serialize(receivedBody));
+			}
+		}
 		accessMessage.setResponseTimeMillis(responseTimeMillis);
 		accessMessage.setResponseStatus(responseStatus);
 		accessMessage.setResponseLabel(responseLabel);

@@ -11,8 +11,8 @@ public class AccessLogMessage implements Serializable {
 	 */
 	private TransactionStage transactionStage;
 	private String transactionType;
-	private Object requestBody;
-	private Object responseBody;
+	private String requestBody;
+	private String responseBody;
 	private Long responseTimeMillis;
 	private String responseStatus;
 	private String responseLabel;
@@ -33,16 +33,16 @@ public class AccessLogMessage implements Serializable {
 	public void setTransactionType(String transactionType) {
 		this.transactionType = transactionType;
 	}
-	public Object getRequestBody() {
+	public String getRequestBody() {
 		return requestBody;
 	}
-	public void setRequestBody(Object requestBody) {
+	public void setRequestBody(String requestBody) {
 		this.requestBody = requestBody;
 	}
-	public Object getResponseBody() {
+	public String getResponseBody() {
 		return responseBody;
 	}
-	public void setResponseBody(Object responseBody) {
+	public void setResponseBody(String responseBody) {
 		this.responseBody = responseBody;
 	}
 	public Long getResponseTimeMillis() {
