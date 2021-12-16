@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,9 +26,7 @@ import org.sklsft.commons.text.serialization.exceptions.SerializationException;
  */
 public class XmlSerializer implements Serializer {
 	
-	private Map<Class<?>, Marshaller> marshallers = new HashMap<>();
-	
-	private Map<Class<?>, Unmarshaller> unmarshallers = new HashMap<>();
+	private Map<Class<?>, JAXBContext> contexts = new HashMap<>();
 
 	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })	
@@ -37,13 +36,9 @@ public class XmlSerializer implements Serializer {
 		}
 		try {
 			Class<?> clazz = object.getClass();
-			Marshaller marshaller = marshallers.get(clazz);
-			if (marshaller == null) {
-				JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
-				marshaller = jaxbContext.createMarshaller();
-				marshallers.put(clazz, marshaller);
-			}
+			JAXBContext context = getContext(clazz);
 			StringWriter stringWriter = new StringWriter();
+			Marshaller marshaller = context.createMarshaller();
 			if (clazz.isAnnotationPresent(XmlRootElement.class)) {
 				marshaller.marshal(object, stringWriter);
 				return stringWriter.toString();
@@ -56,7 +51,7 @@ public class XmlSerializer implements Serializer {
 			throw new SerializationException("failed to serialize object : " + e.getMessage(), e);
 		}
 	}
-	
+
 	
 	public <T> String serialize(JAXBElement<T> element) {
 		if (element == null) {
@@ -64,13 +59,9 @@ public class XmlSerializer implements Serializer {
 		}
 		try {
 			Class<T> clazz = element.getDeclaredType();
-			Marshaller marshaller = marshallers.get(clazz);
-			if (marshaller == null) {
-				JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
-				marshaller = jaxbContext.createMarshaller();
-				marshallers.put(clazz, marshaller);
-			}
+			JAXBContext context = getContext(clazz);
 			StringWriter stringWriter = new StringWriter();
+			Marshaller marshaller = context.createMarshaller();
 			marshaller.marshal(element, stringWriter);
 			return stringWriter.toString();
 
@@ -88,12 +79,8 @@ public class XmlSerializer implements Serializer {
 			return null;
 		}
 		try {
-			Unmarshaller unmarshaller = unmarshallers.get(targetClass);
-			if (unmarshaller == null) {
-				JAXBContext jaxbContext = JAXBContext.newInstance(targetClass);
-				unmarshaller = jaxbContext.createUnmarshaller();
-				unmarshallers.put(targetClass, unmarshaller);
-			}
+			JAXBContext context = getContext(targetClass);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
 			if (targetClass.isAnnotationPresent(XmlRootElement.class)) {
 				return (T)unmarshaller.unmarshal(new StringReader(arg));
 			} else {
@@ -102,5 +89,16 @@ public class XmlSerializer implements Serializer {
 		} catch (Exception e) {
 			throw new SerializationException("failed to deserialize object : " + e.getMessage(), e);
 		}
+	}
+	
+	
+	private JAXBContext getContext(Class<?> clazz) throws JAXBException {
+		JAXBContext context = contexts.get(clazz);
+		
+		if (context == null) {
+			context = JAXBContext.newInstance(clazz);
+			contexts.put(clazz, context);
+		}
+		return context;
 	}
 }
