@@ -3,18 +3,10 @@
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<pattern>
-				{"@timestamp":"%d{yyyy-MM-dd HH:mm:ss.SSS}","logLevel":"%-5level","msg":%msg}%n
+				[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5level] %msg%n
 			</pattern>
 		</encoder>
 	</appender>
-	
-	<logger name="ACCESS_LOG" level="INFO" additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
-	
-	<logger name="ERROR_LOG" level="INFO" additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
 	
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />

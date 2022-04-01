@@ -82,10 +82,10 @@
 				
 		<hibernate.version>5.4.24.Final</hibernate.version>
 		<slf4j.version>1.7.30</slf4j.version>
-		<logback.version>1.2.3</logback.version>
+		<logback.version>1.2.11</logback.version>
 		
-		<spring.version>5.3.14</spring.version>
-		<spring.security.version>5.3.0.RELEASE</spring.security.version>
+		<spring.version>5.3.18</spring.version>
+		<spring.security.version>5.3.13.RELEASE</spring.security.version>
 		<aspectj.version>1.9.5</aspectj.version>
 		<javax.inject.version>1</javax.inject.version>
 		<jackson.version>2.10.3</jackson.version>
@@ -96,7 +96,7 @@
 		<servlet.version>3.1.0</servlet.version>
 		<jsf.version>2.2.13</jsf.version>
 		<primefaces.version>8.0</primefaces.version>
-		<junit.version>4.13</junit.version>
+		<junit.version>4.13.1</junit.version>
 	</properties>
 
 	<dependencyManagement>
@@ -161,6 +161,7 @@
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
 				<version>${logback.version}</version>
+				<scope>test</scope>
 			</dependency>
 
 

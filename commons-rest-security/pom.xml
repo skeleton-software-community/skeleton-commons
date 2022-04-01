@@ -32,17 +32,11 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<scope>test</scope>
-		</dependency>
 		
-		
-		<!-- spring webmvc -->
+		<!-- spring web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
 		
 		<!-- Spring security -->
