@@ -18,29 +18,42 @@ import org.sklsft.commons.text.StringUtils;
  */
 public class JpaCriteriaUtils {
 	
-	public static Predicate getStringContainsRestriction(CriteriaBuilder builder, Expression<String> expression, String value) {	
+	public static Predicate getUnaccentuatedStringContainsRestriction(CriteriaBuilder builder, Expression<String> expression, String value) {	
 		if (!StringUtils.isEmpty(value)) {
 			return builder.like(builder.function("normalize", String.class, expression), "%" + StringUtils.normalize(value) + "%");
 		}
 		return null;
 	}
 
-	public static void addStringContainsRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<String> expression, String value) {	
+	public static void addUnaccentuatedStringContainsRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<String> expression, String value) {	
 		if (!StringUtils.isEmpty(value)) {
 			predicates.add(builder.like(builder.function("normalize", String.class, expression), "%" + StringUtils.normalize(value) + "%"));
 		}
 	}
 	
-	public static Predicate getUnaccentuatedStringContainsRestriction(CriteriaBuilder builder, Expression<String> expression, String value) {	
+	public static Predicate getStringContainsRestriction(CriteriaBuilder builder, Expression<String> expression, String value) {	
 		if (!StringUtils.isEmpty(value)) {
 			return builder.like(builder.lower(expression), "%" + value.toLowerCase() + "%");
 		}
 		return null;
 	}
 
-	public static void addUnaccentuatedStringContainsRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<String> expression, String value) {	
+	public static void addStringContainsRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<String> expression, String value) {	
 		if (!StringUtils.isEmpty(value)) {
 			predicates.add(builder.like(builder.lower(expression), "%" + value.toLowerCase() + "%"));
+		}
+	}
+	
+	public static Predicate getStringStartsWithRestriction(CriteriaBuilder builder, Expression<String> expression, String value) {	
+		if (!StringUtils.isEmpty(value)) {
+			return builder.like(builder.lower(expression), value.toLowerCase() + "%");
+		}
+		return null;
+	}
+
+	public static void addStringStartsWithRestriction(CriteriaBuilder builder, List<Predicate> predicates, Expression<String> expression, String value) {	
+		if (!StringUtils.isEmpty(value)) {
+			predicates.add(builder.like(builder.lower(expression), value.toLowerCase() + "%"));
 		}
 	}
 	
