@@ -23,6 +23,7 @@ public class FullView<T extends Serializable, U extends Serializable> implements
 	protected T id;
 	protected U form;
 	protected boolean canUpdate;
+	protected boolean canDelete;
 
 	/*
 	 * getters and setters
@@ -44,5 +45,11 @@ public class FullView<T extends Serializable, U extends Serializable> implements
 	}
 	public void setCanUpdate(boolean canUpdate) {
 		this.canUpdate = canUpdate;
-	}	
+	}
+	public boolean isCanDelete() {
+		return canDelete;
+	}
+	public void setCanDelete(boolean canDelete) {
+		this.canDelete = canDelete;
+	}
 }
