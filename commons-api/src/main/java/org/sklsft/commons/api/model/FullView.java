@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @param <T> id
  * @param <U> form
  * @param <boolean> canUpdate
+ * @param <boolean> canDelete
  */
 public class FullView<T extends Serializable, U extends Serializable> implements Serializable {
 
