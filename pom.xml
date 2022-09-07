@@ -92,7 +92,7 @@
 		<jms.version>2.0.1</jms.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<java-jwt.version>3.4.1</java-jwt.version>
-		<bouncycastle.version>1.61</bouncycastle.version>
+		<bouncycastle.version>1.67</bouncycastle.version>
 		<servlet.version>3.1.0</servlet.version>
 		<jsf.version>2.2.13</jsf.version>
 		<primefaces.version>8.0</primefaces.version>
