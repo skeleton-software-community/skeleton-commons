@@ -88,7 +88,7 @@
 		<spring.security.version>5.5.7</spring.security.version>
 		<aspectj.version>1.9.5</aspectj.version>
 		<javax.inject.version>1</javax.inject.version>
-		<jackson.version>2.12.7</jackson.version>
+		<jackson.version>2.12.7.1</jackson.version>
 		<jms.version>2.0.1</jms.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<java-jwt.version>3.4.1</java-jwt.version>
