@@ -1,10 +1,14 @@
 package org.sklsft.commons.rest.security.tokens.jwt;
 
-public class BasicRsaJsonWebToken extends JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> {
+public class BasicRsaJsonWebToken extends JsonWebToken<RsaJwtHeader, BasicJwtBody> {
 
 	private static final long serialVersionUID = 1L;
 	
-	public BasicRsaJsonWebToken(BasicRsaJwtHeader header, BasicJwtBody body) {
+	public BasicRsaJsonWebToken() {
+		super();
+	}
+	
+	public BasicRsaJsonWebToken(RsaJwtHeader header, BasicJwtBody body) {
 		super(header, body);
 	}
 }

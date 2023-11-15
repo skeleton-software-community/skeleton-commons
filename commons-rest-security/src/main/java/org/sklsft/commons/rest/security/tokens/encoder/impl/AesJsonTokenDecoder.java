@@ -11,9 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  */
-public class AesJsonTokenEncoder<T> extends CryptedTokenEncoder<T> {	
+public class AesJsonTokenDecoder<T> extends CryptedTokenDecoder<T> {	
 	
-	public AesJsonTokenEncoder(ObjectMapper objectMapper, AesKeyAccessor keyAccessor) {	
-		super(new AesJsonObjectEncoder(objectMapper, keyAccessor));
+	public AesJsonTokenDecoder(ObjectMapper objectMapper, AesKeyAccessor keyAccessor, Class<T> tokenClass) {	
+		super(new AesJsonObjectEncoder(objectMapper, keyAccessor), tokenClass);
 	}
 }

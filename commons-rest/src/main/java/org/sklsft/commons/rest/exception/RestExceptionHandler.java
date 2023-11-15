@@ -94,7 +94,7 @@ public class RestExceptionHandler {
 
 		ErrorReport errorReport = new ErrorReport();
 		errorReport.setExceptionClassName(TechnicalError.class.getName());
-		errorReport.setMessage(e.getMessage());
+		errorReport.setMessage(TechnicalError.ERROR_UNKNOWN);
 
 		return errorReport;
 	}

@@ -4,42 +4,43 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
-import org.sklsft.commons.rest.security.credentials.BasicCredentials;
-import org.sklsft.commons.rest.security.exception.CredentialsConflictException;
-import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
+import org.sklsft.commons.rest.security.exception.ContextConflictException;
+import org.sklsft.commons.rest.security.exception.NoBoundContextException;
+
+import com.sklsft.commons.rest.security.tokens.SecurityContextMock;
 
 public class SecurityContextHolderTest {
 	
 	@After
 	public void clear() {
-		SecurityContextHolder.unbindCredentials();
+		SecurityContextHolder.unbindContext();
 	}
 	
 	
 	@Test(expected=NullPointerException.class)
 	public void testBindNullCredentials() {
-		SecurityContextHolder.bindCredentials(null);
+		SecurityContextHolder.bindContext(null);
 	}
 	
 	
 	@Test
 	public void testBindCredentials() {
-		BasicCredentials credentials = new BasicCredentials();
-		SecurityContextHolder.bindCredentials(credentials);
-		Assert.assertNotNull(SecurityContextHolder.getCredentialsOrNull());
+		SecurityContextMock context = new SecurityContextMock();
+		SecurityContextHolder.bindContext(context);
+		Assert.assertNotNull(SecurityContextHolder.getContextOrNull());
 	}
 	
 	
-	@Test(expected=CredentialsConflictException.class)
+	@Test(expected=ContextConflictException.class)
 	public void testBindUserCredentialsConflict() {
-		BasicCredentials credentials = new BasicCredentials();
-		SecurityContextHolder.bindCredentials(credentials);
-		SecurityContextHolder.bindCredentials(credentials);
+		SecurityContextMock context = new SecurityContextMock();
+		SecurityContextHolder.bindContext(context);
+		SecurityContextHolder.bindContext(context);
 	}
 	
 	
-	@Test(expected=NoBoundCredentialsException.class)
+	@Test(expected=NoBoundContextException.class)
 	public void testGetNullUserCredentials() {
-		SecurityContextHolder.getCredentials();
+		SecurityContextHolder.getContext();
 	}
 }

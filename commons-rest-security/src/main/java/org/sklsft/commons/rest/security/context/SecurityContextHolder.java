@@ -1,7 +1,7 @@
 package org.sklsft.commons.rest.security.context;
 
-import org.sklsft.commons.rest.security.exception.CredentialsConflictException;
-import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
+import org.sklsft.commons.rest.security.exception.ContextConflictException;
+import org.sklsft.commons.rest.security.exception.NoBoundContextException;
 
 /**
  * A security context is handled by a ThreadLocal
@@ -11,36 +11,36 @@ import org.sklsft.commons.rest.security.exception.NoBoundCredentialsException;
  */
 public class SecurityContextHolder {
 
-	private static ThreadLocal<Object> allCredentials = new ThreadLocal<>();
+	private static ThreadLocal<Object> allContexts = new ThreadLocal<>();
 
-	public static void bindCredentials(Object credentials) {
-		if (credentials == null) {
-			throw new NullPointerException("Cannot bind credentials : provided credentials is null");
+	public static void bindContext(Object context) {
+		if (context == null) {
+			throw new NullPointerException("Cannot bind context : provided context is null");
 		}
 
-		Object currentCredentials = getCredentialsOrNull();
-		if (currentCredentials != null) {
-			throw new CredentialsConflictException("Credentials has already been bound to the Thread");
+		Object currentContext = getContextOrNull();
+		if (currentContext != null) {
+			throw new ContextConflictException("Context has already been bound to the Thread");
 		}
 
-		allCredentials.set(credentials);
+		allContexts.set(context);
 	}
 
 	
 
-	public static void unbindCredentials() {
-		allCredentials.remove();
+	public static void unbindContext() {
+		allContexts.remove();
 	}
 
-	public static Object getCredentialsOrNull() {
-		return allCredentials.get();
+	public static Object getContextOrNull() {
+		return allContexts.get();
 	}
 
 
-	public static Object getCredentials() {
-		Object credentials = getCredentialsOrNull();
+	public static Object getContext() {
+		Object credentials = getContextOrNull();
 		if (credentials == null) {
-			throw new NoBoundCredentialsException("No credentials bound to Thread");
+			throw new NoBoundContextException("No context bound to Thread");
 		}
 		return credentials;
 	}

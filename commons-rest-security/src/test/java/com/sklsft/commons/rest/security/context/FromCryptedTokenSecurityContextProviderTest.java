@@ -7,37 +7,37 @@ import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
 import org.sklsft.commons.rest.security.context.impl.FromCryptedTokenSecurityContextProvider;
-import org.sklsft.commons.rest.security.credentials.BasicCredentials;
-import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
+import org.sklsft.commons.rest.security.credentials.validator.SecurityContextValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
+import org.sklsft.commons.rest.security.tokens.encoder.TokenDecoder;
 
-import com.sklsft.commons.rest.security.credentials.validator.BasicCredentialsValidatorMock;
-import com.sklsft.commons.rest.security.tokens.encoder.BasicCredentialsEncoderMock;
+import com.sklsft.commons.rest.security.credentials.validator.UserContextValidatorMock;
+import com.sklsft.commons.rest.security.tokens.SecurityContextMock;
+import com.sklsft.commons.rest.security.tokens.encoder.DecoderMock;
 
 
 public class FromCryptedTokenSecurityContextProviderTest {
 
-	private static TokenEncoder<BasicCredentials> tokenEncoder = new BasicCredentialsEncoderMock();
-	private static SecurityCredentialsValidator<BasicCredentials> credentialsValidator = new BasicCredentialsValidatorMock();
+	private static TokenDecoder<SecurityContextMock> tokenEncoder = new DecoderMock();
+	private static SecurityContextValidator<SecurityContextMock> validator = new UserContextValidatorMock();
 
 	private static SecurityContextProvider provider;
 	
 	@BeforeClass
 	public static void init() {
-		provider = new FromCryptedTokenSecurityContextProvider<BasicCredentials>(tokenEncoder, credentialsValidator);
+		provider = new FromCryptedTokenSecurityContextProvider<SecurityContextMock>(tokenEncoder, validator);
 	}
 	
 	@After
 	public void clear() {
-		SecurityContextHolder.unbindCredentials();
+		SecurityContextHolder.unbindContext();
 	}
 	
 	@Test
 	public void testProvideValidCredentials() {
 		provider.provideSecurityContext("sklgen$nicolas.thibault@sklsft.org");
 		
-		BasicCredentials userCredentials = (BasicCredentials) SecurityContextHolder.getCredentials();
+		SecurityContextMock userCredentials = (SecurityContextMock) SecurityContextHolder.getContext();
 		Assert.assertTrue(userCredentials.getUser().equals("nicolas.thibault@sklsft.org") && userCredentials.getApplication().equals("sklgen"));
 	}
 	

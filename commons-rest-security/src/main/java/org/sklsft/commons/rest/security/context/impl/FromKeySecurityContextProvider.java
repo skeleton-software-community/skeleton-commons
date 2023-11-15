@@ -1,6 +1,6 @@
 package org.sklsft.commons.rest.security.context.impl;
 
-import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
+import org.sklsft.commons.rest.security.credentials.validator.SecurityContextValidator;
 
 /**
  * 
@@ -9,18 +9,18 @@ import org.sklsft.commons.rest.security.credentials.validator.SecurityCredential
  */
 public abstract class FromKeySecurityContextProvider<C> extends BasicSecurityContextProvider<C> {
 
-	private SecurityCredentialsValidator<C> credentialsValidator;
+	private SecurityContextValidator<C> contextValidator;
 	
 	
-	public FromKeySecurityContextProvider(SecurityCredentialsValidator<C> credentialsValidator) {
+	public FromKeySecurityContextProvider(SecurityContextValidator<C> contextValidator) {
 		super();
-		this.credentialsValidator = credentialsValidator;
+		this.contextValidator = contextValidator;
 	}
 	
 	@Override
-	protected C getValidCredentials(String token) {		
+	protected C getValidContext(String token) {		
 		C credentials = get(token);
-		credentialsValidator.validateCredentials(credentials);
+		contextValidator.validateContext(credentials);
 		return credentials;
 	}
 

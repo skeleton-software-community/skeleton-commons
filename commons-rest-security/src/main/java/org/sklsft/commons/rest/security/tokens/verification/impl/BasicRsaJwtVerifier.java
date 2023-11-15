@@ -5,7 +5,7 @@ import java.util.Date;
 import org.sklsft.commons.crypto.signature.RsaSignatureVerifier;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
+import org.sklsft.commons.rest.security.tokens.jwt.RsaJwtHeader;
 
 /**
  *
@@ -14,7 +14,7 @@ import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
  * @author Nicolas Thibault
  * 
  */
-public class BasicRsaJwtVerifier extends RsaJwtVerifier<BasicRsaJwtHeader, BasicJwtBody> {
+public class BasicRsaJwtVerifier extends RsaJwtVerifier<RsaJwtHeader, BasicJwtBody> {
 
 	public BasicRsaJwtVerifier(RsaSignatureVerifier rsaSignatureverifier) {
 		super(rsaSignatureverifier);
@@ -23,7 +23,7 @@ public class BasicRsaJwtVerifier extends RsaJwtVerifier<BasicRsaJwtHeader, Basic
 	@Override
 	protected void verifyBody(BasicJwtBody body) {
 		if (new Date().after(body.getExpiryDate())) {
-			throw new InvalidTokenException("Expired token");
+			throw new InvalidTokenException("token.expired");
 		}
 	}	
 }

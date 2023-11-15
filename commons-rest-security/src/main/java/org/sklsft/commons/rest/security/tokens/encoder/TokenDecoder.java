@@ -1,12 +1,13 @@
 package org.sklsft.commons.rest.security.tokens.encoder;
 
 /**
- * used to encode a Token to a String
+ * used to decode a Token from a String
  * 
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  *
  */
-public interface TokenEncoder<T> {
+public interface TokenDecoder<T> {
 
-	String encode(T token);
+	T decode(String token);
+
 }

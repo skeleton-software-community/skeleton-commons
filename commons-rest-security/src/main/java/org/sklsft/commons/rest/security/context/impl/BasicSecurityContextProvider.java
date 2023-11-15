@@ -17,9 +17,9 @@ public abstract class BasicSecurityContextProvider<C> implements SecurityContext
 		if (token == null) {
 			throw new TokenNotFoundException("token.notFound");
 		}
-		C credentials = getValidCredentials(token);
-		SecurityContextHolder.bindCredentials(credentials);
+		C context = getValidContext(token);
+		SecurityContextHolder.bindContext(context);
 	}
 
-	protected abstract C getValidCredentials(String token);
+	protected abstract C getValidContext(String token);
 }

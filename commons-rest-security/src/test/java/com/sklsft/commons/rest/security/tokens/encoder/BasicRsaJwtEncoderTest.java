@@ -4,11 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.sklsft.commons.crypto.signature.RsaAlgorithms;
 import org.sklsft.commons.crypto.signature.RsaSigner;
-import org.sklsft.commons.rest.security.tokens.encoder.impl.PrivateRsaJwtEncoder;
-import org.sklsft.commons.rest.security.tokens.encoder.impl.PublicJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.BasicRsaJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.BasicRsaJwtEncoder;
 import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJsonWebToken;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
+import org.sklsft.commons.rest.security.tokens.jwt.RsaJwtHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,9 +20,9 @@ public class BasicRsaJwtEncoderTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BasicRsaJwtEncoderTest.class);
 
-	private static final PrivateRsaJwtEncoder<BasicRsaJwtHeader, BasicJwtBody> encoder = new PrivateRsaJwtEncoder<>(new ObjectMapper(), BasicRsaJwtHeader.class, BasicJwtBody.class, new RsaSigner(new RsaPrivateKeyAccessorMock()), RsaAlgorithms.RS256.name(), "test");
+	private static final BasicRsaJwtEncoder encoder = new BasicRsaJwtEncoder(new ObjectMapper(), new RsaSigner(new RsaPrivateKeyAccessorMock()), RsaAlgorithms.RS256.name(), "test");
 	
-	private static final PublicJwtDecoder<BasicRsaJwtHeader, BasicJwtBody> decoder = new PublicJwtDecoder<>(new ObjectMapper(), BasicRsaJwtHeader.class, BasicJwtBody.class);
+	private static final BasicRsaJwtDecoder decoder = new BasicRsaJwtDecoder(new ObjectMapper());
 	
 	@Test
 	public void test() {
@@ -30,14 +31,14 @@ public class BasicRsaJwtEncoderTest {
 		body.setApplication("sklgen");
 		body.setUser("nicolas.thibault@sklsft.org");
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>(header, body);
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(header, body);
 		
 		String encoded = encoder.encode(jwt);
 		logger.debug(encoded);
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> decoded = decoder.decode(encoded);
+		JsonWebToken<RsaJwtHeader, BasicJwtBody> decoded = decoder.decode(encoded);
 		logger.debug(decoded.getHeader().getAlgorithm());
 		logger.debug(decoded.getHeader().getPublicKeyId());
 		logger.debug(decoded.getBody().getApplication());

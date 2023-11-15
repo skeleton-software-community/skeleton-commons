@@ -8,22 +8,23 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.sklsft.commons.crypto.signature.RsaAlgorithms;
+import org.sklsft.commons.crypto.signature.RsaSignatureVerifier;
 import org.sklsft.commons.crypto.signature.RsaSigner;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.impl.FromBasicRsaJwtSecurityContextProvider;
-import org.sklsft.commons.rest.security.context.impl.FromJwtSecurityContextProvider;
-import org.sklsft.commons.rest.security.credentials.BasicCredentials;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.encoder.impl.PrivateRsaJwtEncoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.BasicRsaJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.BasicRsaJwtEncoder;
 import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
-import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJsonWebToken;
+import org.sklsft.commons.rest.security.tokens.jwt.RsaJwtHeader;
+import org.sklsft.commons.rest.security.tokens.verification.impl.BasicRsaJwtVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sklsft.commons.rest.security.credentials.validator.BasicCredentialsValidatorMock;
+import com.sklsft.commons.rest.security.credentials.validator.BasicJwtBodyValidatorMock;
 import com.sklsft.commons.rest.security.crypto.RsaPrivateKeyAccessorMock;
 import com.sklsft.commons.rest.security.crypto.RsaPublicKeyAccessorMock;
 import com.sklsft.commons.rest.security.tokens.verification.RsaJwtVerifierTest;
@@ -32,17 +33,17 @@ public class FromJwtSecurityContextProviderTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(RsaJwtVerifierTest.class);
 
-	private static final PrivateRsaJwtEncoder<BasicRsaJwtHeader, BasicJwtBody> encoder = new PrivateRsaJwtEncoder<>(new ObjectMapper(), BasicRsaJwtHeader.class, BasicJwtBody.class, new RsaSigner(new RsaPrivateKeyAccessorMock()), RsaAlgorithms.RS256.name(), "test");
+	private static final BasicRsaJwtEncoder encoder = new BasicRsaJwtEncoder(new ObjectMapper(), new RsaSigner(new RsaPrivateKeyAccessorMock()), RsaAlgorithms.RS256.name(), "test");
 
-	private static final FromJwtSecurityContextProvider<BasicRsaJwtHeader, BasicJwtBody, BasicCredentials> provider;
+	private static final FromBasicRsaJwtSecurityContextProvider provider;
 	
 	static {
-		provider = new FromBasicRsaJwtSecurityContextProvider(new ObjectMapper(), new RsaPublicKeyAccessorMock(), new BasicCredentialsValidatorMock());
+		provider = new FromBasicRsaJwtSecurityContextProvider(new BasicRsaJwtDecoder(new ObjectMapper()), new BasicRsaJwtVerifier(new RsaSignatureVerifier(new RsaPublicKeyAccessorMock())), new BasicJwtBodyValidatorMock());
 	}
 	
 	@After
 	public void clear() {
-		SecurityContextHolder.unbindCredentials();
+		SecurityContextHolder.unbindContext();
 	}
 	
 	@Test
@@ -53,16 +54,16 @@ public class FromJwtSecurityContextProviderTest {
 		body.setUser("nicolas.thibault@sklsft.org");
 		body.setExpiryDate(Date.from(Instant.now().plusSeconds(3600)));
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>(header, body);
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(header, body);
 		
 		String token = encoder.encode(jwt);
 		
 		provider.provideSecurityContext(token);
 		
-		BasicCredentials userCredentials = (BasicCredentials) SecurityContextHolder.getCredentials();
-		Assert.assertTrue(userCredentials.getUser().equals("nicolas.thibault@sklsft.org") && userCredentials.getApplication().equals("sklgen"));
+		BasicJwtBody context = (BasicJwtBody) SecurityContextHolder.getContext();
+		Assert.assertTrue(context.getUser().equals("nicolas.thibault@sklsft.org") && context.getApplication().equals("sklgen"));
 		
 	}
 	
@@ -75,9 +76,9 @@ public class FromJwtSecurityContextProviderTest {
 		body.setUser("nicolas.thibault@sklsft.com");
 		body.setExpiryDate(Date.from(Instant.now().plusSeconds(3600)));
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>(header, body);
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(header, body);
 		
 		String token = encoder.encode(jwt);
 		
@@ -99,9 +100,9 @@ public class FromJwtSecurityContextProviderTest {
 		body.setUser("nicolas.thibault@sklsft.org");
 		body.setExpiryDate(Date.from(Instant.now().plusSeconds(3600)));
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>(header, body);
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(header, body);
 		
 		String token = encoder.encode(jwt);
 		

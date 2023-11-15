@@ -7,16 +7,16 @@ package org.sklsft.commons.rest.security.exception;
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  *
  */
-public class CredentialsConflictException extends RuntimeException {
+public class ContextConflictException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public CredentialsConflictException(String message) {
+	public ContextConflictException(String message) {
 		super(message);
 
 	}
 
-	public CredentialsConflictException(String message, Throwable cause) {
+	public ContextConflictException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

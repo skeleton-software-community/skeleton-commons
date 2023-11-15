@@ -1,7 +1,7 @@
 package org.sklsft.commons.rest.security.context.impl;
 
-import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
-import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
+import org.sklsft.commons.rest.security.credentials.validator.SecurityContextValidator;
+import org.sklsft.commons.rest.security.tokens.encoder.TokenDecoder;
 
 /**
  * 
@@ -9,21 +9,21 @@ import org.sklsft.commons.rest.security.tokens.encoder.TokenEncoder;
  */
 public class FromCryptedTokenSecurityContextProvider<T> extends BasicSecurityContextProvider<T> {
 
-	private TokenEncoder<T> tokenEncoder;
-	private SecurityCredentialsValidator<T> credentialsValidator;
+	private TokenDecoder<T> tokenDecoder;
+	private SecurityContextValidator<T> contextValidator;
 	
 	
-	public FromCryptedTokenSecurityContextProvider(TokenEncoder<T> tokenEncoder, SecurityCredentialsValidator<T> credentialsValidator) {
+	public FromCryptedTokenSecurityContextProvider(TokenDecoder<T> tokenDecoder, SecurityContextValidator<T> contextValidator) {
 		super();
-		this.tokenEncoder = tokenEncoder;
-		this.credentialsValidator = credentialsValidator;
+		this.tokenDecoder = tokenDecoder;
+		this.contextValidator = contextValidator;
 	}
 
 
 	@Override
-	protected T getValidCredentials(String token) {		
-		T tokenObject = tokenEncoder.decode(token);
-		credentialsValidator.validateCredentials(tokenObject);
-		return tokenObject;
+	protected T getValidContext(String token) {		
+		T context = tokenDecoder.decode(token);
+		contextValidator.validateContext(context);
+		return context;
 	}
 }

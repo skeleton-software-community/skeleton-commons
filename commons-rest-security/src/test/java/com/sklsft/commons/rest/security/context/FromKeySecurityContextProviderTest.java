@@ -6,35 +6,35 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sklsft.commons.rest.security.context.SecurityContextHolder;
 import org.sklsft.commons.rest.security.context.SecurityContextProvider;
-import org.sklsft.commons.rest.security.credentials.BasicCredentials;
-import org.sklsft.commons.rest.security.credentials.validator.SecurityCredentialsValidator;
+import org.sklsft.commons.rest.security.credentials.validator.SecurityContextValidator;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
 
-import com.sklsft.commons.rest.security.credentials.validator.ApplicationCredentialsValidatorMock;
+import com.sklsft.commons.rest.security.credentials.validator.ApplicationContextValidatorMock;
+import com.sklsft.commons.rest.security.tokens.SecurityContextMock;
 
 
 public class FromKeySecurityContextProviderTest {
 	
-	private static SecurityCredentialsValidator<BasicCredentials> credentialsValidator = new ApplicationCredentialsValidatorMock();
+	private static SecurityContextValidator<SecurityContextMock> validator = new ApplicationContextValidatorMock();
 
 	private static SecurityContextProvider provider;
 	
 	@BeforeClass
 	public static void init() {
-		provider = new FromMapSecurityContextProviderMock(credentialsValidator);
+		provider = new FromMapSecurityContextProviderMock(validator);
 	}
 	
 	@After
 	public void clear() {
-		SecurityContextHolder.unbindCredentials();
+		SecurityContextHolder.unbindContext();
 	}
 	
 	@Test
 	public void testProvideValidCredentials() {
 		provider.provideSecurityContext("sklgen");
 		
-		BasicCredentials credentials = (BasicCredentials) SecurityContextHolder.getCredentials();
-		Assert.assertTrue(credentials.getApplication().equals("sklgen"));
+		SecurityContextMock context = (SecurityContextMock) SecurityContextHolder.getContext();
+		Assert.assertTrue(context.getApplication().equals("sklgen"));
 	}
 	
 	@Test(expected=InvalidTokenException.class)

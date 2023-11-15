@@ -55,7 +55,7 @@ public class AccessControlAspect {
 			throw t;
 	
 		} finally {
-			SecurityContextHolder.unbindCredentials();
+			SecurityContextHolder.unbindContext();
 		}
 	}
 	

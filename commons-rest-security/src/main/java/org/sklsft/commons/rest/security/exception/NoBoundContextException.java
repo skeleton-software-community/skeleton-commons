@@ -6,16 +6,16 @@ package org.sklsft.commons.rest.security.exception;
  * @author Nicolas Thibault, Abdessalam El Jai, Alexandre Rupp
  *
  */
-public class NoBoundCredentialsException extends RuntimeException {
+public class NoBoundContextException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public NoBoundCredentialsException(String message) {
+	public NoBoundContextException(String message) {
 		super(message);
 
 	}
 
-	public NoBoundCredentialsException(String message, Throwable cause) {
+	public NoBoundContextException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

@@ -9,11 +9,12 @@ import org.sklsft.commons.crypto.signature.RsaAlgorithms;
 import org.sklsft.commons.crypto.signature.RsaSignatureVerifier;
 import org.sklsft.commons.crypto.signature.RsaSigner;
 import org.sklsft.commons.rest.security.exception.InvalidTokenException;
-import org.sklsft.commons.rest.security.tokens.encoder.impl.PrivateRsaJwtEncoder;
-import org.sklsft.commons.rest.security.tokens.encoder.impl.PublicJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.BasicRsaJwtDecoder;
+import org.sklsft.commons.rest.security.tokens.encoder.impl.BasicRsaJwtEncoder;
 import org.sklsft.commons.rest.security.tokens.jwt.BasicJwtBody;
-import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJwtHeader;
+import org.sklsft.commons.rest.security.tokens.jwt.BasicRsaJsonWebToken;
 import org.sklsft.commons.rest.security.tokens.jwt.JsonWebToken;
+import org.sklsft.commons.rest.security.tokens.jwt.RsaJwtHeader;
 import org.sklsft.commons.rest.security.tokens.verification.impl.BasicRsaJwtVerifier;
 import org.sklsft.commons.rest.security.tokens.verification.impl.RsaJwtVerifier;
 import org.slf4j.Logger;
@@ -28,11 +29,11 @@ public class RsaJwtVerifierTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RsaJwtVerifierTest.class);
 
-	private static final PrivateRsaJwtEncoder<BasicRsaJwtHeader, BasicJwtBody> encoder = new PrivateRsaJwtEncoder<>(new ObjectMapper(), BasicRsaJwtHeader.class, BasicJwtBody.class, new RsaSigner(new RsaPrivateKeyAccessorMock()), RsaAlgorithms.RS256.name(), "test");
+	private static final BasicRsaJwtEncoder encoder = new BasicRsaJwtEncoder(new ObjectMapper(), new RsaSigner(new RsaPrivateKeyAccessorMock()), RsaAlgorithms.RS256.name(), "test");
 	
-	private static final PublicJwtDecoder<BasicRsaJwtHeader, BasicJwtBody> decoder = new PublicJwtDecoder<>(new ObjectMapper(), BasicRsaJwtHeader.class, BasicJwtBody.class);
+	private static final BasicRsaJwtDecoder decoder = new BasicRsaJwtDecoder(new ObjectMapper());
 	
-	private static final RsaJwtVerifier<BasicRsaJwtHeader, BasicJwtBody> verifier = new BasicRsaJwtVerifier(new RsaSignatureVerifier(new RsaPublicKeyAccessorMock()));
+	private static final RsaJwtVerifier<RsaJwtHeader, BasicJwtBody> verifier = new BasicRsaJwtVerifier(new RsaSignatureVerifier(new RsaPublicKeyAccessorMock()));
 	
 	@Test
 	public void testGoodSignature() {
@@ -42,15 +43,15 @@ public class RsaJwtVerifierTest {
 		body.setUser("nicolas.thibault@sklsft.com");
 		body.setExpiryDate(Date.from(Instant.now().plusSeconds(3600)));
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>();
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(null, null);
 		jwt.setHeader(header);
 		jwt.setBody(body);
 		
 		String encoded = encoder.encode(jwt);
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> decoded = decoder.decode(encoded);
+		JsonWebToken<RsaJwtHeader, BasicJwtBody> decoded = decoder.decode(encoded);
 		
 		verifier.verifyToken(decoded);
 		
@@ -65,16 +66,14 @@ public class RsaJwtVerifierTest {
 		body.setUser("nicolas.thibault@sklsft.com");
 		body.setExpiryDate(Date.from(Instant.now().plusSeconds(3600)));
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>();
-		jwt.setHeader(header);
-		jwt.setBody(body);
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(header, body);
 		
 		String encoded = encoder.encode(jwt);
 		encoded = encoded + "A";
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> decoded = decoder.decode(encoded);
+		JsonWebToken<RsaJwtHeader, BasicJwtBody> decoded = decoder.decode(encoded);
 		
 		try {
 			verifier.verifyToken(decoded);
@@ -94,11 +93,9 @@ public class RsaJwtVerifierTest {
 		body.setUser("nicolas.thibault@sklsft.com");
 		body.setExpiryDate(Date.from(Instant.now().plusSeconds(3600)));
 		
-		BasicRsaJwtHeader header = new BasicRsaJwtHeader(RsaAlgorithms.RS256, "test");
+		RsaJwtHeader header = new RsaJwtHeader(RsaAlgorithms.RS256, "test");
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> jwt = new JsonWebToken<>();
-		jwt.setHeader(header);
-		jwt.setBody(body);
+		BasicRsaJsonWebToken jwt = new BasicRsaJsonWebToken(header, body);
 		
 		String encoded = encoder.encode(jwt);
 		
@@ -111,7 +108,7 @@ public class RsaJwtVerifierTest {
 		
 		String fake = parts[0] + "." + wrongPart + "." + parts[2];
 		
-		JsonWebToken<BasicRsaJwtHeader, BasicJwtBody> decoded = decoder.decode(fake);
+		JsonWebToken<RsaJwtHeader, BasicJwtBody> decoded = decoder.decode(fake);
 		
 		try {
 			verifier.verifyToken(decoded);
