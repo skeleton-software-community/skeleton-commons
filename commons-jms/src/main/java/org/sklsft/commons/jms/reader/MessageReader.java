@@ -2,12 +2,12 @@ package org.sklsft.commons.jms.reader;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.jms.BytesMessage;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.TextMessage;
-
 import org.sklsft.commons.api.exception.TechnicalError;
+
+import jakarta.jms.BytesMessage;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.TextMessage;
 
 public class MessageReader {
 

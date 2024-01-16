@@ -10,6 +10,12 @@
 	<url>http://skeleton-software-community.github.io/skeleton-commons</url>
 
 	<packaging>pom</packaging>
+	
+	<parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>3.2.1</version>
+	</parent>
 
 	<modules>
 		<module>commons-text</module>
@@ -24,7 +30,6 @@
 		<module>commons-rest</module>
 		<module>commons-rest-client</module>
 		<module>commons-soap</module>
-		<module>commons-mvc</module>
 	</modules>
 
 	<licenses>
@@ -77,26 +82,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<encoding>UTF-8</encoding>
-		<maven.build.timestamp.format>dd/MM/yyyy HH:mm</maven.build.timestamp.format>
-		<java.version>1.8</java.version>
-				
-		<hibernate.version>5.4.24.Final</hibernate.version>
-		<slf4j.version>1.7.30</slf4j.version>
-		<logback.version>1.2.11</logback.version>
+		<java.version>17</java.version>
+		<maven.compiler.release.version>17</maven.compiler.release.version>
 		
-		<spring.version>5.3.20</spring.version>
-		<spring.security.version>5.5.7</spring.security.version>
-		<aspectj.version>1.9.5</aspectj.version>
 		<javax.inject.version>1</javax.inject.version>
-		<jackson.version>2.12.7</jackson.version>
-		<jms.version>2.0.1</jms.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<java-jwt.version>3.4.1</java-jwt.version>
 		<bouncycastle.version>1.61</bouncycastle.version>
-		<servlet.version>3.1.0</servlet.version>
-		<jsf.version>2.2.13</jsf.version>
-		<primefaces.version>8.0</primefaces.version>
-		<junit.version>4.13.1</junit.version>
 	</properties>
 
 	<dependencyManagement>
@@ -148,135 +140,20 @@
 				<artifactId>commons-rest-security</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
-
-			<!-- loggers -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-				<scope>test</scope>
-			</dependency>
-
-
-			<!-- tests -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			
-			
-			<!-- hibernate -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-			
 			
 			<!-- Inject annotation -->
 			<dependency>
 				<groupId>javax.inject</groupId>
 				<artifactId>javax.inject</artifactId>
 				<version>${javax.inject.version}</version>
-			</dependency>
-
-
-			<!-- spring -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			
-			<!-- Spring security -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-core</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
-			
-			<!-- jms -->	
-			<dependency>
-			    <groupId>javax.jms</groupId>
-			    <artifactId>javax.jms-api</artifactId>
-			    <version>${jms.version}</version>
-			</dependency>
-		
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jms</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-
-
-			<!-- AspectJ -->
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjtools</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-
-
-			<!-- json mapping -->
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-annotations</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-
+			</dependency>			
 
 			<!-- commons -->
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons.codec.version}</version>
-			</dependency>
-			
+			</dependency>			
 			
 			<!-- java-jwt -->
 			<dependency>
@@ -291,29 +168,6 @@
 				<version>${bouncycastle.version}</version>
 			</dependency>
 			
-
-			<!-- Servlet -->
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>${servlet.version}</version>
-			</dependency>
-
-
-			<!-- JSF -->
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-api</artifactId>
-				<version>${jsf.version}</version>
-			</dependency>
-
-
-			<!-- Prime Faces -->
-			<dependency>
-				<groupId>org.primefaces</groupId>
-				<artifactId>primefaces</artifactId>
-				<version>${primefaces.version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -322,13 +176,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<compilerVersion>${java.version}</compilerVersion>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<release>${maven.compiler.release.version}</release>
 					<encoding>${encoding}</encoding>
 				</configuration>
 			</plugin>
@@ -345,7 +196,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>

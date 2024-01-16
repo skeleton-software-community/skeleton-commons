@@ -1,10 +1,10 @@
 package org.sklsft.commons.rest.security.tokens.extraction.impl;
 
-import javax.servlet.http.Cookie;
-
 import org.sklsft.commons.rest.security.tokens.extraction.TokenExtractor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import jakarta.servlet.http.Cookie;
 
 /**
  * To extract tokens from Servlet request cookies

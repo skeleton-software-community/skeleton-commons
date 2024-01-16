@@ -3,8 +3,6 @@ package org.sklsft.commons.rest.aspect.logging;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -16,6 +14,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A simple login aspect that logs :

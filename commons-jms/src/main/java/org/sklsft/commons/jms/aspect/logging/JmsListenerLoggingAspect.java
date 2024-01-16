@@ -2,8 +2,6 @@ package org.sklsft.commons.jms.aspect.logging;
 
 import java.lang.reflect.Method;
 
-import javax.jms.Message;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -38,7 +36,7 @@ public class JmsListenerLoggingAspect extends LoggingAspectTemplate {
 		try {
 			for (Object arg:args) {
 				if (MessageReader.isMessage(arg)) {
-					return MessageReader.getMessageContent((Message)arg);
+					return MessageReader.getMessageContent((jakarta.jms.Message)arg);
 				}
 			}
 			logger.warn("could not get message content due to missing message argument");

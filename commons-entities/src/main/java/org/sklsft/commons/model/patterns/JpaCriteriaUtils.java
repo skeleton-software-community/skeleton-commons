@@ -2,13 +2,13 @@ package org.sklsft.commons.model.patterns;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Predicate;
-
 import org.sklsft.commons.api.model.OrderType;
 import org.sklsft.commons.text.StringUtils;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Predicate;
 
 /**
  * Some Jpa predicate functions used to build restrictions

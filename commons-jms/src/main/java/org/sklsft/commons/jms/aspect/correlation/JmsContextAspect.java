@@ -1,7 +1,5 @@
 package org.sklsft.commons.jms.aspect.correlation;
 
-import javax.jms.Message;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -10,6 +8,8 @@ import org.sklsft.commons.log.context.RequestChannels;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
+
+import jakarta.jms.Message;
 
 /**
  * An aspect to put the request id in a ThreadLocal. This will be useful for logs tracking.

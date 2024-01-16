@@ -25,7 +25,7 @@ public class RestRequestAspect extends RequestContextAspectTemplate {
 	
 
 	private String getHeader(String key) {
-		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) org.springframework.web.context.request.RequestContextHolder.getRequestAttributes();
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) org.springframework.web.context.request.RequestContextHolder.currentRequestAttributes();
 		String result = servletRequestAttributes.getRequest().getHeader(key);
 		return result;
 	}
